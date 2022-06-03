@@ -2,11 +2,12 @@ import React, { Fragment } from 'react';
 import '@styles/Login.css';
 
 const Login = ({ children }) => {
+  const element =document.querySelector('#body');
+  element.className = 'login-page';
+
   return (
     <Fragment>
-      <body className='login-page' >
-        { children }
-      </body> 
+      { children }
     </Fragment>
   )
 }
