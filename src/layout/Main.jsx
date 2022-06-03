@@ -1,23 +1,25 @@
 import React, { Fragment } from 'react';
 
 import Loader from '@common/Loader';
-import Menu from '@common/Menu';
-import Header from '@common/Breadcrum'
+import Menu from '@containers/Menu';
+import Header from '@common/Breadcrum';
 
 const Main = ({ children }) => {
+  const element =document.querySelector('#body');
+  element.className = 'hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed';
+
   return (
-    <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <Fragment>
       <div className='wrapper'>
         <Loader  />
         <Menu />
 
-        <div class="content-wrapper">
+        <div className='content-wrapper'>
           <Header title={'Home'} url={''} />
           {children}
         </div>
       </div>
-    </body>
-    
+    </Fragment>
   );
 };
 
