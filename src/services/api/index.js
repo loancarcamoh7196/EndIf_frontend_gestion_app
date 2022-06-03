@@ -3,8 +3,8 @@
  * ? Contiene rutas de  API Auth y API Enjambre
  *? 
  */
-const API_URL = `${process.env.API_BACKEND}:${process.env.API_PORT}`;
-const VERSION = `${process.env.URI_API}`;
+const API_URL = `${process.env.REACT_APP_API_BACKEND}:${process.env.REACT_APP_API_PORT}`;
+const VERSION = `${process.env.REACT_APP_URI_API}`;
 
 
 /**
@@ -16,27 +16,28 @@ const endPoints = {
     refreshToken: `${API_URL}/${VERSION}/auth/refresh`,
     profile: `${API_URL}/${VERSION}/auth/profile`, 
   },
-  companies: {
-    getCompany: (id) => `${API_URL}/${VERSION}/companies/${id}/`,
-    getCompanies: () => `${API_URL}/${VERSION}/companies/`,
-    addCompany: () => `${API_URL}/${VERSION}/companies`,
-    updateCompany: (id) => `${API_URL}/${VERSION}/companies/${id}/`,
-    deleteCompany: (id) => `${API_URL}/${VERSION}/companies/${id}/`,
+  empresas: {
+    list: (id) => `${API_URL}/${VERSION}/empresas/${id}/`,
+    get: () => `${API_URL}/${VERSION}/empresas/`,
+    add: () => `${API_URL}/${VERSION}/empresas`,
+    update: (id) => `${API_URL}/${VERSION}/empresas/${id}/`,
+    delete: (id) => `${API_URL}/${VERSION}/empresas/${id}/`,
   },
-  users: {
-    getUser: (id) => `${API_URL}/${VERSION}/users/${id}/`,
-    getUsers: () => `${API_URL}/${VERSION}/users/`,
-    addUser: () => `${API_URL}/${VERSION}/users`,
-    updateUser: (id) => `${API_URL}/${VERSION}/users/${id}/`,
-    deleteUser: (id) => `${API_URL}/${VERSION}/users/${id}/`,
+  usuario: {
+    list: (id) => `${API_URL}/${VERSION}/usuarios/${id}/`,
+    get: () => `${API_URL}/${VERSION}/users/`,
+    add: () => `${API_URL}/${VERSION}/users`,
+    update: (id) => `${API_URL}/${VERSION}/users/${id}/`,
+    delete: (id) => `${API_URL}/${VERSION}/users/${id}/`,
   },
-  products: {
-    getProducts: () => `${API_URL}/${VERSION}/products` ,
-    getProduct: (id) => `${API_URL}/${VERSION}/products/${id}`,
-    addProduct: () => `${API_URL}/${VERSION}/products`,
-    updateProduct: (id) => `${API_URL}/${VERSION}/products/${id}/edit`,
-    deleteProduct: (id) => `${API_URL}/${VERSION}/products/${id}/`,
+  producto: {
+    list: () => `${API_URL}/${VERSION}/productos` ,
+    get: (id) => `${API_URL}/${VERSION}/productos/${id}`,
+    add: () => `${API_URL}/${VERSION}/productos`,
+    update: (id) => `${API_URL}/${VERSION}/productos/${id}/edit`,
+    delete: (id) => `${API_URL}/${VERSION}/productos/${id}/`,
   },
+    
   priceLists: {
     getPriceLists: (bd) => `${API_URL}/${VERSION}/pricelist/?empresaBd=${bd}`,
   },
