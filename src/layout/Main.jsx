@@ -4,19 +4,21 @@ import Loader from '@common/Loader';
 import Menu from '@containers/Menu';
 import Header from '@common/Breadcrum';
 
-const Main = ({ children }) => {
-  const element =document.querySelector('#body');
-  element.className = 'hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed';
+const Main = ({ children, breadKey='Bread',title='Default', links, haveLink=false }) => {
+  const element = document.querySelector('#body');
+  element.className = 'dark-mode sidebar-mini layout-fixed sidebar-closed sidebar-collapse layout-navbar-fixed layout-footer-fixed';
 
   return (
     <Fragment>
       <div className='wrapper'>
         <Loader  />
         <Menu />
-
         <div className='content-wrapper'>
-          <Header title={'Home'} url={''} />
-          {children}
+          <Header key={breadKey} title={title} links={links} haveLink={haveLink} />
+          
+          <section className='content'>
+            {children}
+          </section>
         </div>
       </div>
     </Fragment>

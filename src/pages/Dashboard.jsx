@@ -1,7 +1,7 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
+import { NavLink, Link, Outlet } from 'react-router-dom';
 import axios from 'axios';
 // import { useDispatch, useSelector, useStore } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
 
 // import { logoutUserAction } from '@redux/userAuthDuck';
 
@@ -93,10 +93,12 @@ const Dashboard = () => {
     alert('Ha finalizado inserción');
   };
 
+  const link = [{ nombre: 'Dashboard', url: '/dashboard'}];
+
   return (
-    <Layout>
+    <Layout title='Dashboard' links={link}>
       <section className='block'>
-        <h3 className='title'>Dashboard</h3>
+
 
         <div className='card'>
           <div className='card-body'>
@@ -107,6 +109,7 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
+      <Outlet  />
     </Layout>
   );
 }

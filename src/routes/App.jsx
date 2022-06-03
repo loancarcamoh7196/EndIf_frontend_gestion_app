@@ -15,21 +15,24 @@ const App = () => {
     // <AppContext.Provider  value={useInitialState}>
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} >
-          <Route path='dashboard' element={<Dashboard />} />
-          <Route path='login' element={<Login />}  />
 
-          <Route path="admin" element={<Admin />}>
-            <Route path="empresas" element={<EmpresaIndex />} >
-              <Route path="new" element={<EmpresaNew />} />
-            </Route>
-            {/* <Route path="invoices" element={<Invoices />} /> */}
+        <Route path='/' element={<Home />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          
+
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/empresas" element={<EmpresaIndex />} >
+            <Route path="new" element={<EmpresaNew />} />
           </Route>
+            {/* <Route path="invoices" element={<Invoices />} /> */}
+          
 
         
-        </Route>
+        
+
+        <Route path='login' element={<Login />}  />
         <Route path='*' element={<NotFound />} />
-        <Route  />
+
       </Routes>
     </Router>
     // </AppContext.Provider>

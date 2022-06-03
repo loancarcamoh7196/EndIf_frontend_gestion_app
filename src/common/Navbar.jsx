@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, Link } from 'react-router-dom';
 
 const txt = {
   searchInput: 'Buscar',
@@ -15,9 +15,9 @@ const Navbar = () => {
         {/* -------- Links de Navbar ---------- */}
         <ul className='navbar-nav'>
           <li className='nav-item'>
-            <NavLink to='#' className='nav-link' data-widget='pushmenu' role='button'>
+            <Link to='#' className='nav-link' data-widget='pushmenu' role='button'>
               <i className='fas fa-bars' />
-            </NavLink>
+            </Link>
           </li>
           <li className='nav-item d-none d-sm-inline-block'>
             <NavLink to='/' className='nav-link'> {txt.homeLink} </NavLink>

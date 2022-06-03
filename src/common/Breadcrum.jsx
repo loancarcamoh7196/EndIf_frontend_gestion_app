@@ -1,32 +1,41 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
-const Breadcrum = ({ title, url, links }) => {
+/*
+  Ejemplo de contenido de parametro links
+  const link = [
+  { nombre: 'Administración', url: '/admin' },
+  { nombre:'Empresas', url: '/admin/empresas' }
+];
+*/
+
+const Breadcrum = ({ key, title, links, haveLink=false }) => {
+  // let location = useLocation();
+
+  // console.log(links);
+  // console.log(links.length);
   return (
-    <div className='content-header'>
-      <div className='container-fluid'>
-        <div className='row mb-2'>
-          <div className='col-sm-6'>
-            <h1 className='m-0'>{ title }</h1>
-          </div>
-
-          {
-            (!links) ?  'Sin Links'
-            :
+    <Fragment>
+      <div className='content-header'>
+        <div className='container-fluid'>
+          <div className='row mb-2'>
             <div className='col-sm-6'>
-            <ol className='breadcrumb float-sm-right'>
-              <li className='breadcrumb-item'>
-                <NavLink href='#'>Home</NavLink>
-              </li>
-              <li className='breadcrumb-item active'>Dashboard v3</li>
-            </ol>
-          </div>
-          }
+              <h1 className='m-0'>{ title }</h1> {/* titulo de Pagina */}
+            </div>
 
-          
+            {/* Breadcrum de la pagina */}
+            <div className='col-sm-6'>
+              { 
+                (links !== undefined && haveLink) &&
+                <ol className='breadcrumb float-sm-right'>
+                  { links.map( (i) => <li className={`breadcrumb-item`}> <NavLink to={i.url} >{i.nombre}</NavLink></li>)}
+                </ol>
+              }
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   )
 }
 

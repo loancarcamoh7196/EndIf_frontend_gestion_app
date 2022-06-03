@@ -8,10 +8,13 @@ const txt = {
   altCompany: 'Endif Logo',
   dashboardLink: 'Dashboard',
   mantenedoresLink: 'Mantenedores',
-  usuarioLink: 'Usuario',
-  empresaLink: 'Empresa',
-  productoLink: 'Producto',
-  informeLink: 'Informe'
+  
+  empresaLink: 'Empresas',
+  productoLink: 'Productos',
+  informeLink: 'Informe',
+  adminLink: 'Administración',
+  usuarioLink: 'Usuarios',
+  rolesLink: 'Roles'
 };
 
 
@@ -51,37 +54,75 @@ const Sidebar = () => {
             <ul className='nav nav-pills nav-sidebar flex-column' data-widget='treeview' role='menu' data-accordion='false'>
               {/* ---------- Links ------------- */}
               <li className='nav-item'>
-                <NavLink to='#' className='nav-link'>
+                <NavLink to='/dashboard' className='nav-link'>
+                  <i className='nav-icon fas fa-tachometer-alt'></i>
+                  <p>
+                    {txt.dashboardLink}
+                    
+                  </p>
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <Link to='#' className='nav-link'>
+                  <i className='nav-icon fa-solid fa-screwdriver-wrench' />
+                  <p>
+                    {txt.adminLink}
+                    <i className='right fas fa-reg fa-angle-left' />
+                  </p>
+                </Link>
+                <ul className='nav nav-treeview'>
+                  <li className='nav-item'>
+                    <NavLink to='/admin/empresas' className='nav-link'>
+                      <i className='fas fa-industry nav-icon' />
+                      <p>{txt.empresaLink}</p>
+                    </NavLink>
+                  </li>
+                  <li className='nav-item'>
+                    <NavLink to='/admin/usuarios' className='nav-link'>
+                      <i className='fa fa-reg fa-users nav-icon' />
+                      <p>{txt.usuarioLink}</p>
+                    </NavLink>
+                  </li>
+                  <li className='nav-item'>
+                    <NavLink to='/admin/roles' className='nav-link'>
+                      <i className='fa fa-reg fa-user-gear nav-icon' />
+                      <p>{txt.rolesLink}</p>
+                    </NavLink>
+                  </li>
+                </ul>
+              </li>
+              <li className='nav-item'>
+                <Link to='#' className='nav-link'>
                   <i className='nav-icon fas fa-solid fa-cubes' />
                   <p>
                     {txt.mantenedoresLink}
                     <i className='right fas fa-angle-left' />
                   </p>
-                </NavLink>
+                </Link>
                 <ul className='nav nav-treeview'>
                   <li className='nav-item'>
-                    <NavLink to='#' className='nav-link'>
-                      <i className='fa-solid fa-industry nav-icon' />
-                      <p>{txt.empresaLink}</p>
+                    <NavLink to='/tt' className='nav-link'>
+                      <i className='fa fas fa-industry nav-icon' />
+                      <p>{txt.productoLink}</p>
                     </NavLink>
                   </li>
                   <li className='nav-item'>
-                    <NavLink to='#' className='nav-link'>
+                    <NavLink to='/n' className='nav-link'>
                       <i className='far fa-circle nav-icon' />
-                      <p>{txt.usuarioLink}</p>
+                      <p>{txt.productoLink}</p>
                     </NavLink>
                   </li>
                   <li className='nav-item'>
-                    <NavLink to='' className='nav-link'>
+                    <NavLink to='/t' className='nav-link'>
                       <i className='far fa-circle nav-icon' />
-                      <p>Dashboard v3</p>
+                      <p>{txt.productoLink}</p>
                     </NavLink>
                   </li>
                 </ul>
               </li>
 
               <li className='nav-item'>
-                <NavLink to='' className='nav-link'>
+                <NavLink to='/informes' className='nav-link'>
                   <i className='nav-icon fas fa-th'></i>
                   <p>
                     {txt.informeLink}
@@ -90,8 +131,8 @@ const Sidebar = () => {
                 </NavLink>
               </li>
 
-              <li className='nav-item'>
-                <NavLink to='#' className='nav-link'>
+              {/* <li className='nav-item'>
+                <NavLink to='/mm' className='nav-link'>
                   <i className='nav-icon fas fa-copy'></i>
                   <p>
                     Layout Options
@@ -184,7 +225,7 @@ const Sidebar = () => {
                     </a>
                   </li>
                 </ul>
-              </li>
+              </li> */}
               {/* <li className='nav-item'>
                 <a href='#' className='nav-link'>
                   <i className='nav-icon fas fa-tree'></i>

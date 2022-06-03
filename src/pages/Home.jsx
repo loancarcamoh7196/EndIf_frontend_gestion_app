@@ -1,10 +1,16 @@
 import React from 'react';
+import { NavLink, Link, Outlet } from 'react-router-dom';
 import Layout from '@layouts/Main';
 
-const Home = () => {
+const link = [{ nombre: 'Home', url: '/home'}];
+
+const Home = ({children}) => {
   return (
-    <Layout>
-      <h1> Home </h1>
+    <Layout title='Home' links={link}>
+      
+      
+
+      <Outlet  />
     </Layout>
   );
 }
