@@ -9,29 +9,88 @@ import Layout from '@layouts/Main';
 import apiURL from '@services/api';
 
 const Dashboard = () => {
+  const body = {
+    "nombre": "Prueba",
+    "codigoInterno": "17",
+    "activo": true,
+    "exento": false,
+    "esInventario": false,
+    "comanda": false,
+    "esIngrediente": false,
+    "tieneEnvase": false,
+    "empresaRut": "11111111", 
+    "unidadId": 1,
+    "subFamilia": 1
+  };
 
-  const handleHundred = (e) => {
-    let i = 1;
-
-      const api = apiURL.products.addProduct();
-
-      do {
-        try {
-          let res = axios.get(api);
-          console.log(res);
-        } catch (error) {
-          console.log(error);
-        }
+  const handleHundred = async (e) => {
+    let i = 0;
+    const api = apiURL.producto.add();
+    alert(api);
+    // alert(process.env.REACT_APP_PORT);
+    do {
+      i++;
+      try {
+        let res =  await axios.post(api, body);
+        // console.log(res);
         
-      }while (i<= 100)
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }while (i< 100);
+
+    alert('Ha finalizado inserción');
   };
 
-  const handleThousand = () => {
+  const handleThousand = async () => {
+    let i = 0;
+    const api = apiURL.producto.add();
+    alert(api);
+    do {
+      try {
+        let res =  await axios.post(api, body);
+        // console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }while (i < 1000);
 
+    alert('Ha finalizado inserción');
   };
 
-  const handleMillion = () => {
+  const handle100K = async () => {
+    let i = 0;
+    const api = apiURL.producto.add();
+    alert(api);
+    do {
+      try {
+        let res =  await axios.post(api, body);
+        // console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+      
+    }while (i < 100000);
 
+    alert('Ha finalizado inserción');
+  };
+
+  const handleMillion = async () => {
+    let i = 0;
+    const api = apiURL.producto.add();
+    alert(api);
+    do {
+      try {
+        let res =  await axios.post(api, body);
+        // console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    }while (i < 1000000);
+
+    alert('Ha finalizado inserción');
   };
 
   return (
@@ -40,11 +99,14 @@ const Dashboard = () => {
         <h3 className='title'>Dashboard</h3>
 
         <div className='card'>
-
-          <button className='button primary'  onClick={handleHundred} > Probar 100 registros </button>
+          <div className='card-body'>
+            <button className='btn btn-primary'  onClick={handleHundred} > Probar 100 registros </button> <br />
+            <button className='btn btn-primary'  onClick={handleThousand} > Probar 1K registros </button>
+            <button className='btn btn-primary'  onClick={handle100K} > Probar 100K registros </button>
+            <button className='btn btn-primary'  onClick={handleMillion} > Probar 1M registros </button>
+          </div>
         </div>
       </section>
-    
     </Layout>
   );
 }
