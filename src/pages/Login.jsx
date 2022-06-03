@@ -18,16 +18,16 @@ const Login = () => {
 		<Layout>
 			<div className='login-box'>
 				<div className='login-logo'>
-					<a href='../../index2.html'><b>EndIf</b> Gestión</a>
+					<a href='/'><b>EndIf</b> Gestión</a>
 				</div>
 				
 				<div className='card'>
 					<div className='card-body login-card-body'>
-						<p className='login-box-msg'>Sign in to start your session</p>
+						<p className='login-box-msg'>Inicie Sesión</p>
 
-						<form action='../../index3.html' method='post'>
+						<form action='/' method='post'>
 							<div className='input-group mb-3'>
-								<input type='email' className='form-control' placeholder='Email' />
+								<input type='email' className='form-control' placeholder='Usuario' />
 								<div className='input-group-append'>
 									<div className='input-group-text'>
 										<span className='fas fa-envelope'></span>
@@ -35,7 +35,7 @@ const Login = () => {
 								</div>
 							</div>
 							<div className='input-group mb-3'>
-								<input type='password' className='form-control' placeholder='Password' />
+								<input type='password' className='form-control' placeholder='Contraseña' />
 								<div className='input-group-append'>
 									<div className='input-group-text'>
 										<span className='fas fa-lock'></span>
@@ -46,36 +46,26 @@ const Login = () => {
 								<div className='col-8'>
 									<div className='icheck-primary'>
 										<input type='checkbox' id='remember' />
-										<label for='remember'>
-											Remember Me
+										<label htmlFor='remember'>
+											Recordarme
 										</label>
 									</div>
 								</div>
 								
 								<div className='col-4'>
-									<button type='submit' className='btn btn-primary btn-block'>Sign In</button>
+									<button type='submit' className='btn btn-primary btn-block'>Ingresar</button>
 								</div>
 								
 							</div>
 						</form>
 
-						<div className='social-auth-links text-center mb-3'>
-							<p>- OR -</p>
-							<a href='#' className='btn btn-block btn-primary'>
-								<i className='fab fa-facebook mr-2'></i> Sign in using Facebook
-							</a>
-							<a href='#' className='btn btn-block btn-danger'>
-								<i className='fab fa-google-plus mr-2'></i> Sign in using Google+
-							</a>
-						</div>
+					
 						
 
 						<p className='mb-1'>
-							<a href='forgot-password.html'>I forgot my password</a>
+							<a href='forgot-password.html'>Olvide mi contraseña</a>
 						</p>
-						<p className='mb-0'>
-							<a href='register.html' className='text-center'>Register a new membership</a>
-						</p>
+					
 					</div>
 					
 				</div>
