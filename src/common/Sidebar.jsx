@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, Outlet } from 'react-router-dom';
 
 import SiteIcon from '@assets/icons/dragon_fruit_icon.png';
 const txt = {
@@ -689,6 +689,7 @@ const Sidebar = () => {
         </div>
         
       </aside>
+      <Outlet  />
     </Fragment>
   )
 }

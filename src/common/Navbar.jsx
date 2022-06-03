@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
 
 const txt = {
   searchInput: 'Buscar',
@@ -151,6 +151,8 @@ const Navbar = () => {
           </li>
         </ul>
       </nav>
+
+      <Outlet  />
     </Fragment>
   )
 }
