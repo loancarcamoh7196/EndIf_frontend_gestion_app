@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
 
 import Layout from '@layouts/Main';
+import Table from '@components/EmpresaTable';
+
 
 const link = [
   { nombre: 'Administración', url: '/admin' },
@@ -10,11 +12,12 @@ const link = [
 
 const Index = () => {
   return (
-    <Layout title='Empresas' links={link} >
-      
-      <div className=''>
-        Hola este es ele index de empresa
-      </div>
+    <Layout title='Empresas' links={link} haveLink={true}>
+      <hr  />
+
+      <Table></Table>
+
+     
       <Outlet  />
     </Layout>
   )

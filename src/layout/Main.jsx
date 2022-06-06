@@ -3,6 +3,7 @@ import React, { Fragment } from 'react';
 import Loader from '@common/Loader';
 import Menu from '@containers/Menu';
 import Header from '@common/Breadcrum';
+import Footer from '@common/Footer';
 
 const Main = ({ children, breadKey='Bread',title='Default', links, haveLink=false }) => {
   const element = document.querySelector('#body');
@@ -20,6 +21,7 @@ const Main = ({ children, breadKey='Bread',title='Default', links, haveLink=fals
             {children}
           </section>
         </div>
+        <Footer  />
       </div>
     </Fragment>
   );

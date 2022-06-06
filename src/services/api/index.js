@@ -30,6 +30,13 @@ const endPoints = {
     update: (id) => `${API_URL}/${VERSION}/users/${id}/`,
     delete: (id) => `${API_URL}/${VERSION}/users/${id}/`,
   },
+  roles: {
+    list: () => `${API_URL}/${VERSION}/roles` ,
+    get: (id) => `${API_URL}/${VERSION}/roless/${id}`,
+    add: () => `${API_URL}/${VERSION}/roless`,
+    update: (id) => `${API_URL}/${VERSION}/roles/${id}/edit`,
+    delete: (id) => `${API_URL}/${VERSION}/roles/${id}/`,
+  },
   producto: {
     list: () => `${API_URL}/${VERSION}/productos` ,
     get: (id) => `${API_URL}/${VERSION}/productos/${id}`,
@@ -37,7 +44,13 @@ const endPoints = {
     update: (id) => `${API_URL}/${VERSION}/productos/${id}/edit`,
     delete: (id) => `${API_URL}/${VERSION}/productos/${id}/`,
   },
-    
+  producto: {
+    list: () => `${API_URL}/${VERSION}/productos` ,
+    get: (id) => `${API_URL}/${VERSION}/productos/${id}`,
+    add: () => `${API_URL}/${VERSION}/productos`,
+    update: (id) => `${API_URL}/${VERSION}/productos/${id}/edit`,
+    delete: (id) => `${API_URL}/${VERSION}/productos/${id}/`,
+  },  
   priceLists: {
     getPriceLists: (bd) => `${API_URL}/${VERSION}/pricelist/?empresaBd=${bd}`,
   },

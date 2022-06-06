@@ -5,7 +5,7 @@ import Table from '@containers/Table';
 const EmpresaTable = () => {
   return (
     <Fragment>
-      EmpresaTable
+      <Table></Table>
     </Fragment>
   )
 }
