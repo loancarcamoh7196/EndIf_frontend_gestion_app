@@ -3,8 +3,14 @@
  * ? Contiene rutas de  API Auth y API Enjambre
  *? 
  */
-const API_URL = `${process.env.REACT_APP_API_BACKEND}:${process.env.REACT_APP_API_PORT}`;
-const VERSION = `${process.env.REACT_APP_URI_API}`;
+const api_url = process.env.REACT_APP_API_BACKEND;
+const puerto = process.env.REACT_APP_API_PORT;
+const version = process.env.REACT_APP_URI_API;
+
+console.log(process.env.REACT_APP_API_BACKEND);
+console.log(process.env.REACT_APP_URI_API);
+
+
 
 
 /**
@@ -12,47 +18,47 @@ const VERSION = `${process.env.REACT_APP_URI_API}`;
  */
 const endPoints = {
   auth: {
-    login: `${API_URL}/${VERSION}/auth/login`,
-    refreshToken: `${API_URL}/${VERSION}/auth/refresh`,
-    profile: `${API_URL}/${VERSION}/auth/profile`, 
+    login: `${api_url}:${puerto}/${version}/auth/login`,
+    refreshToken: `${api_url}:${puerto}/${version}/auth/refresh`,
+    profile: `${api_url}:${puerto}/${version}/auth/profile`, 
   },
   empresas: {
-    list: (id) => `${API_URL}/${VERSION}/empresas/${id}/`,
-    get: () => `${API_URL}/${VERSION}/empresas/`,
-    add: () => `${API_URL}/${VERSION}/empresas`,
-    update: (id) => `${API_URL}/${VERSION}/empresas/${id}/`,
-    delete: (id) => `${API_URL}/${VERSION}/empresas/${id}/`,
+    list: () => `${api_url}:${puerto}/${version}/empresas`,
+    get: (id) => `${api_url}:${puerto}/${version}/empresas/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/empresas`,
+    update: (id) => `${api_url}:${puerto}/${version}/empresas/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/empresas/${id}/`,
   },
   usuario: {
-    list: (id) => `${API_URL}/${VERSION}/usuarios/${id}/`,
-    get: () => `${API_URL}/${VERSION}/users/`,
-    add: () => `${API_URL}/${VERSION}/users`,
-    update: (id) => `${API_URL}/${VERSION}/users/${id}/`,
-    delete: (id) => `${API_URL}/${VERSION}/users/${id}/`,
+    list: (id) => `${api_url}:${puerto}/${version}/usuarios/${id}/`,
+    get: () => `${api_url}:${puerto}/${version}/users/`,
+    add: () => `${api_url}:${puerto}/${version}/users`,
+    update: (id) => `${api_url}:${puerto}/${version}/users/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/users/${id}/`,
   },
   roles: {
-    list: () => `${API_URL}/${VERSION}/roles` ,
-    get: (id) => `${API_URL}/${VERSION}/roless/${id}`,
-    add: () => `${API_URL}/${VERSION}/roless`,
-    update: (id) => `${API_URL}/${VERSION}/roles/${id}/edit`,
-    delete: (id) => `${API_URL}/${VERSION}/roles/${id}/`,
+    list: () => `${api_url}:${puerto}/${version}/roles` ,
+    get: (id) => `${api_url}:${puerto}/${version}/roless/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/roless`,
+    update: (id) => `${api_url}:${puerto}/${version}/roles/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/roles/${id}/`,
   },
   producto: {
-    list: () => `${API_URL}/${VERSION}/productos` ,
-    get: (id) => `${API_URL}/${VERSION}/productos/${id}`,
-    add: () => `${API_URL}/${VERSION}/productos`,
-    update: (id) => `${API_URL}/${VERSION}/productos/${id}/edit`,
-    delete: (id) => `${API_URL}/${VERSION}/productos/${id}/`,
+    list: () => `${api_url}:${puerto}/${version}/productos` ,
+    get: (id) => `${api_url}:${puerto}/${version}/productos/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/productos`,
+    update: (id) => `${api_url}:${puerto}/${version}/productos/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/productos/${id}/`,
   },
   listaPrecio: {
-    list: () => `${API_URL}/${VERSION}/listaprecios` ,
-    get: (id) => `${API_URL}/${VERSION}/listaprecios/${id}`,
-    add: () => `${API_URL}/${VERSION}/listaprecios`,
-    update: (id) => `${API_URL}/${VERSION}/listaprecios/${id}/edit`,
-    delete: (id) => `${API_URL}/${VERSION}/listaprecios/${id}/`,
+    list: () => `${api_url}:${puerto}/${version}/listaprecios` ,
+    get: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/listaprecios`,
+    update: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/`,
   },  
   priceLists: {
-    getPriceLists: (bd) => `${API_URL}/${VERSION}/pricelist/?empresaBd=${bd}`,
+    getPriceLists: (bd) => `${api_url}:${puerto}/${version}/pricelist/?empresaBd=${bd}`,
   },
 };
 

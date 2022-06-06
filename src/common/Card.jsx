@@ -1,11 +1,11 @@
 import React, { Fragment } from 'react'
 
-const Card = ({ title='Aviso', haveClose=false, body, haveFooter=false, footer }) => {
+const Card = ({ children, title='Aviso', haveTitle=false, haveClose=false, body, haveFooter=false, footer }) => {
   return (
     <Fragment>
       <div className='card'>
-        <div className='card-header'>
-          <h3 className='card-title'>{title}</h3>
+        { (haveTitle || haveClose) && <div className='card-header'>
+          {haveTitle && <h3 className='card-title'>{title}</h3>}
 
           {haveClose &&
             <div className='card-tools'>
@@ -17,9 +17,9 @@ const Card = ({ title='Aviso', haveClose=false, body, haveFooter=false, footer }
               </button>
             </div>
           }
-        </div>
+        </div>}
         <div className='card-body'>
-          {body}
+          {body} {children}
         </div>
         {/* <!-- /.card-body --> */}
         {haveFooter &&

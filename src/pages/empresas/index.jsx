@@ -1,9 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmpresasAction } from '@redux/empresasDuck';
 import Layout from '@layouts/Main';
-import Table from '@components/EmpresaTable';
-import DataTable from '@containers/DataTable'; 
+import Table from '../../components/EmpresaTable';
+// import DataTable from '@containers/DataTable'; 
+import Card from '@common/Card';
 
 
 const link = [
@@ -11,26 +13,18 @@ const link = [
   { nombre:'Empresas', url: '/admin/empresas' }
 ];
 
-const head = [
-  { nombre: 'RUT' },
-  { nombre: 'Razon Social' },
-  { nombre: 'Giro' },
-  { nombre: 'Fono' },
-  { nombre: 'Email' },
-  { nombre: 'Activa'},
-  { nombre: 'mod Gestión' },
-  { nombre: 'mod Contabilidad' },
-  { nombre: 'mod Inventario' },
-  { nombre: 'mod Inventario Movil' },
-  { nombre: 'Dirección' },
-];
-const data = [{ id:1, email:'prueba@prueba.cl', username: 'prueba'}];
 const Index = () => {
+  const dispatch = useDispatch();
+  let empresas = useSelector((store) => store.empresas.results);
+
+  useEffect(() => { dispatch(getEmpresasAction()) }, []);
+
   return (
     <Layout title='Empresas' links={link} haveLink={true}>
-      <hr  />
-
-      <DataTable  data={data} />
+      
+      <Card >
+        <Table  data={empresas} />
+      </Card>
       <Outlet  />
     </Layout>
   )

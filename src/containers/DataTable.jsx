@@ -10,20 +10,24 @@ import '../../node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min
 import '../../node_modules/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4';
 import '../../node_modules/datatables.net-rowreorder-bs4/js/rowReorder.bootstrap4';
 import '../../node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4';
+import '../../node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css';
+import '../../node_modules/datatables.net-searchpanes-bs4/js/searchPanes.bootstrap4';
+import '../../node_modules/datatables.net-searchbuilder-bs4/js/searchBuilder.bootstrap4';
+import '../../node_modules/datatables.net-staterestore-bs4/js/stateRestore.bootstrap4';
+import '../../node_modules/datatables.net-staterestore-bs4/css/stateRestore.bootstrap4.min.css';
+import '../../node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4';
+import '../../node_modules/datatables.net-select-bs4/js/select.bootstrap4';
+import '../../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css'
+import '../../node_modules/datatables.net-datetime/js/dataTables.dateTime';
 
   // 'datatables.net-datetime'
   // 'datatables.net-fixedcolumns-bs4'
   // 'datatables.net-fixedheader-bs4'
-  // 'datatables.net-searchbuilder-bs4'
-  // 'datatables.net-searchpanes-bs4'
-  // 'datatables.net-select-bs4',
-  // 'datatables.net-staterestore-bs4' 
+  
 
 import $ from 'jquery';
 
-
 const DataTable = ({data, encabezado}) => {
-
   useEffect(() => {
     $('#table').DataTable({
       language: {
@@ -40,49 +44,41 @@ const DataTable = ({data, encabezado}) => {
         'search': 'Buscar:',
         'zeroRecords': 'Sin resultados encontrados',
         'paginate': {
-            'first': 'Primero',
-            'last': 'Ultimo',
-            'next': 'Siguiente',
-            'previous': 'Anterior'
+          'first': 'Primero',
+          'last': 'Ultimo',
+          'next': 'Siguiente',
+          'previous': 'Anterior'
         }
       },
+      destroy: true,
       paging: true,
-      'lengthChange': false,
-      'searching': false,
-      'ordering': true,
-      'info': true,
-      'autoWidth': false,
-      'responsive': true,
-      'bDestroy': true
+      lengthChange: true,
+      // searching: true,
+      ordering: true,
+      // info: true,
+      autoWidth: true,
+      responsive: true,
+      stateSave: true,
+      bDestroy: true,
+      // processing: true,
+      serverSide: false
     })
-  }, [])
+  }, [100])
 
 
   return (
-    <div className='MainDiv'>
-      <div className='container'>
-        <table id='table' class='table table-hover table-bordered'>
-          { (encabezado != undefined) ? 
+    <div className='dataTables_wrapper dt-bootstrap4'>
+      <div className='col-sm-12'>
+        <table id='table' className='table table-hover table-bordered dataTable dtr-inline'>
+          
             <thead>
               <tr>
-                { encabezado.map((i) => {
-                  return <th>{i.nombre }</th>
-                })}
+                { encabezado.map((i) => i)}
               </tr>
             </thead>
-          : <thead> <tr> <th>ID</th><th>Email</th><th>Username</th> </tr> </thead>
-          }
+          
           <tbody>
-            { data.map((result) => {
-              return (
-                  <tr>
-                    <td>{result.id}</td>
-                    <td>{result.email}</td>
-                    <td>{result.username}</td>
-                  </tr>
-                
-              )
-            })}
+            { data.map((result) => result)}
           </tbody>
         </table>
       </div>

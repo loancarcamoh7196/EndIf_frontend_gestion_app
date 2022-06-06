@@ -48,16 +48,16 @@ export default function companiesReducer(state = dataInicial, action) {
 }
 
 // Action
-export const getCompaniesAction = (options) => async (dispatch, getState) => {
+export const getEmpresasAction = (options) => async (dispatch, getState) => {
 	// const { body } = options; // Opciones para solicitud a  API
-	const api = endPoints.empresa.list;
+	const api = endPoints.empresas.list();
   const { activo, token, loading } = getState().user;
   // console.log(body);
-  // console.log(api);
+  console.log(api);
   // console.log(axios.defaults.headers.Authorization);
 	try {
 		const res = await axios.get(api);
-    // console.log(res);
+    console.log(res);
 
     dispatch({ type: EMPRESAS_GET, payload:  res.data });
 	} catch (error) {
