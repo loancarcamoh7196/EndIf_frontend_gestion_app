@@ -10,7 +10,8 @@ module.exports = function override(config) {
     '@pages': 'src/pages',
     '@routes': 'src/routes',
     '@services': 'src/services',
-    '@styles': 'src/styles'
+    '@styles': 'src/styles',
+    '@redux': 'src/redux'
   })(config);
 
   return config;

@@ -44,12 +44,12 @@ const endPoints = {
     update: (id) => `${API_URL}/${VERSION}/productos/${id}/edit`,
     delete: (id) => `${API_URL}/${VERSION}/productos/${id}/`,
   },
-  producto: {
-    list: () => `${API_URL}/${VERSION}/productos` ,
-    get: (id) => `${API_URL}/${VERSION}/productos/${id}`,
-    add: () => `${API_URL}/${VERSION}/productos`,
-    update: (id) => `${API_URL}/${VERSION}/productos/${id}/edit`,
-    delete: (id) => `${API_URL}/${VERSION}/productos/${id}/`,
+  listaPrecio: {
+    list: () => `${API_URL}/${VERSION}/listaprecios` ,
+    get: (id) => `${API_URL}/${VERSION}/listaprecios/${id}`,
+    add: () => `${API_URL}/${VERSION}/listaprecios`,
+    update: (id) => `${API_URL}/${VERSION}/listaprecios/${id}/edit`,
+    delete: (id) => `${API_URL}/${VERSION}/listaprecios/${id}/`,
   },  
   priceLists: {
     getPriceLists: (bd) => `${API_URL}/${VERSION}/pricelist/?empresaBd=${bd}`,

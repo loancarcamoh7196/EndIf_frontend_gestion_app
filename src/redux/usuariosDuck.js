@@ -50,7 +50,7 @@ export default function usersReducer(state = dataInicial, action) {
 		case USER_EDIT_FORM:
 			return { ...state, formEdit: action.payload };
 		case USER_DELETE:
-			return { ...state, results: action.payload };
+			return { ...state, ...action.payload };
 		default:
 			return { ...state };
 	}
@@ -136,7 +136,7 @@ export const deleteUserAction = (options) => async (dispatch) => {
 	try {
 		const res = await axios.delete(api);
 		toast.warning(`El usuario con ID: ${id} ha sido eliminado.`, {...toastOptions});
-		dispatch({ type: USER_DELETE, payload: { results } });
+		dispatch({ type: USER_DELETE });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data.body;

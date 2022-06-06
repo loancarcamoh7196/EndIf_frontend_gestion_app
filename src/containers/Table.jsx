@@ -26,7 +26,7 @@ class ListComponent extends Component {
   // State array variable to save and show data
   constructor(props) {
     super(props)
-      this.state = { data: [], }
+    this.state = { data: [], }
   }
   componentDidMount() {
     //Get all users details in bootstrap table
@@ -40,7 +40,7 @@ class ListComponent extends Component {
     //initialize datatable
     $(document).ready(function () {
       setTimeout(function(){
-        $('#example').DataTable({
+        $('#table').DataTable({
           language: {
             'decimal': '',
             'emptyTable': 'No hay información',
@@ -74,19 +74,29 @@ class ListComponent extends Component {
     });
   }
 
+  encabezado(data){
+    if (data !== undefined) {
+      return (
+        <thead>
+          <tr>
+            {data.map( i => {
+              <th>{i.nombre }</th>
+            })}
+          </tr>
+        </thead>
+      );
+    }else {
+      return <thead> <tr> <th>ID</th><th>Email</th><th>Username</th> </tr> </thead>;
+    }
+  }
+
   render(){
     //Datatable HTML
     return (
       <div className='MainDiv'>
         <div className='container'>
-          <table id='example' class='table table-hover table-bordered'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Email</th>
-                <th>Username</th>
-              </tr>
-            </thead>
+          <table id='table' class='table table-hover table-bordered'>
+            {this.encabezado()}
             <tbody>
               {this.state.data.map((result) => {
                 return (

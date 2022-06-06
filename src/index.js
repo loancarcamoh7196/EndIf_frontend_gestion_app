@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import generateStore from '@redux/store';
 import App from '@routes/App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const container = document.getElementById('root');
+const root = createRoot(container);
+//Crear store
+const store = generateStore();
 
+root.render(
+  <Provider store={store}>
+      <App />
+  </Provider>
+);
 
 if (module.hot) {
   module.hot.accept();

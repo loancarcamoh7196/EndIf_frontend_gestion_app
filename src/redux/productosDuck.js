@@ -64,7 +64,7 @@ export const getProductsReportAccion= (options) => async (dispatch, getState) =>
 }
 
 export const getProductReportAction = (options) => async (dispatch, getState) => {
-  const { productoId, precioId } = options;
+  const { productoId, precioId, listaId } = options;
 	const user = getState().user.result;
 	const bd = (user.id == 1 ) ? 'gestioncoffeetest': user.bdNombre;
   const api = endPoints.productsReport.getProductReport(bd, productoId, precioId);
