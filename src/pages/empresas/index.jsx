@@ -16,11 +16,10 @@ const Index = () => {
       <hr  />
 
       <Table></Table>
-
-     
       <Outlet  />
     </Layout>
   )
 }
 
 export default Index;
+  
