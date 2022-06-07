@@ -6,7 +6,7 @@ import Layout from '@layouts/Main';
 import Table from '../../components/EmpresaTable';
 // import DataTable from '@containers/DataTable'; 
 import Card from '@common/Card';
-
+import Form from '@pages/empresas/new';
 
 const link = [
   { nombre: 'Administración', url: '/admin' },
@@ -22,10 +22,13 @@ const Index = () => {
   return (
     <Layout title='Empresas' links={link} haveLink={true}>
       
-      <Card >
-        <Table  data={empresas} />
+      <button data-bs-toggle="modal" data-bs-target="#modal" className='btn btn-success btn-sm float-right'> <i class="fa-solid fa-plus" />Nueva</button>
+      <Card >  
+        
+        <Table data={empresas} />
       </Card>
-      <Outlet  />
+      
+      <Form />
     </Layout>
   )
 }

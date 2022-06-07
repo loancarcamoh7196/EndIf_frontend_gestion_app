@@ -14,16 +14,16 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path='/' element={<Home />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+        <Route exact path='/' element={<Home />} />
+          <Route exact path='/dashboard' element={<Dashboard />} />
           
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/empresas" element={<EmpresaIndex />} >
-            <Route path="new" element={<EmpresaNew />} />
+          <Route exact path="/admin" element={<Admin />} />
+          <Route exact path="/admin/empresas" element={<EmpresaIndex />} >
+            <Route  path="/admin/empresas/new" element={<EmpresaNew />} />
           </Route>
             {/* <Route path="invoices" element={<Invoices />} /> */}
           
-        <Route path='login' element={<Login />}  />
+        <Route exact path='login' element={<Login />}  />
         <Route path='*' element={<NotFound />} />
 
       </Routes>

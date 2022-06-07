@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import '@styles/Login.css';
 
 const Login = ({ children }) => {
-  const element =document.querySelector('#body');
-  element.className = 'login-page';
+  const element = document.querySelector('#body');
+  element.className = 'dark-mode login-page';
 
   return (
     <Fragment>

@@ -51,7 +51,7 @@ export default function companiesReducer(state = dataInicial, action) {
 export const getEmpresasAction = (options) => async (dispatch, getState) => {
 	// const { body } = options; // Opciones para solicitud a  API
 	const api = endPoints.empresas.list();
-  const { activo, token, loading } = getState().user;
+  const { activo, loading } = getState().user;
   // console.log(body);
   console.log(api);
   // console.log(axios.defaults.headers.Authorization);
@@ -67,13 +67,13 @@ export const getEmpresasAction = (options) => async (dispatch, getState) => {
     // console.log('Usuario a tenido conflicto');
     // console.log('loading: ', loading);
     // console.log('activo: ', activo);
-    if (loading == false && activo == true) dispatch(refreshTokenAction()) 
+    if (loading === false && activo === true) dispatch(refreshTokenAction()) 
     else console.log('No ha podido refrescar token') ;
     dispatch({ type: EMPRESA_ERROR });
   } 
 };
 
-export const getCompanyReportAccion= (options) => async (dispatch, getState) => {
+export const getEmpresaAccion= (options) => async (dispatch, getState) => {
   const { id } = options;
   const { activo, token, loading } = getState().user;
   const api = endPoints.companies.getCompany(id);
@@ -96,7 +96,7 @@ export const getCompanyReportAccion= (options) => async (dispatch, getState) => 
   }
 }
 
-export const addCompanyAction = (options) => async (dispatch, getState) => {
+export const addEmpresaAction = (options) => async (dispatch, getState) => {
 	const { body } = options; // Opciones para solicitud a  API
 	const api = endPoints.companies.addCompany();
   // console.log(body);
@@ -117,7 +117,7 @@ export const addCompanyAction = (options) => async (dispatch, getState) => {
 	}
 };
 
-export const updateCompanyAction = (options) => async (dispatch, getState) => {
+export const updateEmpresaAction = (options) => async (dispatch, getState) => {
   const { id, body } = options; // Opciones para solicitud a  API
   const api = endPoints.companies.updateCompany(id); // URL API
   // console.log(body);
@@ -135,7 +135,7 @@ export const updateCompanyAction = (options) => async (dispatch, getState) => {
   }
 }
 
-export const deleteCompanyAction = (options) => async (dispatch) => {
+export const deleteEmpresaAction = (options) => async (dispatch) => {
   const { id } = options; // Opciones para solicitud a  API
   const api = endPoints.companies.deleteCompany(id); // URL API
   // console.log(api);

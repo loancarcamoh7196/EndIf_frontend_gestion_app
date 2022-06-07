@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 
-const Card = ({ children, title='Aviso', haveTitle=false, haveClose=false, body, haveFooter=false, footer }) => {
+const Card = ({ children, title='Aviso', haveTitle=false, haveClose=false, body, haveFooter=false, footer, style='' }) => {
   return (
     <Fragment>
-      <div className='card'>
+      <div className={`${style !== '' && style}`}>
         { (haveTitle || haveClose) && <div className='card-header'>
           {haveTitle && <h3 className='card-title'>{title}</h3>}
 
