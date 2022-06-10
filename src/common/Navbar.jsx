@@ -11,7 +11,7 @@ const txt = {
 const Navbar = () => {
   return (
     <Fragment>
-      <nav className='main-header navbar navbar-expand navbar-dark'>
+      <nav className='main-header navbar navbar-expand navbar-light bg-orange text-sm'>
         {/* -------- Links de Navbar ---------- */}
         <ul className='navbar-nav'>
           <li className='nav-item'>
@@ -31,7 +31,7 @@ const Navbar = () => {
 
 
         </ul>
-        {/* -------- Buscador ---------- */}
+        {/* -------- Buscador y otros widget ---------- */}
         <ul className='navbar-nav ml-auto'>
           <li className='nav-item'>
             <NavLink to='#' className='nav-link' data-widget='navbar-search' role='button'>
@@ -54,7 +54,7 @@ const Navbar = () => {
             </div>  
           </li>
           {/* -------- Mensajes ---------- */}
-          <li className='nav-item dropdown'>
+          {/* <li className='nav-item dropdown'>
             <NavLink to='#' className='nav-link' data-toggle='dropdown' href='#'>
               <i className='far fa-comments'></i>
               <span className='badge badge-danger navbar-badge'>3</span>
@@ -109,9 +109,9 @@ const Navbar = () => {
               <div className='dropdown-divider'></div>
               <NavLink to='#' className='dropdown-item dropdown-footer'>See All Messages</NavLink>
             </div>
-          </li>
+          </li> */}
           {/* -------- Notificaciones ---------- */}
-          <li className='nav-item dropdown'>
+          {/* <li className='nav-item dropdown'>
             <a className='nav-link' data-toggle='dropdown' href='#'>
               <i className='far fa-bell'></i>
               <span className='badge badge-warning navbar-badge'>15</span>
@@ -136,23 +136,23 @@ const Navbar = () => {
               <div className='dropdown-divider'></div>
               <a href='#' className='dropdown-item dropdown-footer'>See All Notifications</a>
             </div>
-          </li>
+          </li> */}
           {/* -------- Full Width ---------- */}
-          <li className='nav-item'>
+          {/* <li className='nav-item'>
             <NavLink to='#' className='nav-link' data-widget='fullscreen' role='button'>
               <i className='fas fa-expand-arrows-alt'></i>
             </NavLink>
-          </li>
+          </li> */}
           {/* -------- Control de Side Bar ---------- */}
-          <li className='nav-item'>
+          {/* <li className='nav-item'>
             <NavLink to='#' className='nav-link' data-widget='control-sidebar' data-slide='true' role='button'>
               <i className='fas fa-th-large'></i>
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
 
-      <Outlet  />
+     
     </Fragment>
   )
 }

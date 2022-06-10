@@ -43,7 +43,21 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/roles/${id}/edit`,
     delete: (id) => `${api_url}:${puerto}/${version}/roles/${id}/`,
   },
-  producto: {
+  regiones: {
+    list: () => `${api_url}:${puerto}/${version}/regiones`,
+  },
+  comunas: {
+    list: () => `${api_url}:${puerto}/${version}/comunas` ,
+    get: (id) => `${api_url}:${puerto}/${version}/comunas/${id}`
+  },
+  direcciones: {
+    list: () => `${api_url}:${puerto}/${version}/direcciones` ,
+    get: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/direcciones`,
+    update: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}/`,
+  },
+  productos: {
     list: () => `${api_url}:${puerto}/${version}/productos` ,
     get: (id) => `${api_url}:${puerto}/${version}/productos/${id}`,
     add: () => `${api_url}:${puerto}/${version}/productos`,

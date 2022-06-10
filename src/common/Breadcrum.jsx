@@ -20,14 +20,14 @@ const Breadcrum = ({ key, title, links, haveLink=false }) => {
         <div className='container-fluid'>
           <div className='row mb-2'>
             <div className='col-sm-6'>
-              <h1 className='m-0'>{ title }</h1> {/* titulo de Pagina */}
+              <h1 className='m-1'>{ title }</h1> {/* titulo de Pagina */}
             </div>
 
             {/* Breadcrum de la pagina */}
             <div className='col-sm-6'>
               { 
                 (links !== undefined && haveLink) &&
-                <ol className='breadcrumb float-sm-right'>
+                <ol className='breadcrumb float-sm-right text-sm'>
                   { links.map( (i) => <li className={`breadcrumb-item`}> <NavLink to={i.url} >{i.nombre}</NavLink></li>)}
                 </ol>
               }

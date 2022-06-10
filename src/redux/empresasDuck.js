@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 //Data inicial
 const dataInicial = {
-  results: [],
+  res: [],
 }
 
 const toastOptions = {
@@ -33,11 +33,11 @@ export default function companiesReducer(state = dataInicial, action) {
     case EMPRESA_ERROR:
       return { ...state, ...action.payload }
     case EMPRESAS_GET:
-      return { ...state, results: action.payload } 
+      return { ...state, res: action.payload } 
     case EMPRESA_GET:
-      return  { ...state, results: action.payload }
+      return  { ...state, res: action.payload }
     case EMPRESA_UPDATE:
-      return { ...state, results: action.payload }
+      return { ...state, res: action.payload }
     case EMPRESA_DELETE:
       return { ...state, ...action.payload }
     case EMPRESA_REFRESH:
@@ -53,12 +53,11 @@ export const getEmpresasAction = (options) => async (dispatch, getState) => {
 	const api = endPoints.empresas.list();
   const { activo, loading } = getState().user;
   // console.log(body);
-  console.log(api);
+  // console.log(api);
   // console.log(axios.defaults.headers.Authorization);
 	try {
 		const res = await axios.get(api);
-    console.log(res);
-
+    // console.log(res);
     dispatch({ type: EMPRESAS_GET, payload:  res.data });
 	} catch (error) {
 		// console.log(error);
@@ -73,15 +72,16 @@ export const getEmpresasAction = (options) => async (dispatch, getState) => {
   } 
 };
 
-export const getEmpresaAccion= (options) => async (dispatch, getState) => {
-  const { id } = options;
-  const { activo, token, loading } = getState().user;
-  const api = endPoints.companies.getCompany(id);
+export const getEmpresaAction= (options) => async (dispatch, getState) => {
+  const { rut } = options;
+  const { activo, loading } = getState().user;
+  const api = endPoints.empresas.get(rut);
   
   try {
-    const res = await axios.get(api );
+   
+    const res = await axios.get(api);
     // console.log(res);
-    dispatch({ type: EMPRESA_GET, payload:  res.data.body });
+    dispatch({ type: EMPRESA_GET, payload:  res.data });
   } catch (error) {
     // console.log(error);
     // console.log(error.request.status);
@@ -97,29 +97,39 @@ export const getEmpresaAccion= (options) => async (dispatch, getState) => {
 }
 
 export const addEmpresaAction = (options) => async (dispatch, getState) => {
-	const { body } = options; // Opciones para solicitud a  API
-	const api = endPoints.companies.addCompany();
-  // console.log(body);
+	const { empresa, direccion } = options; // Opciones para solicitud a  API
+  const direccionApi = endPoints.direcciones.add();
+	const api = endPoints.empresas.add();
+  // console.log(direccionApi);
   // console.log(api);
+  // console.log(empresa);
+  // console.log(direccion);
+
 	try {
-		const res = await axios.post(api, body);
-    const info = await axios.get(endPoints.companies.getCompanies());
+    const direccionRes = await axios.post(direccionApi, direccion);
+    // console.log('RES add Dir: ',direccionRes);
+    toast.success(direccionRes, { ...toastOptions});
+    console.log(direccionRes);
+    console.log(empresa);
+
+    empresa.direccionId= direccionRes.data.id;
+		const res = await axios.post(api, empresa);
+    const info = await axios.get(endPoints.empresas.list());
     // console.log(res);
-    toast.success(`Empresa  ${body.razon} ha sido agregada correctamente.`, { ...toastOptions})
-    dispatch({ type: EMPRESA_ADD, payload: info.data.body });
+    toast.success(`Empresa ${empresa.razonSocial} ha sido agregada correctamente.`, { ...toastOptions})
+    dispatch({ type: EMPRESA_ADD, payload: info.data });
 	} catch (error) {
 		// console.log(error);
     let msg = error.response.data.body;
-    
 		dispatch({ type: EMPRESA_ERROR });
-    toast.error(`No se ha podido agregar empres, porfavor intentelo más tarde`, {...toastOptions});
+    toast.error(`No se ha podido agregar empresa, porfavor intentelo más tarde`, {...toastOptions});
     toast.error(msg, {...toastOptions});
 	}
 };
 
 export const updateEmpresaAction = (options) => async (dispatch, getState) => {
   const { id, body } = options; // Opciones para solicitud a  API
-  const api = endPoints.companies.updateCompany(id); // URL API
+  const api = endPoints.empresas.update(id); // URL API
   // console.log(body);
   try {
     const res = await axios.patch(api, body);
@@ -137,7 +147,7 @@ export const updateEmpresaAction = (options) => async (dispatch, getState) => {
 
 export const deleteEmpresaAction = (options) => async (dispatch) => {
   const { id } = options; // Opciones para solicitud a  API
-  const api = endPoints.companies.deleteCompany(id); // URL API
+  const api = endPoints.empresas.delete(id); // URL API
   // console.log(api);
   try {
     // console.log(body);

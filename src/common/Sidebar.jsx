@@ -21,14 +21,14 @@ const txt = {
 const Sidebar = () => {
   return (
     <Fragment>
-      <aside className='main-sidebar sidebar-dark-primary elevation-4'>
+      <aside className='main-sidebar sidebar-dark-primary elevation-4 sidebar-light-orange'>
         {/* ----------- Icono Lateral ------------ */}
-        <NavLink to='/' className='brand-link'>
+        <NavLink to='/' className='brand-link text-sm bg-orange'>
           <img src={SiteIcon} alt={txt.altCompany} className='brand-image img-circle elevation-3' style={{opacity: .8}} />
           <span className='brand-text font-weight-light'>{txt.brandCompany}</span>
         </NavLink>
 
-        <div className='sidebar'>
+        <div className='sidebar os-host os-theme-light os-host-overflow os-host-overflow-y os-host-resize-disabled os-host-transition os-host-overflow-x'>
           {/* ----------- Info Usuario ------------ */}
           {/* <div className='user-panel mt-3 pb-3 mb-3 d-flex'>
             <div className='image'>
@@ -730,7 +730,7 @@ const Sidebar = () => {
         </div>
         
       </aside>
-      <Outlet  />
+      {/* <Outlet  /> */}
     </Fragment>
   )
 }

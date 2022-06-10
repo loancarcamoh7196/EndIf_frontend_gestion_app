@@ -1,3 +1,6 @@
+/**
+ * * Archivo de pagina: /admin/empresas
+ */
 import React, { Fragment, useEffect } from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,22 +18,28 @@ const link = [
 
 const Index = () => {
   const dispatch = useDispatch();
-  let empresas = useSelector((store) => store.empresas.results);
+  let empresas = useSelector((store) => store.empresas.res);
 
   useEffect(() => { dispatch(getEmpresasAction()) }, []);
 
   return (
     <Layout title='Empresas' links={link} haveLink={true}>
       
-      <button data-bs-toggle="modal" data-bs-target="#modal" className='btn btn-success btn-sm float-right'> <i class="fa-solid fa-plus" />Nueva</button>
-      <Card >  
-        
-        <Table data={empresas} />
-      </Card>
+      <Card style={'card-default'}> 
+        <div className='row'>
+          <div className='col-4 mb-3 float-sm-right'>
+            <Link to='/admin/empresas/new' className='btn btn-sm btn-block btn-outline-success float-sm-right'> <i class="fa-solid fa-plus" />Nueva</Link>
+        </div>
+        {/* </div> */}
       
-      <Form />
+        {/* <div className='row'> */}
+          <div className='col-12 col-md-12 col-xl-12'>
+            <Table data={empresas} />
+          </div>
+        </div>
+      </Card>
     </Layout>
   )
 }
 
-export default Index;
+export default Index; 

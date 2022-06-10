@@ -1,10 +1,17 @@
 /**
- * Formulario agregar
+ ** Pagina : /admin/empresa/new
  */
 import React, { Fragment } from 'react';
 
+import Layout from '@layouts/Main';
 import Form from '@components/FormEmpresa';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+
+const link = [
+  { nombre: 'Administración', url: '/admin' },
+  { nombre:'Empresas', url: '/admin/empresas' },
+	{ nombre:'Nueva', url: '/admin/empresas/new' }
+];
 
 const titlePage = 'Agregar Empresa';
 
@@ -31,9 +38,9 @@ export default function NewEmpresa() {
   };
 
   return (
-    <Fragment>
-      <Form empresaForm={empresaForm} />
-    </Fragment>
+		<Layout title='Agregar nueva Empresa' links={link} haveLink={true}>
+			<Form empresaForm={empresaForm} />
+		</Layout>
     
   );
 }

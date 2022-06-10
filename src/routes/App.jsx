@@ -9,6 +9,7 @@ import Admin from '@pages/Admin';
 //Mantenedor Empresas
 import EmpresaIndex from '@pages/empresas/index';
 import EmpresaNew from '@pages/empresas/new';
+import EmpresaEdit from '@pages/empresas/edit';
 
 const App = () => {
   return (
@@ -18,9 +19,10 @@ const App = () => {
           <Route exact path='/dashboard' element={<Dashboard />} />
           
           <Route exact path="/admin" element={<Admin />} />
-          <Route exact path="/admin/empresas" element={<EmpresaIndex />} >
-            <Route  path="/admin/empresas/new" element={<EmpresaNew />} />
-          </Route>
+          <Route exact path="/admin/empresas" element={<EmpresaIndex />} />
+          <Route exact path="/admin/empresas/new" element={<EmpresaNew />} />
+          <Route exact path='/admin/empresas/:rut/edit' element={<EmpresaEdit />} />
+          
             {/* <Route path="invoices" element={<Invoices />} /> */}
           
         <Route exact path='login' element={<Login />}  />

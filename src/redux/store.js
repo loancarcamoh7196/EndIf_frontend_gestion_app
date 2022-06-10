@@ -6,14 +6,16 @@ import productosReducer from '@redux/productosDuck';
 import userAuthReducer, { readUserAction } from '@redux/userAuthDuck';
 import empresasReducer from '@redux/empresasDuck';
 import usuariosReducer from '@redux/usuariosDuck';
-// import actionsReducer from '@redux/actionsDuck';
+import regionesReducer from '@redux/regionesDuck';
+import comunasReducer from '@redux/comunasDuck';
 
 const rootReducer = combineReducers({
 	productos: productosReducer,
 	user: userAuthReducer,
 	empresas: empresasReducer,
 	usuarios: usuariosReducer,
-	// actions: actionsReducer
+	regiones: regionesReducer,
+	comunas: comunasReducer
 });
 
 export default function generateStore() {
