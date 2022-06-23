@@ -10,7 +10,7 @@ import Layout from '@layouts/Main';
 import Form from '@components/FormEmpresa';
 
 // Redux
-// import { getEmpresaAction } from '@redux/empresasDuck'
+import { getEmpresaAction } from '@redux/empresasDuck'
 
 const txt = { titlePage: 'Editar ' };
 const link = [
@@ -31,7 +31,7 @@ const Edit = () => {
 	if (!empresa)
 		return <p className="column is-medium is-active">Cargando...</p>;
 
-	// console.log('company', empresa);
+	console.log('company', empresa);
   
   // let empresa = {body} = company;
   let {direccion} = empresa;
@@ -59,7 +59,7 @@ const Edit = () => {
 
   return (
     <Layout title={txt.titlePage} links={link} haveLink={true}>
-			<Form empresaForm={empresaForm} formNewEmpresa={false} />
+			<Form empresaForm={empresaForm}  formNewEmpresa={false} />
 		</Layout>
   )
 }

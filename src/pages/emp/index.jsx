@@ -2,17 +2,13 @@
  * * Archivo de pagina: /admin/empresas
  */
 import React, { Fragment, useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { NavLink, Link } from 'react-router-dom';
-
-//redux
-import { getEmpresasAction, deleteEmpresaAction } from '@redux/empresasDuck';
-
-// Componentes
+import { NavLink, Outlet, Link } from 'react-router-dom';
+import { useDispatch, useSelector, connect } from 'react-redux';
+import { getEmpresasAction } from '@redux/empresasDuck';
 import Layout from '@layouts/Main';
-import Table from '@components/EmpresaTable';
-
+import Table from '../../components/EmpresaTable';
+// import DataTable from '@containers/DataTable'; 
 import Card from '@common/Card';
 import Form from '@pages/empresas/new';
 
@@ -23,12 +19,9 @@ const link = [
 
 const Index = () => {
   const dispatch = useDispatch();
-  
-  useEffect(() => { dispatch(getEmpresasAction()) }, []);
-
-
   let empresas = useSelector((store) => store.empresas.list);
-  // console.log('Empresas ', empresas);
+
+  useEffect(() => { dispatch(getEmpresasAction()) }, []);
 
   return (
     <Layout title='Empresas' links={link} haveLink={true}>
@@ -38,16 +31,16 @@ const Index = () => {
           <div className='col-4 mb-3 float-sm-right'>
             <Link to='/admin/empresas/new' className='btn btn-sm btn-block btn-outline-success float-sm-right'> <i class="fa-solid fa-plus" />Nueva</Link>
         </div>
-
-        <div className='col-12 col-md-12 col-xl-12'>
-          <Table data={empresas} />
+        {/* </div> */}
+      
+        {/* <div className='row'> */}
+          <div className='col-12 col-md-12 col-xl-12'>
+            <Table data={empresas} />
+          </div>
         </div>
-        </div>  
       </Card>
     </Layout>
   )
 }
 
-
-export default connect(null, { getEmpresasAction, deleteEmpresaAction })(Index) ; 
-  
+export default Index ; 

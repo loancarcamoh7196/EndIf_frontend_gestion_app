@@ -10,6 +10,10 @@ import Admin from '@pages/Admin';
 import EmpresaIndex from '@pages/empresas/index';
 import EmpresaNew from '@pages/empresas/new';
 import EmpresaEdit from '@pages/empresas/edit';
+import EmpresaDelete from '@pages/empresas/delete';
+//Mantenedor Usuarios
+import UsuarioIndex from '@pages/usuarios/index';
+
 
 const App = () => {
   return (
@@ -22,9 +26,9 @@ const App = () => {
           <Route exact path="/admin/empresas" element={<EmpresaIndex />} />
           <Route exact path="/admin/empresas/new" element={<EmpresaNew />} />
           <Route exact path='/admin/empresas/:rut/edit' element={<EmpresaEdit />} />
-          
+          <Route exact path='/admin/empresas/:rut/delete' />
             {/* <Route path="invoices" element={<Invoices />} /> */}
-          
+          <Route exact path='/admin/usuarios' element={<UsuarioIndex  />} />
         <Route exact path='login' element={<Login />}  />
         <Route path='*' element={<NotFound />} />
 

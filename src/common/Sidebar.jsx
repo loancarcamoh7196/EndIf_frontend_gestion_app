@@ -17,7 +17,6 @@ const txt = {
   rolesLink: 'Roles'
 };
 
-
 const Sidebar = () => {
   return (
     <Fragment>

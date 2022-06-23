@@ -1,17 +1,14 @@
 /**
  ** URL de consumo de API's
  * ? Contiene rutas de  API Auth y API Enjambre
- *? 
+ *
  */
 const api_url = process.env.REACT_APP_API_BACKEND;
 const puerto = process.env.REACT_APP_API_PORT;
 const version = process.env.REACT_APP_URI_API;
 
-console.log(process.env.REACT_APP_API_BACKEND);
-console.log(process.env.REACT_APP_URI_API);
-
-
-
+// console.log(process.env.REACT_APP_API_BACKEND);
+// console.log(process.env.REACT_APP_URI_API);
 
 /**
  * URI de API_URL backend
@@ -29,7 +26,7 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/empresas/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/empresas/${id}/`,
   },
-  usuario: {
+  usuarios: {
     list: (id) => `${api_url}:${puerto}/${version}/usuarios/${id}/`,
     get: () => `${api_url}:${puerto}/${version}/users/`,
     add: () => `${api_url}:${puerto}/${version}/users`,

@@ -51,20 +51,18 @@ export default function userAuthReducer(state = dataInicial, action) {
 export const loginUserAction = (options) => async (dispatch, getState) => {
 	const { body } = options; // Opciones para solicitud a  API
 	const api = endPoints.auth.login;
-	
 	// dispatch({ type: LOADING });
 	
 	try {
 		const res = await axios.post(api, body);
-		console.log(res);
-
-		if (res.data.status != 200 ) {
+		// console.log(res);
+		if (res.data.status !== 200 ) {
 			toast.error('No ha se ha podido iniciar sesión', { ...toastOptions });
 			dispatch({ type: USER_LOGOUT });
 		};
 		// data necesaria
-		const { user, refreshToken, token } = res.data.body;
-		
+		const { user, refreshToken, token } = res.data;
+	
 		// axios.defaults.withCredentials = true;
 		axios.defaults.headers.Authorization = `Bearer ${refreshToken}`;
 
@@ -86,18 +84,18 @@ export const loginUserAction = (options) => async (dispatch, getState) => {
 		dispatch({
 			type: USER_SUCCESS,
 			payload: { result: {
-						id: user.id,
-						empRut: user.emp_rut,
-						username: user.username,
-						token: user.token_acceso,
-						bdNombre: user.bd_nombre,
-						email: user.email,
-						superAdmin: user.superadmin,
-						nombres: user.nombres,
-						apellidos: user.apellidos
-					},
+				id: user.id,
+				empresaRut: user.empRut,
+				username: user.username,
+				token: user.token_acceso,
+				bdNombre: user.bd_nombre,
+				email: user.email,
+				superAdmin: user.superadmin,
+				nombres: user.nombres,
+				apellidos: user.apellidos
+				},
 				token: refreshToken,
-				isAdmin: ( user.superadmin == 1 ? true : false )
+				isAdmin: ( user.superadmin === 1 ? true : false )
 			}
 		});
 
@@ -122,7 +120,7 @@ export const refreshTokenAction = () => async(dispatch, getState) => {
 		// axios.defaults.headers.Authorization = `Bearer ${token}`;
 		const res = await axios.get(api);
 		// console.log(res.data.body);
-		axios.defaults.headers.Authorization = `Bearer ${res.data.body}`;
+		axios.defaults.headers.Authorization = `Bearer ${res.data}`;
 		axiosToken = axios.defaults.headers.Authorization;
 		dispatch({ type: USER_REFRESH, payload: res.data.body, });
 		// console.log(axiosToken);
