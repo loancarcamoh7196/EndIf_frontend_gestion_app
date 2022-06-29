@@ -1,39 +1,30 @@
-import React, { Fragment, Component, useEffect } from 'react';
-// import '../../node_modules/jquery/dist/jquery.min.js'
-//Datatable Modules
-// import '../../node_modules/datatables.net/js/jquery.dataTables';
+import React, { Fragment, useEffect } from 'react';
+import $ from 'jquery';
 import 'datatables.net-bs4'
 import 'datatables.net-responsive-bs4';
 import 'datatables.net-fixedheader-bs4';
-import 'datatables.net-buttons-bs4';
 import 'datatables.net-staterestore-bs4';
 import 'datatables.net-fixedcolumns-bs4';
+import 'datatables.net-rowgroup-bs4';
+import 'datatables.net-scroller-bs4';
+import 'datatables.net-fixedheader-bs4';
+// import jszip from 'jszip';
+import 'pdfmake';
+import 'datatables.net-buttons-bs4';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-buttons/js/buttons.print.js';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
 
-// import '../../node_modules/datatables.net-select-bs4/js/select.bootstrap4';
-// import '../../node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4';
-import '../../node_modules/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4';
-import '../../node_modules/datatables.net-rowreorder-bs4/js/rowReorder.bootstrap4';
-import '../../node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4';
-// import '../../node_modules/datatables.net-scroller-bs4/css/scroller.bootstrap4.min.css';
-import '../../node_modules/datatables.net-searchpanes-bs4/js/searchPanes.bootstrap4';
-import '../../node_modules/datatables.net-searchbuilder-bs4/js/searchBuilder.bootstrap4';
-// import '../../node_modules/datatables.net-staterestore-bs4/js/stateRestore.bootstrap4';
-// import '../../node_modules/datatables.net-staterestore-bs4/css/stateRestore.bootstrap4.min.css';
-import '../../node_modules/datatables.net-fixedcolumns-bs4/js/fixedColumns.bootstrap4';
-import '../../node_modules/datatables.net-select-bs4/js/select.bootstrap4';
-// import '../../node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css'
-import '../../node_modules/datatables.net-datetime/js/dataTables.dateTime';
-// import '../../node_modules//js/fixedHeader.bootstrap4'
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-  // 'datatables.net-datetime'
-  // 'datatables.net-fixedcolumns-bs4'
 
-import $ from 'jquery';
-
-const DataTable = ({id, data, encabezado, opciones}) => {
+const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true}) => {
+  const buttons = [ 'copy', 'csv', 'excel', 'pdf', 'print' ];
+  
   useEffect(() => {
-    $('#table').DataTable().destroy();
-    $('#table').DataTable({
+    $(`#${id}`).DataTable().destroy();
+    $(`#${id}`).DataTable({
       language: {
         'decimal': '',
         'emptyTable': 'No hay información',
@@ -54,35 +45,37 @@ const DataTable = ({id, data, encabezado, opciones}) => {
           'previous': 'Anterior'
         }
       },
-      loading: true,
-      destroy: true,
-      paging: true,
-      lengthChange: true,
-      // searching: true,
-      ordering: true,
-      // info: true,
-      autoWidth: true,
-      responsive: true,
-      stateSave: true,
-      bDestroy: true,
-      processing: true,
-      serverSide: false,
-      fixedHeader: true
+      loading: opciones.loading,
+      destroy: opciones.destroy,
+      paging: opciones.paging,  
+      lengthChange: opciones.lengthChange,
+      searching: opciones.searching,
+      ordering: opciones.ordering,
+      info: opciones.info,
+      autoWidth: opciones.true,
+      responsive: opciones.responsive,
+      stateSave: opciones.stateSave,
+      bDestroy: opciones.bDestroy,
+      processing: opciones.processing,
+      serverSide: opciones.serverSide,
+      fixedHeader: opciones.fixedHeader,
+      dom: 'Bfrtip',
+      buttons:( opciones.buttons && buttons)
+      
     })
-  }, [10]);
+  }, []);
 
   return (
-    <table id='table' className='table table-responsive-xl table-hover table-bordered'>
-      <thead className='thead-dark'>
+    <table id={id} className='table table-responsive table-hover table-bordered'>
+      <thead className={styleHeadDark && 'thead-dark'}>
         <tr>
-          { encabezado.map((i) => i)}
+          { encabezado.map((i) => i) }
         </tr>
       </thead>
       <tbody>
-        { data.map((result) => result)}
+        { data.map((result) => result) }
       </tbody>
     </table>
-      
   );
 }
 

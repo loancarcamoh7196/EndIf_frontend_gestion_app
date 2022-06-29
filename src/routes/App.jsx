@@ -1,5 +1,8 @@
+/** 
+ * * Archivo de configuracion de rutas
+*/
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 
 import NotFound from '@pages/NotFound';
 import Home from '@pages/Home';
@@ -10,7 +13,7 @@ import Admin from '@pages/Admin';
 import EmpresaIndex from '@pages/empresas/index';
 import EmpresaNew from '@pages/empresas/new';
 import EmpresaEdit from '@pages/empresas/edit';
-import EmpresaDelete from '@pages/empresas/delete';
+// import EmpresaDelete from '@pages/empresas/delete';
 //Mantenedor Usuarios
 import UsuarioIndex from '@pages/usuarios/index';
 

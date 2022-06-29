@@ -1,26 +1,15 @@
 import React, { Fragment, Component } from 'react';
-import '../../node_modules/jquery/dist/jquery.min.js'
-//Datatable Modules
-import '../../node_modules/datatables.net/js/jquery.dataTables';
-import '../../node_modules/datatables.net-responsive-bs4/js/responsive.bootstrap4';
-import '../../node_modules/datatables.net-select-bs4/js/select.bootstrap4';
-import '../../node_modules/datatables.net-autofill-bs4/js/autoFill.bootstrap4';
-import '../../node_modules/datatables.net-buttons-bs4/js/buttons.bootstrap4';
-import '../../node_modules/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css';
-import '../../node_modules/datatables.net-rowgroup-bs4/js/rowGroup.bootstrap4';
-import '../../node_modules/datatables.net-rowreorder-bs4/js/rowReorder.bootstrap4';
-import '../../node_modules/datatables.net-scroller-bs4/js/scroller.bootstrap4';
-
-  // 'datatables.net-datetime'
-  // 'datatables.net-fixedcolumns-bs4'
-  // 'datatables.net-fixedheader-bs4'
-  // 'datatables.net-searchbuilder-bs4'
-  // 'datatables.net-searchpanes-bs4'
-  // 'datatables.net-select-bs4',
-  // 'datatables.net-staterestore-bs4' 
-
 import $ from 'jquery';
-
+//Datatable Modules
+import 'datatables.net-bs4'
+import 'datatables.net-responsive-bs4';
+import 'datatables.net-fixedheader-bs4';
+import 'datatables.net-buttons-bs4';
+import 'datatables.net-staterestore-bs4';
+import 'datatables.net-fixedcolumns-bs4';
+import 'datatables.net-rowgroup-bs4';
+import 'datatables.net-scroller-bs4';
+import 'datatables.net-fixedheader-bs4';
 
 class ListComponent extends Component {
   // State array variable to save and show data

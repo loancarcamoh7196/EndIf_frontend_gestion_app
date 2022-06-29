@@ -1,13 +1,13 @@
 /**
  * * Formulario de Companies - Empresas
- * ? Pertenece a mantenedor de bd empresas_
+ * ? Para agregar y Editar
  */
-import { useState, useRouter, Fragment, useEffect, useRef } from 'react';
+import React, { useState, useRouter, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
 
 // Componentes externo
-import BootstrapSwitchButton from 'bootstrap-switch-button-react';
+// import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import Card from '@common/Card';
 
 
@@ -16,6 +16,7 @@ import { addEmpresaAction, updateEmpresaAction } from '@redux/empresasDuck';
 import { getRegionesAction } from '@redux/regionesDuck';
 import { getComunasAction } from '@redux/comunasDuck';
 
+// Texto fijo de la Pagina
 const txt = {
 	btnAgregar: 'Agregar Empresa',
 	bntEditar: 'Editar Empresa',
@@ -35,7 +36,12 @@ const txt = {
   lblCalle: 'Calle',
 	txtSelectRegion: 'Seleccione Region',
 	txtSelectComuna: 'Seleccione Comuna',
-	titleSeccionModulo: 'Módulos'
+	titleSeccionModulo: 'Módulos',
+	lblRut: 'RUT Empresa',
+	lblRazonSocial: 'Razon Social',
+	lblGiro:'Giro',
+	lblFono: 'Fono de Contacto',
+	lblEmail: 'Email'
 };
 
 export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
@@ -43,11 +49,19 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	const dispatch = useDispatch(); //Disparador
 	const navigate = useNavigate(); // Navegador de Pagina
 
+	// Manejo de Checkbox
+	const [isCheckActiva, setIsCheckActiva] = useState(false);
+	const [isCheckGestion, setIsCheckGestion] = useState(false);
+	// const [isCheck, setIsCheck] = useState(false);
+	// const [isCheck, setIsCheck] = useState(false);
+	// const [isCheck, setIsCheck] = useState(false);
+
+
   const regiones = useSelector((store)=> store.regiones.res); //Valores para Select de Regiones
 	let comunas = useSelector((store)=> store.comunas.res); // Valores para Select Comunas
 
   useEffect(() => { 
-    dispatch(getRegionesAction()); // Recupera al cagar datos de regiones
+    dispatch(getRegionesAction()); // Recupera al cargar datos de regiones
   }, []);
 
 
@@ -70,7 +84,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 		calle: empresaForm.calle,
 		ciudad: empresaForm.ciudad
 	});
-	const [modGestion, setModGestion] = useState(false);
+	
 
 	// console.log(form)
 	/**
@@ -90,7 +104,6 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 			let emp = { razonSocial, giro, fono, email, logo, activa, moduloGestion, moduloContabilidad, moduloInventario, moduloInventarioMovil, direccionId };
 			const options = { rut, empresa: emp , direccion: dir };
 			dispatch(updateEmpresaAction(options));
-
 			navigate('/admin/empresas');
 		} catch (error) {
 			console.log(error);
@@ -111,12 +124,9 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 			let emp = {rut, razonSocial, giro, fono, email, logo, activa, moduloGestion, moduloContabilidad, moduloInventario, moduloInventarioMovil, direccionId };
 
       const options = { empresa: emp , direccion: dir };
-
 			// console.log(options);
 
       dispatch(addEmpresaAction(options));
-
-			// console.log(form);
       navigate('/admin/empresas');
 		} catch (error) {
 			// setMessage('Falló la edición');
@@ -147,22 +157,27 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 				<div className='row'>
 					<div className='col-sm-8'>
 						<div className='form-group'>
-							<input type='text' className='form-control form-control-border' name='rut' placeholder='RUT' onChange={handleChange} value={form.rut} maxLength={13} />
+							<label htmlFor='rut'>{txt.lblRut}</label>
+							<input type='text' className='form-control form-control-border' name='rut' placeholder='12345678' onChange={handleChange} value={form.rut} maxLength={13} />
 						</div>
 
 						<div className='form-group'>
+							<label htmlFor='razonSocial'>{txt.lblRazonSocial}</label>
 							<input type='text' className='form-control form-control-border' name='razonSocial' placeholder='Razón Social' onChange={handleChange} value={form.razonSocial} />
 						</div>
 
 						<div className='form-group'>
+							<label htmlFor='giro'>{txt.lblGiro}</label>
 							<input type='text' className='form-control form-control-border' name='giro' placeholder='Giro' onChange={handleChange} value={form.giro} />
 						</div>
 
 						<div className='form-group'>
+							<label htmlFor='fono'>{txt.lblFono}</label>
 							<input type='text' className='form-control form-control-border' name='fono' placeholder='Fono' onChange={handleChange} value={form.fono} />
 						</div>
 
 						<div className='form-group'>
+							<label htmlFor='email'>{txt.lblEmail}</label>
 							<input type='email' className='form-control form-control-border' name='email' placeholder='Email' onChange={handleChange} value={form.email} />
 						</div>
 
@@ -173,7 +188,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 
 					<div className='col-sm-4'>
 						<div className='form-group'>
-							<BootstrapSwitchButton
+							{/* <BootstrapSwitchButton
 								name='activa'
 								checked={true}
 								// value={true}
@@ -187,25 +202,36 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 									setForm({...form, activa: !checked })
 								}}
 								// onChange={handleChange}
-							/>
+							/> */}
+
+							
 						</div>
 						<div className=' form-group'>
 							<h3 className='mt-5 mb-3 text-md'>{txt.titleSeccionModulo}</h3>
+
 							<div className='icheck-pumpkin'>
-								<input
-									type='checkbox'
-									name='moduloGestion'
-									checked={form.moduloGestion}
-									onChange={handleChange}
-								/>
+								<input 
+									type='checkbox' 
+									name='moduloGestion' 
+									id='moduloGestion' 
+									onChange={handleChange} 
+									value={form.moduloGestion}
+								/>	
 								<label htmlFor='moduloGestion'>{txt.lblGestion}</label>
 							</div>
 							<div className='icheck-pumpkin'>
-								<input type='checkbox' name='moduloContabilidad' id='moduloContabilidad' onChange={handleChange} value={form.moduloContabilidad} />	
+								<input 
+								type='checkbox' 
+								name='moduloContabilidad' 
+								id='moduloContabilidad' 
+								onChange={handleChange} 
+								value={form.moduloContabilidad}
+								/>	
 								<label htmlFor='moduloContabilidad'>{txt.lblContabilidad}</label>
 							</div>
 							<div className='icheck-pumpkin'>
-								<input type='checkbox' name='moduloInventario' id='moduloInventario' onChange={handleChange} value={form.moduloInventario} />
+								<input 
+								type='checkbox' name='moduloInventario' id='moduloInventario' onChange={handleChange} value={form.moduloInventario} />
 								<label htmlFor='moduloInventario'>{txt.lblInventario}</label>
 							</div>
 								<div className='icheck-pumpkin'>
@@ -214,6 +240,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 							</div>
 						</div>
 					</div>
+					{ !formNewEmpresa && <input type='hidden' name='direccionId' value={form.direccionId}  /> }
 				</div>
 			</Card>
 

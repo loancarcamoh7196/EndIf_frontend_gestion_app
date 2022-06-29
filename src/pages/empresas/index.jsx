@@ -40,7 +40,10 @@ const Index = () => {
         </div>
 
         <div className='col-12 col-md-12 col-xl-12'>
-          <Table data={empresas} />
+          <Table data={empresas}  />
+
+
+          
         </div>
         </div>  
       </Card>

@@ -1,4 +1,7 @@
-import React, { Fragment, Component, useEffect } from 'react';
+/**
+ ** Componente Empresa Table
+ *  
+ */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
@@ -7,26 +10,43 @@ import { deleteEmpresaAction } from '@redux/empresasDuck';
 
 const EmpresaTable = ({data}) => {
   const dispatch = useDispatch();
+  let content = []; // Contenedor de cuerpo de la tabla
+  let encabezado = []; // Contenedor encabezado de la tabla
+
+  const options = {
+    responsive: false,
+    loading: true,
+    destroy: true,
+    paging: true,
+    lengthChange: true,
+    searching: true,
+    ordering: true,
+    info: true,
+    autoWidth: true,
+    stateSave: false,
+    bDestroy: true,
+    processing: true,
+    serverSide: false,
+    fixedHeader: true,
+    buttons: false
+  }; // Opciones de la DataTable
 
   const head = [
-    { data: 'RUT' },
-    { data: 'Razon Social' },
-    { data: 'Giro' },
-    { data: 'Fono' },
-    { data: 'Email' },
-    { data: 'Direccion' },
-    { data: 'Acción' },
-    { data: 'Activa'},
-    { data: 'Mod Gestion'},
-    { data: 'Mod Contabilidad'},
-    { data: 'Mod Inventario'},
-    { data: 'Mod Inventario Movil'},
-    // { data: 'direccionId'},
-    
+    { row: 'RUT' },
+    { row: 'Razon Social' },
+    { row: 'Giro' },
+    { row: 'Fono' },
+    { row: 'Email' },
+    { row: 'Direccion' },
+    { row: 'Acción' },
+    { row: 'Activa'},
+    { row: 'Mod Gestion'},
+    { row: 'Mod Contabilidad'},
+    { row: 'Mod Inventario'},
+    { row: 'Mod Inventario Movil'},
   ];
-  let content = [];
-  let encabezado = [];
-
+  
+  // rellenar cuerpo de Tabla
   data.map((result) => {
     content.push(
       <tr key={result.rut} id={`fil-${result.rut}`}>
@@ -68,9 +88,10 @@ const EmpresaTable = ({data}) => {
     )
   });
 
-  head.map((i) =>  encabezado.push(<th>{i.data }</th>) );
+  // Llenar encabezado de Tabla
+  head.map((i) => encabezado.push(<th>{i.row}</th>) );
   
-  return  <DataTable key='tab_empresas' encabezado={encabezado} data={content}  /> ;
+  return  <DataTable id='tab_empresas' key='tab_empresas' encabezado={encabezado} data={content} opciones={options}  /> ;
 }
 
 export default EmpresaTable;
