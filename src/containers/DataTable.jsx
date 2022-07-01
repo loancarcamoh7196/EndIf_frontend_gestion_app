@@ -18,11 +18,11 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-
 const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true}) => {
   const buttons = [ 'copy', 'csv', 'excel', 'pdf', 'print' ];
   
   useEffect(() => {
+    // $(`#${id}`).DataTable({loading: false});
     $(`#${id}`).DataTable().destroy();
     $(`#${id}`).DataTable({
       language: {
@@ -48,7 +48,7 @@ const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true})
       loading: opciones.loading,
       destroy: opciones.destroy,
       paging: opciones.paging,  
-      lengthChange: opciones.lengthChange,
+      lengthChange: opciones.lengthChange,  
       searching: opciones.searching,
       ordering: opciones.ordering,
       info: opciones.info,
@@ -66,7 +66,8 @@ const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true})
   }, []);
 
   return (
-    <table id={id} className='table table-responsive table-hover table-bordered'>
+    <div className='table-responsive'>
+      <table id={id} className='table  table-hover table-bordered'>
       <thead className={styleHeadDark && 'thead-dark'}>
         <tr>
           { encabezado.map((i) => i) }
@@ -76,6 +77,7 @@ const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true})
         { data.map((result) => result) }
       </tbody>
     </table>
+    </div>
   );
 }
 

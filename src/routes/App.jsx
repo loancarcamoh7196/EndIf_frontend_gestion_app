@@ -4,6 +4,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 
+import Theme from '@context/ThemeContext';
+
 import NotFound from '@pages/NotFound';
 import Home from '@pages/Home';
 import Dashboard from '@pages/Dashboard';
@@ -16,13 +18,19 @@ import EmpresaEdit from '@pages/empresas/edit';
 // import EmpresaDelete from '@pages/empresas/delete';
 //Mantenedor Usuarios
 import UsuarioIndex from '@pages/usuarios/index';
-
+import UsuarioNew from '@pages/usuarios/new';
+import UsuarioEdit from '@pages/usuarios/edit';
+// Mantenedor Roles
+import RolesIndex from '@pages/roles/index';
+import RolesNew from '@pages/roles/new';
+import RolesEdit from '@pages/roles/edit';
 
 const App = () => {
   return (
     <Router>
-      <Routes>
-        <Route exact path='/' element={<Home />} />
+      <Theme.Provider value=''>
+        <Routes>
+          <Route exact path='/' element={<Home />} />
           <Route exact path='/dashboard' element={<Dashboard />} />
           
           <Route exact path="/admin" element={<Admin />} />
@@ -32,10 +40,16 @@ const App = () => {
           <Route exact path='/admin/empresas/:rut/delete' />
             {/* <Route path="invoices" element={<Invoices />} /> */}
           <Route exact path='/admin/usuarios' element={<UsuarioIndex  />} />
-        <Route exact path='login' element={<Login />}  />
-        <Route path='*' element={<NotFound />} />
+          <Route exact path='/admin/usuarios/new' element={<UsuarioNew  />} />
+          <Route exact path='/admin/usuarios/:id/edit' element={<UsuarioEdit  />} />
+          <Route exact path='/admin/roles/' element={<RolesIndex />} />
+          <Route exact path='/admin/roles/new' element={<RolesNew />} />
+          <Route exact path='/admin/roles/:id/edit' element={<RolesEdit />} />
 
-      </Routes>
+          <Route exact path='login' element={<Login />}  />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Theme.Provider>
     </Router>
   );
 };

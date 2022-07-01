@@ -134,7 +134,7 @@ export const updateEmpresaAction = (options) => async (dispatch, getState) => {
     const res = await axios.patch(api, empresa);
     // const info = await axios.get(endPoints.empresas.list());
     let newList = getState().empresas.list.map((e) =>  e.rut === rut ? res.data : e );
-    console.log('Nue  lisat: ', newList)
+    // console.log('Nue  lisat: ', newList)
     toast.success(`La empresa con RUT: ${rut} ha sido actualizada existosamente.`, {...toastOptions});
     dispatch({ type: EMPRESA_UPDATE, payload: newList });
   } catch (error) {

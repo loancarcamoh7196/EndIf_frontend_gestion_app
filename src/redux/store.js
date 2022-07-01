@@ -9,6 +9,7 @@ import empresasReducer from '@redux/empresasDuck';
 import usuariosReducer from '@redux/usuariosDuck';
 import regionesReducer from '@redux/regionesDuck';
 import comunasReducer from '@redux/comunasDuck';
+import rolesReducer from '@redux/rolesDuck';
 
 //Declaración de Reducers
 const rootReducer = combineReducers({
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
 	empresas: empresasReducer,
 	usuarios: usuariosReducer,
 	regiones: regionesReducer,
-	comunas: comunasReducer
+	comunas: comunasReducer,
+	roles: rolesReducer
 });
 
 // Store de App

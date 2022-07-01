@@ -4,7 +4,8 @@
  */
 import React, { useState, useRouter, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useNavigate, Outlet } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import Switch from 'react-switch';
 
 // Componentes externo
 // import BootstrapSwitchButton from 'bootstrap-switch-button-react';
@@ -50,7 +51,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	const navigate = useNavigate(); // Navegador de Pagina
 
 	// Manejo de Checkbox
-	const [isCheckActiva, setIsCheckActiva] = useState(false);
+	const [isCheckActiva, setIsCheckActiva] = useState(true);
 	const [isCheckGestion, setIsCheckGestion] = useState(false);
 	// const [isCheck, setIsCheck] = useState(false);
 	// const [isCheck, setIsCheck] = useState(false);
@@ -136,13 +137,16 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	};
 
 	const handleChange = (e) => {
-		// console.log(e)
-		const target = e.target;
-		const value = target.type === 'checkbox' ? target.checked : target.value;;
-		const name = target.name;
-		
-		setForm({  ...form, [name]: value });
-		// console.log(form);
+		if(e == typeof boolean) {
+			setForm({...form, 'activa': isCheckActiva});
+			return;
+		}else {
+			const target = e.target;
+			const value = (target.type === 'checkbox' ? target.checked : target.value);
+			const name = target.name;
+			setForm({  ...form, [name]: value });
+		}
+		console.log(form);
 	};
 
 	const handleSubmit = (e) => {
@@ -188,23 +192,23 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 
 					<div className='col-sm-4'>
 						<div className='form-group'>
-							{/* <BootstrapSwitchButton
-								name='activa'
-								checked={true}
-								// value={true}
-								onlabel={txt.onlabel}
-								onstyle='success'
-								offlabel={txt.offlabel}
-								offstyle='danger'
-								size='sm'
-								style='w-100 float-sm-right'
-								onChange={(checked) => {
-									setForm({...form, activa: !checked })
+							<label htmlFor='react-switch'>Activa</label>
+							<Switch
+								className='react-switch'
+								id='small-radius-switch'
+								onChange={(e) => {
+									setIsCheckActiva(!isCheckActiva)		
+									handleChange(e)
 								}}
-								// onChange={handleChange}
-							/> */}
-
-							
+								checked={isCheckActiva}
+								// required
+								height={40}
+    						width={70}
+								borderRadius={6}
+    						activeBoxShadow='0px 0px 1px 2px #fffc35'
+								
+							/>
+   
 						</div>
 						<div className=' form-group'>
 							<h3 className='mt-5 mb-3 text-md'>{txt.titleSeccionModulo}</h3>
@@ -215,7 +219,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 									name='moduloGestion' 
 									id='moduloGestion' 
 									onChange={handleChange} 
-									value={form.moduloGestion}
+									defaultChecked={form.moduloGestion}
 								/>	
 								<label htmlFor='moduloGestion'>{txt.lblGestion}</label>
 							</div>
@@ -225,33 +229,45 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 								name='moduloContabilidad' 
 								id='moduloContabilidad' 
 								onChange={handleChange} 
-								value={form.moduloContabilidad}
+								defaultChecked={form.moduloContabilidad}
 								/>	
 								<label htmlFor='moduloContabilidad'>{txt.lblContabilidad}</label>
 							</div>
 							<div className='icheck-pumpkin'>
 								<input 
-								type='checkbox' name='moduloInventario' id='moduloInventario' onChange={handleChange} value={form.moduloInventario} />
+									type='checkbox'
+									name='moduloInventario'
+									id='moduloInventario'
+									onChange={handleChange}
+									defaultChecked={form.moduloInventario} 
+								/>
 								<label htmlFor='moduloInventario'>{txt.lblInventario}</label>
 							</div>
 								<div className='icheck-pumpkin'>
-								<input type='checkbox' name='moduloInventarioMovil' id='moduloInventarioMovil' onChange={handleChange} value={form.moduloInventarioMovil}  />
+								<input type='checkbox'
+									name='moduloInventarioMovil'
+									id='moduloInventarioMovil'
+									onChange={handleChange} 
+									defaultChecked={form.moduloInventarioMovil} 
+								/>
 								<label htmlFor='moduloInventarioMovil'>{txt.lblInventarioMovil}</label>
 							</div>
 						</div>
 					</div>
-					{ !formNewEmpresa && <input type='hidden' name='direccionId' value={form.direccionId}  /> }
+					{ !formNewEmpresa && <input type='hidden' name='direccionId' value={form.direccionId} /> }
 				</div>
 			</Card>
 
 			<Card style='card-default ' haveTitle={true} title={txt.subTitleSeccionDireccion} > 
 				<div className='row'>
 					<div className='col-md-12'>
+
 						<div className='form-group'>
 							<label>{txt.selectRegion}</label>
 									<select
 										name='regionId' 
-										className='form-control select2' 
+										className='form-control select2'
+										// { !formNewEmpresa && onload={}}
 										onChange={handleChange}
 										onClick={(e) => {
 											const target = e.target; // Dropdown completo

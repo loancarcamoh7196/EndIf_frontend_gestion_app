@@ -27,7 +27,7 @@ const EmpresaTable = ({data}) => {
     bDestroy: true,
     processing: true,
     serverSide: false,
-    fixedHeader: true,
+    fixedHeader: false,
     buttons: false
   }; // Opciones de la DataTable
 

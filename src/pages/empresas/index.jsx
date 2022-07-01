@@ -3,7 +3,6 @@
  */
 import React, { Fragment, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { NavLink, Link } from 'react-router-dom';
 
 //redux
@@ -12,7 +11,6 @@ import { getEmpresasAction, deleteEmpresaAction } from '@redux/empresasDuck';
 // Componentes
 import Layout from '@layouts/Main';
 import Table from '@components/EmpresaTable';
-
 import Card from '@common/Card';
 import Form from '@pages/empresas/new';
 
@@ -25,8 +23,6 @@ const Index = () => {
   const dispatch = useDispatch();
   
   useEffect(() => { dispatch(getEmpresasAction()) }, []);
-
-
   let empresas = useSelector((store) => store.empresas.list);
   // console.log('Empresas ', empresas);
 
@@ -41,9 +37,6 @@ const Index = () => {
 
         <div className='col-12 col-md-12 col-xl-12'>
           <Table data={empresas}  />
-
-
-          
         </div>
         </div>  
       </Card>
