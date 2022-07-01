@@ -49,7 +49,7 @@ const EmpresaTable = ({data}) => {
   // rellenar cuerpo de Tabla
   data.map((result) => {
     content.push(
-      <tr key={result.rut} id={`fil-${result.rut}`}>
+      <tr key={result.rut} >
         <td>{result.rut} </td>
         <td>{result.razonSocial}</td>
         <td>{result.giro}</td>
@@ -60,7 +60,7 @@ const EmpresaTable = ({data}) => {
         </td>
         <td> 
           <Link to={`/admin/empresas/${result.rut}/edit`} className='btn btn-xs btn-outline-warning btn-block' data-toggle='modal' data-target='#modal-primary'>
-            <i className='fa-solid fa-file-pen' />
+            <i className='fa-solid fa-file-pen'/>
           </Link>
           <br  />
           <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
@@ -70,19 +70,19 @@ const EmpresaTable = ({data}) => {
           </button>
         </td>
         <td>
-          {result.activa ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.activa ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
         <td>
-          {result.moduloGestion ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.moduloGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
         </td>
         <td>
-          {result.moduloContabilidad ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.moduloContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
         <td>
-          {result.moduloInventario ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.moduloInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
         <td>
-          {result.moduloInventarioMovil ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark btn-outline-danger' />}
+          {result.moduloInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
       </tr>
     )

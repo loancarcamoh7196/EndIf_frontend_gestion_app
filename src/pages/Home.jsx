@@ -7,9 +7,7 @@ const link = [{ nombre: 'Home', url: '/home'}];
 const Home = ({children}) => {
   return (
     <Layout title='Home' links={link}>
-      
-      
-
+      {children}
       <Outlet  />
     </Layout>
   );

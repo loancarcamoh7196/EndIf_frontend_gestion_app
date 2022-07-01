@@ -2,15 +2,16 @@
  * * Formulario de Companies - Empresas
  * ? Para agregar y Editar
  */
-import React, { useState, useRouter, Fragment, useEffect, useRef } from 'react';
+import { useState, useRouter, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import { universal, company } from '../utils/textModAdmin'
 import Switch from 'react-switch';
+import '@styles/Form.scss';
 
 // Componentes externo
 // import BootstrapSwitchButton from 'bootstrap-switch-button-react';
 import Card from '@common/Card';
-
 
 // Redux ~ Duck necesarios
 import { addEmpresaAction, updateEmpresaAction } from '@redux/empresasDuck';
@@ -53,9 +54,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	// Manejo de Checkbox
 	const [isCheckActiva, setIsCheckActiva] = useState(true);
 	const [isCheckGestion, setIsCheckGestion] = useState(false);
-	// const [isCheck, setIsCheck] = useState(false);
-	// const [isCheck, setIsCheck] = useState(false);
-	// const [isCheck, setIsCheck] = useState(false);
+
 
 
   const regiones = useSelector((store)=> store.regiones.res); //Valores para Select de Regiones
@@ -86,8 +85,6 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 		ciudad: empresaForm.ciudad
 	});
 	
-
-	// console.log(form)
 	/**
 	 * * Manejador de Actualizar Producto
 	 * @param {element} form campos formulario
@@ -157,32 +154,78 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	return (
 	<Fragment>
 		<form onSubmit={handleSubmit} >
-			<Card style='card-default' haveTitle={true} title={txt.subTitleSeccionEmpresa} > 
+			<Card style='card-default' haveTitle={true} title={company.title.secEmpresa}> 
 				<div className='row'>
 					<div className='col-sm-8'>
 						<div className='form-group'>
-							<label htmlFor='rut'>{txt.lblRut}</label>
-							<input type='text' className='form-control form-control-border' name='rut' placeholder='12345678' onChange={handleChange} value={form.rut} maxLength={13} />
+							<label htmlFor='rut'>{company.lbl.rut}</label>
+							<input 
+								type='text' 
+								className='form-control form-control-border' 
+								name='rut' 
+								placeholder={company.plhld.rut} 
+								onChange={handleChange} 
+								value={form.rut} 
+								maxLength={10} 
+								required
+								pattern='^\d{1,2}\d{3}\d{3}$'
+								title = 'El formato debe se 12123123'
+							/>
 						</div>
 
 						<div className='form-group'>
-							<label htmlFor='razonSocial'>{txt.lblRazonSocial}</label>
-							<input type='text' className='form-control form-control-border' name='razonSocial' placeholder='Razón Social' onChange={handleChange} value={form.razonSocial} />
+							<label htmlFor='razonSocial'>{company.lbl.razonSocial}</label>
+							<input
+								type='text'
+								className='form-control form-control-border'
+								name='razonSocial' 
+								placeholder={company.plhld.razonSocial}
+								onChange={handleChange} 
+								value={form.razonSocial}
+								maxLength={50}
+								required
+							/>
 						</div>
 
 						<div className='form-group'>
-							<label htmlFor='giro'>{txt.lblGiro}</label>
-							<input type='text' className='form-control form-control-border' name='giro' placeholder='Giro' onChange={handleChange} value={form.giro} />
+							<label htmlFor='giro'>{company.lbl.giro}</label>
+							<input
+								type='text'
+								className='form-control form-control-border'
+								name='giro'
+								placeholder={company.plhld.giro}
+								onChange={handleChange}
+								value={form.giro}
+								maxLength={50}
+							/>
 						</div>
 
 						<div className='form-group'>
-							<label htmlFor='fono'>{txt.lblFono}</label>
-							<input type='text' className='form-control form-control-border' name='fono' placeholder='Fono' onChange={handleChange} value={form.fono} />
+							<label htmlFor='fono'>{company.lbl.fono}</label>
+							<input 
+								type='text'
+								className='form-control form-control-border'
+								name='fono'
+								placeholder={company.plhld.fono}
+								onChange={handleChange}
+								value={form.fono}
+								maxLength={10}
+								required
+							/>
 						</div>
 
 						<div className='form-group'>
-							<label htmlFor='email'>{txt.lblEmail}</label>
-							<input type='email' className='form-control form-control-border' name='email' placeholder='Email' onChange={handleChange} value={form.email} />
+							<label htmlFor='email'>{company.lbl.email}</label>
+							<input
+							type='email'
+							className='form-control form-control-border'
+							name='email'
+							placeholder='Email'
+							onChange={handleChange}
+							value={form.email}
+							minLength={5}
+							maxLength={50}
+							/>
 						</div>
 
 						{/* <div className='form-group'>
@@ -206,12 +249,10 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
     						width={70}
 								borderRadius={6}
     						activeBoxShadow='0px 0px 1px 2px #fffc35'
-								
 							/>
-   
 						</div>
 						<div className=' form-group'>
-							<h3 className='mt-5 mb-3 text-md'>{txt.titleSeccionModulo}</h3>
+							<h3 className='mt-5 mb-3 text-md'>{company.title.secModulo}</h3>
 
 							<div className='icheck-pumpkin'>
 								<input 
@@ -258,54 +299,70 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 				</div>
 			</Card>
 
-			<Card style='card-default ' haveTitle={true} title={txt.subTitleSeccionDireccion} > 
+			<Card style='card-default' haveTitle={true} title={company.title.secModulo}> 
 				<div className='row'>
 					<div className='col-md-12'>
-
 						<div className='form-group'>
-							<label>{txt.selectRegion}</label>
-									<select
-										name='regionId' 
-										className='form-control select2'
-										// { !formNewEmpresa && onload={}}
-										onChange={handleChange}
-										onClick={(e) => {
-											const target = e.target; // Dropdown completo
-											const value = target.value; // Valor seleccionado
-											const name = target.name; //Nombre dropdown
+							<label>{company.lbl.region}</label>
+							<select
+								name='regionId' 
+								className='form-control select2'
+								// { !formNewEmpresa && onload={}}
+								onChange={handleChange}
+								onClick={(e) => {
+									const target = e.target; // Dropdown completo
+									const value = target.value; // Valor seleccionado
+									const name = target.name; //Nombre dropdown
 
-											let reg = regiones.filter( i=> i.id == value);
-											let region = reg[0];
-											let comunas = region.comunas;
-											let options = { regionId: parseInt(value), comunas: comunas };
-											dispatch(getComunasAction(options));
-										}}
-									>
-										<option disabled='disabled' selected={( !formNewEmpresa )&& 'selected'}> {txt.txtSelectRegion} </option>
-										{ (regiones.length > 0) && regiones.map((i) =>  <option value={i.id} selected={i.id === form.regionId && 'selected'}  >{i.nombre}</option>) }
-									</select>
+									let reg = regiones.filter( i=> i.id == value);
+									let region = reg[0];
+									let comunas = region.comunas;
+									let options = { regionId: parseInt(value), comunas: comunas };
+									dispatch(getComunasAction(options));
+								}}
+							>
+								<option disabled selected={(!formNewEmpresa)&& 'selected'}>{company.slct.region}</option>
+								{ (regiones.length > 0) && regiones.map((i) => <option value={i.id} selected={i.id === form.regionId && 'selected'}>{i.nombre}</option>) }
+							</select>
 						</div>
 
 						<div className='form-group' >
-						<label>{txt.txtSelectComuna}</label>
+						<label>{company.lbl.comuna}</label>
 							<select id='comunaId' name='comunaId' className='form-control select2 hidden' onChange={handleChange} >
-								<option disabled='disabled' selected={( !formNewEmpresa )&& 'selected'} > {txt.txtSelectComuna} </option>
-								{ (comunas.length > 0 )&& comunas.map((i)=> <option value={i.id} >{i.nombre}</option>) }
+								<option disabled selected={(!formNewEmpresa)&& 'selected'} >{company.slct.comuna}</option>
+								{(comunas.length > 0 )&& comunas.map((i)=> <option value={i.id} >{i.nombre}</option>)}
 							</select>
 						</div>
 					</div>	
 
 					<div className='col-6'>
 						<div className='form-group'>
-							<label>{txt.lblCalle}</label>
-							<input type='text' className='form-control form-control-border' name='calle' placeholder='Calle Ocho 585, of 207' onChange={handleChange} value={form.calle}/>
+							<label>{company.lbl.calle}</label>
+							<input
+								type='text'
+								className='form-control form-control-border'
+								name='calle'
+								placeholder={company.plhld.calle}
+								onChange={handleChange} 
+								value={form.calle}
+								required
+								maxLength={30}
+							/>
 						</div>
 					</div>
 
 					<div className='col-6'>
 						<div className='form-group'>
-							<label>{txt.lblCiudad}</label>
-							<input type='text' className='form-control form-control-border' name='ciudad' placeholder='Santiago' onChange={handleChange} value={form.ciudad} />
+							<label>{company.lbl.ciudad}</label>
+							<input
+								type='text'
+								className='form-control form-control-border'
+								name='ciudad'
+								placeholder={company.plhld.ciudad}
+								onChange={handleChange}
+								value={form.ciudad}
+								maxLength={30}
+							/>
 						</div>
 					</div>
 				</div>

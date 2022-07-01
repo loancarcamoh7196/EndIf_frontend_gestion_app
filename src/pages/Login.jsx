@@ -12,8 +12,6 @@ import Layout from '@layouts/Login';
 // import SiteIcon from '@icons/logoendif_old.png';
 
 const Login = () => {
-
-
 	return (
 		<Layout>
 			<div className='login-box'>

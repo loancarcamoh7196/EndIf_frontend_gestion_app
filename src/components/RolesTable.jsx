@@ -49,19 +49,19 @@ const EmpresaTable = ({data}) => {
         <td>{result.id} </td>
         <td>{result.nombre}</td>
         <td>
-          {result.accesoGestion ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
         </td>
         <td>
-          {result.accesoPv ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
         <td>
-          {result.accesoContabilidad ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
         <td>
-          {result.accesoInventario ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
         <td>
-          {result.accesoInventarioMovil ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
         </td>
         <td> 
           <Link to={`/admin/roles/${result.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>

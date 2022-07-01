@@ -9,14 +9,14 @@ import { NavLink, useLocation } from 'react-router-dom';
 ];
 */
 
-const Breadcrum = ({ key, title, links, haveLink=false }) => {
+const Breadcrum = ({ key='breadcrum ', title, links, haveLink=false }) => {
   // let location = useLocation();
 
   // console.log(links);
   // console.log(links.length);
   return (
     <Fragment>
-      <div className='content-header'>
+      <div className='content-header' id={key}>
         <div className='container-fluid'>
           <div className='row mb-2'>
             <div className='col-sm-6'>

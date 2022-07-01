@@ -52,7 +52,6 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 		accesoInventarioMovil: rolForm.accesoInventarioMovil
 	});
 	
-	
 	/**
 	 * * Manejador de Actualizar Rol
 	 * @param {element} form campos formulario
@@ -75,7 +74,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 	};
 
 	/** 
-	 * * Manejador para Agregar Producto
+	 * * Manejador para Agregar Rol
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
@@ -105,7 +104,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 
 	return (
     <Fragment>
-    <form onSubmit={handleSubmit} >
+    <form id='formulario' onSubmit={handleSubmit} >
       <Card style='card-default' haveTitle={false} title='prueba'> 
         <div className='row'>
           <div className='col-sm-7'>
@@ -126,10 +125,12 @@ export default function FormRol({ formNewRol = true, rolForm }) {
               <input 
                 type='text'
                 className='form-control form-control-border'
+                id='nombre'
                 name='nombre'
                 placeholder={role.plhld.nombre}
                 onChange={handleChange}
                 value={form.nombre}
+                describedby='nombreError'
                 maxLength={30} 
                 required
               />

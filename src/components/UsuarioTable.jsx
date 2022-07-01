@@ -52,16 +52,16 @@ const EmpresaTable = ({data}) => {
         </td>
         <td>{result.email}</td>
         <td>
-          {result.activo ? <i className='fa-solid fa-check' /> : <i className='fa-solid fa-xmark' />}
+          {result.activo ? <i className='fa-solid fa-check text-success' /> : <i className='fa-solid fa-xmark text-danger' />}
         </td>
         <td>
           {result.empresaRut}
         </td>
         <td> 
           <Link to={`/admin/usuarios/${result.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
-            <i className='fa-solid fa-file-pen' />
+            <i className='fa-solid fa-file-pen'/>
           </Link>
-          <br  />
+          <br />
           <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
             dispatch(deleteUsuarioAction({ id: result.id }));
           }}>

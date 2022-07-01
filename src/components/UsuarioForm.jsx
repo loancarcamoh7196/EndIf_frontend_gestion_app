@@ -244,6 +244,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
                 placeholder={user.lbl.porcentajeDcto}
                 onChange={handleChange}
                 value={form.porcentajeDcto}
+                min='1' max='100'
                 required
               />
             </div>

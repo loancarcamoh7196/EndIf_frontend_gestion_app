@@ -13,9 +13,48 @@ const universal = {
 };
 
 const company = {
-  lbl: { 
+  title: {
+    index: 'Empresa',
+    new: 'Agregar nueva empresa',
+    edit: 'Editar empresa',
+    secEmpresa: 'Configuración',
+    secModulo: 'Módulos',
   },
-  text: {}
+  lbl: { 
+    gestion: 'Gestión',
+    contabilidad: 'Contabilidad',
+    inventario: 'Inventario',
+    invMovil: 'Inventario Movil',
+    onActiva: 'Empresa Activa',
+    offActiva: 'Empresa Desactivada',
+    region: 'Region',
+    comuna: 'Comuna',
+    ciudad: 'Ciudad',
+    calle: 'Calle',
+    rut: 'RUT Empresa',
+    razonSocial: 'Razón Social',
+    fono: 'Fono de Contacto',
+    email: 'Email',
+    giro: 'Giro de la empresa'
+  },
+  btn: {
+    agregar: 'Agregar Empresa',
+    editar: 'Editar Empresa',
+  },
+  txt: {},
+  plhld: {
+    rut: '12345678',
+    razonSocial: 'Razón Social',
+    giro: 'Giro',
+    fono: '+56971717171',
+    calle: 'Calle Ocho 585, of 207',
+    ciudad: 'Santiago',
+  },
+  slct: {
+    region: 'Seleccione Región',
+    comuna: 'Seleccione Comuna',
+  },
+  lnk: {}
 };
 
 const user = {
@@ -86,4 +125,4 @@ module.exports = {
   company,
   user,
   role
-}; 
+};
