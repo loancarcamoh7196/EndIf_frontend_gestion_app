@@ -37,8 +37,8 @@ const App = () => {
           <Route exact path="/admin/empresas" element={<EmpresaIndex />} />
           <Route exact path="/admin/empresas/new" element={<EmpresaNew />} />
           <Route exact path='/admin/empresas/:rut/edit' element={<EmpresaEdit />} />
-          <Route exact path='/admin/empresas/:rut/delete' />
-            {/* <Route path="invoices" element={<Invoices />} /> */}
+          {/* <Route exact path='/admin/empresas/:rut/delete' element={<EmpresaDelete />} /> */}
+          {/* <Route path="invoices" element={<Invoices />} /> */}
           <Route exact path='/admin/usuarios' element={<UsuarioIndex  />} />
           <Route exact path='/admin/usuarios/new' element={<UsuarioNew  />} />
           <Route exact path='/admin/usuarios/:id/edit' element={<UsuarioEdit  />} />

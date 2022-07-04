@@ -25,7 +25,7 @@ const Login = () => {
 
 						<form action='/' method='post'>
 							<div className='input-group mb-3'>
-								<input type='email' className='form-control' placeholder='Usuario' />
+								<input type='email' className='form-control' placeholder='Usuario' autocomplete="on" />
 								<div className='input-group-append'>
 									<div className='input-group-text'>
 										<span className='fas fa-envelope'></span>
@@ -33,7 +33,7 @@ const Login = () => {
 								</div>
 							</div>
 							<div className='input-group mb-3'>
-								<input type='password' className='form-control' placeholder='Contraseña' />
+								<input type='password' className='form-control' placeholder='Contraseña' autocomplete="on" />
 								<div className='input-group-append'>
 									<div className='input-group-text'>
 										<span className='fas fa-lock'></span>
@@ -56,9 +56,6 @@ const Login = () => {
 								
 							</div>
 						</form>
-
-					
-						
 
 						<p className='mb-1'>
 							<a href='forgot-password.html'>Olvide mi contraseña</a>
