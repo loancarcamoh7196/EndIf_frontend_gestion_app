@@ -164,7 +164,6 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 		formNewEmpresa ? postData(form) : putData(form);
 	};
 
-	console.log(comunas);
 	return (
 	<Fragment>
 	<form onSubmit={handleSubmit} >
