@@ -129,11 +129,16 @@ export const updateEmpresaAction = (options) => async (dispatch, getState) => {
   console.log('Dir UPD: ', direccion);
 
   const api = endPoints.empresas.update(rut); // URL API
+  const direccionApi = endPoints.direcciones.update(); // URL API para direccion
   // console.log(body);
   try {
     const res = await axios.patch(api, empresa);
-    // const info = await axios.get(endPoints.empresas.list());
     let newList = getState().empresas.list.map((e) =>  e.rut === rut ? res.data : e );
+
+    if(Object.keys(direccion).length !== 0){
+      const dir = await axios.patch(direccionApi, direccion);
+      toast.success('Dirección Actualizada', {...toastOptions});
+    }
     // console.log('Nue  lisat: ', newList)
     toast.success(`La empresa con RUT: ${rut} ha sido actualizada existosamente.`, {...toastOptions});
     dispatch({ type: EMPRESA_UPDATE, payload: newList });

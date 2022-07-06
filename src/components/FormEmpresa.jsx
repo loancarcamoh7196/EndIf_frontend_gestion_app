@@ -75,7 +75,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 
 	const validacion = (campo) => {
 		const regex = /^(\d{1,2}(\d{3}){2}-[\dkK])$/;
-		const _fono = /^(\+?56)?(\s?)[98765432]\d{8}$/;
+		const _fono = /^(\+?56)?(\s?)[98765432]\d{8}$/mg;
 		const _email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 		// console.log(campo)
 
@@ -111,8 +111,10 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 		try {
 			// console.log('Entro update');
 			const { rut, razonSocial, giro, fono, email, logo, activa, moduloGestion, moduloContabilidad, moduloInventario, moduloInventarioMovil, direccionId, regionId, comunaId, calle, ciudad } = form;
-			let dir = { comunaId, calle, ciudad };
+			let dir = {};
 			let emp = { razonSocial, giro, fono, email, logo, activa, moduloGestion, moduloContabilidad, moduloInventario, moduloInventarioMovil, direccionId };
+			if (changeDireccion) dir = { comunaId, calle, ciudad };
+
 			const options = { rutAnt, empresa: emp , direccion: dir };
 			dispatch(updateEmpresaAction(options));
 			navigate('/admin/empresas');
@@ -181,7 +183,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 							value={form.rut} 
 							maxLength={10} 
 							required
-							// disabled={formNewEmpresa ? false : true}
+							disabled={formNewEmpresa ? false : true}
 							onBlur={(e) => { validacion({nombre: 'rut', valor: e.target.value}) }}
 						/>
 						{!validation.rut && <span className='text-danger'>{company.txt.valRut}</span>}
@@ -408,14 +410,12 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 						</div>
 					</div>
 				</div>
-
-				<div className='col-12 mt-5'>
-					<input type={'submit'} className='btn btn-outline-success btn-block' value={formNewEmpresa ? company.btn.agregar : company.btn.editar}  />
-					<Link to='/admin/empresas' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
-				</div>
 			</Card>
 		}
-		
+		<div className='col-12 mt-5'>
+			<input type='submit' className='btn btn-outline-success btn-block' value={formNewEmpresa ? company.btn.agregar : company.btn.editar}/>
+			<Link to='/admin/empresas' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
+		</div>
 	</form>
 	</Fragment>
 	);
