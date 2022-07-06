@@ -37,7 +37,6 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 		}
   }, []);
 
-
 	// Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
 		rut: empresaForm.rut,
@@ -81,7 +80,6 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 
 		if (campo.nombre === 'rut') {
 			(campo.valor.length > 0 && campo.valor.length <=10 && regex.test(campo.valor)) ? setValidation({...validation, rut: true}) : setValidation({...validation, rut: false});
-			console.log(validation.rut);
 		}else if (campo.nombre === 'razonSocial' ){
 			(campo.valor.length >= 3 && campo.valor.length <=30 ) ? setValidation({...validation, razonSocial: true}) : setValidation({...validation, razonSocial: false});
 		}else if (campo.nombre === 'giro') {
@@ -99,23 +97,22 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	}
 
 	/**
-	 * * Manejador de Actualizar Producto
+	 * * Manejador de Actualizar Empresa
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => {
 		// console.log('Entro en Editar')
 		const rutAnt = params.rut; // Extraes ID de URL
+		// console.log(rutAnt);
 		// delete form.rut;
 		// console.log('datos act: ',form);
-
 		try {
 			// console.log('Entro update');
-			const { rut, razonSocial, giro, fono, email, logo, activa, moduloGestion, moduloContabilidad, moduloInventario, moduloInventarioMovil, direccionId, regionId, comunaId, calle, ciudad } = form;
+			const { rut, razonSocial, giro, fono, email, logo, activa, moduloGestion, moduloContabilidad, moduloInventario, moduloInventarioMovil, direccionId, comunaId, calle, ciudad } = form;
 			let dir = {};
 			let emp = { razonSocial, giro, fono, email, logo, activa, moduloGestion, moduloContabilidad, moduloInventario, moduloInventarioMovil, direccionId };
-			if (changeDireccion) dir = { comunaId, calle, ciudad };
-
-			const options = { rutAnt, empresa: emp , direccion: dir };
+			if (changeDireccion) dir = { id: direccionId, comunaId, calle, ciudad };
+			const options = { rut: rutAnt, empresa: emp , direccion: dir };
 			dispatch(updateEmpresaAction(options));
 			navigate('/admin/empresas');
 		} catch (error) {
@@ -126,7 +123,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	};
 
 	/** 
-	 * * Manejador para Agregar Producto
+	 * * Manejador para Agregar Empresa
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
@@ -158,7 +155,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 			setForm({  ...form, [name]: value });
 		}
 		validacion(form);
-		console.log(form);
+		// console.log(form);
 	};
 
 	const handleSubmit = (e) => {
@@ -285,6 +282,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 								id='moduloGestion' 
 								onChange={handleChange} 
 								defaultChecked={form.moduloGestion}
+								value={form.moduloGestion}
 							/>	
 							<label htmlFor='moduloGestion'>{company.lbl.gestion}</label>
 						</div>

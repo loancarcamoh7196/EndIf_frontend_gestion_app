@@ -124,23 +124,28 @@ export const addEmpresaAction = (options) => async (dispatch, getState) => {
 
 export const updateEmpresaAction = (options) => async (dispatch, getState) => {
   const { rut, empresa, direccion } = options; // Opciones para solicitud a  API
-  console.log('RUT Update:', rut);
-  console.log('Empresa UPD: ', empresa);
-  console.log('Dir UPD: ', direccion);
-
+  // console.log('RUT Update:', rut);
+  // console.log('Empresa UPD: ', empresa);
+  // console.log('Dir UPD: ', direccion);
   const api = endPoints.empresas.update(rut); // URL API
-  const direccionApi = endPoints.direcciones.update(); // URL API para direccion
   // console.log(body);
   try {
     const res = await axios.patch(api, empresa);
     let newList = getState().empresas.list.map((e) =>  e.rut === rut ? res.data : e );
-
-    if(Object.keys(direccion).length !== 0){
-      const dir = await axios.patch(direccionApi, direccion);
-      toast.success('Dirección Actualizada', {...toastOptions});
-    }
     // console.log('Nue  lisat: ', newList)
     toast.success(`La empresa con RUT: ${rut} ha sido actualizada existosamente.`, {...toastOptions});
+    
+    if(Object.keys(direccion).length !== 0){
+      try {
+        const direccionApi = endPoints.direcciones.update(direccion.id); // URL API para direccion
+        delete direccion.id; // quitar Id de datos actualizar
+        const dir = await axios.patch(direccionApi, direccion);
+        toast.success('Dirección Actualizada', {...toastOptions});
+        } catch (error) {
+        toast.error(`La direccion de la empresa ${rut}, no se ha podido actualizar.`, toastOptions);
+      }
+    }
+    
     dispatch({ type: EMPRESA_UPDATE, payload: newList });
   } catch (error) {
     // console.log(error);
