@@ -1,4 +1,9 @@
-// @import '../../node_modules/bootstrap/scss/bootstrap.scss';
-// @import '../../node_modules/bootstrap/scss/functions';
-// @import '../../node_modules/admin-lte/build/scss/adminlte.scss';
-// @import '../../node_modules/admin-lte/dist/css/adminlte.css';
+/* // @import '../../node_modules/bootstrap/scss/bootstrap.scss'; */
+/* // @import '../../node_modules/bootstrap/scss/functions'; */
+/* // @import '../../node_modules/admin-lte/build/scss/adminlte.scss'; */
+/* // @import '../../node_modules/admin-lte/dist/css/adminlte.css'; */
+
+
+.hidden {
+  display: none;
+}

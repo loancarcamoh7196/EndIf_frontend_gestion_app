@@ -19,12 +19,14 @@ const company = {
     edit: 'Editar empresa',
     secEmpresa: 'Configuración',
     secModulo: 'Módulos',
+    secDireccion: 'Dirección',
   },
   lbl: { 
     gestion: 'Gestión',
     contabilidad: 'Contabilidad',
     inventario: 'Inventario',
     invMovil: 'Inventario Movil',
+    activa: 'Activa',
     onActiva: 'Empresa Activa',
     offActiva: 'Empresa Desactivada',
     region: 'Region',
@@ -35,13 +37,24 @@ const company = {
     razonSocial: 'Razón Social',
     fono: 'Fono de Contacto',
     email: 'Email',
-    giro: 'Giro de la empresa'
+    giro: 'Giro de la empresa',
+    changeDireccion: 'Deseas cambiar dirección?'
   },
   btn: {
     agregar: 'Agregar Empresa',
     editar: 'Editar Empresa',
   },
-  txt: {},
+  txt: {
+    valRut: '*Campo obligatorio. Formato permitido de RUT: 79456456-k.',
+    valRazonSocial: '*Campo obligatorio, con al menos 3 caracteres.',
+    valGiro: '*Campo obligatorio, con al menos 3 caracteres.',
+    valFono: '*Campo obligatorio. Ejemplo +56999333888 o 27371918 ',
+    valEmail: '*Campo obligatorio. Ejemplo: alguien@algunlugar.es ',
+    valRegion: '*Campo obligatorio',
+    valComuna: '*Campo obligatorio',
+    valCalle: '*Campo obligatorio',
+    valCiudad: '*Campo obligatorio'
+  },
   plhld: {
     rut: '12345678',
     razonSocial: 'Razón Social',

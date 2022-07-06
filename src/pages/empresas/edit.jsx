@@ -3,7 +3,7 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
 import axios from 'axios';
-import { usuario } from '../../utils/textModAdmin'
+import { company } from '../../utils/textModAdmin'
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';
@@ -53,7 +53,7 @@ const Edit = () => {
   };
 
   return (
-    <Layout title={empresa.title.editar} links={link} haveLink={true}>
+    <Layout title={company.title.edit} links={link} haveLink={true}>
 			<Form empresaForm={empresaForm} formNewEmpresa={false} />
 		</Layout>
   )

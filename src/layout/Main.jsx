@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import '../../node_modules/jquery/dist/jquery.min.js'
 // Toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Menu from '@containers/Menu';
 import Header from '@common/Breadcrum';
 import Footer from '@common/Footer';
+import '@styles/Global.css';
 
 const Main = ({ children, breadKey='Bread',title='Default', links, haveLink=false }) => {
   const element = document.querySelector('#body');
