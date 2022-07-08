@@ -55,7 +55,7 @@ const EmpresaTable = ({data}) => {
           {result.activo ? <i className='fa-solid fa-check text-success' /> : <i className='fa-solid fa-xmark text-danger' />}
         </td>
         <td>
-          {result.empresaRut}
+          {result.empresaRut}<br/>{result.empresa.razonSocial}
         </td>
         <td> 
           <Link to={`/admin/usuarios/${result.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>

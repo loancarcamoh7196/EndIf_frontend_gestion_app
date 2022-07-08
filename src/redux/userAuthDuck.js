@@ -9,12 +9,12 @@ const dataInicial = {
   activo: false,
   token: null,
 	isAdmin: false,
-	result: [],
+	info: [],
 }
 
 const toastOptions = {
-	position: "top-right",
-	autoClose: 3000,
+	position: 'top-right',
+	autoClose: 8000,
 	hideProgressBar: false,
 	closeOnClick: true,
 	pauseOnHover: true,
@@ -35,11 +35,11 @@ export default function userAuthReducer(state = dataInicial, action) {
     case LOADING:
       return {...state, loading: true}
     case USER_ERROR:
-      return {...dataInicial, activo: false}
+      return {...state, activo: false}
     case USER_SUCCESS:
-      return  {...state, result: action.payload.result, token: action.payload.token, isAdmin: action.payload.isAdmin, loading: false, activo: true}
+      return  {...state, info: action.payload.info, token: action.payload.token, isAdmin: action.payload.isAdmin, loading: false, activo: true}
     case USER_LOGOUT:
-      return {...dataInicial}
+      return {...state}
     case USER_REFRESH:
       return {...state, token: action.payload	}
     default:
@@ -50,19 +50,17 @@ export default function userAuthReducer(state = dataInicial, action) {
 //Action
 export const loginUserAction = (options) => async (dispatch, getState) => {
 	const { body } = options; // Opciones para solicitud a  API
-	const api = endPoints.auth.login;
-	// dispatch({ type: LOADING });
-	
+	const api = endPoints.auth.login;	
+	dispatch({ type: LOADING });
 	try {
 		const res = await axios.post(api, body);
 		// console.log(res);
-		if (res.data.status !== 200 ) {
+		if (res.status !== 200 ) {
 			toast.error('No ha se ha podido iniciar sesión', { ...toastOptions });
 			dispatch({ type: USER_LOGOUT });
+			throw 'No ha se ha podido iniciar sesión';
 		};
-		// data necesaria
-		const { user, refreshToken, token } = res.data;
-	
+		const { user, refreshToken, token } = res.data; // data necesaria
 		// axios.defaults.withCredentials = true;
 		axios.defaults.headers.Authorization = `Bearer ${refreshToken}`;
 
@@ -70,37 +68,40 @@ export const loginUserAction = (options) => async (dispatch, getState) => {
 			'user',
 			JSON.stringify({
 				id: user.id,
-				empRut: user.emp_rut,
 				username: user.username,
 				token: user.token_acceso,
-				bdNombre: user.bd_nombre,
 				nombres: user.nombres,
-				apellidos: user.apellidos
+				apellidos: user.apellidos,
+				email: user.email,
+				porcentajeDcto: user.porcentajeDcto,
+				empresaRut: user.empresaRut,
+				activo: user.activo,
+				rolesId: user.rolesId
 			})
 		);
-
+		
 		toast.success('Inicio de Sesión Exitoso', { ...toastOptions });
 		// console.log(axios.defaults.headers.Authorization);
+		
 		dispatch({
 			type: USER_SUCCESS,
-			payload: { result: {
-				id: user.id,
-				empresaRut: user.empRut,
-				username: user.username,
-				token: user.token_acceso,
-				bdNombre: user.bd_nombre,
-				email: user.email,
-				superAdmin: user.superadmin,
-				nombres: user.nombres,
-				apellidos: user.apellidos
+			payload: { 	
+				info: {
+					id: user.id,
+					username: user.username,
+					nombres: user.nombres,
+					apellidos: user.apellidos,
+					email: user.email,
+					porcentajeDcto: user.porcentajeDcto,
+					empresaRut: user.empresaRut,
+					activo: user.activo,
+					rolesId: user.rolesId
 				},
 				token: refreshToken,
-				isAdmin: ( user.superadmin === 1 ? true : false )
+				isAdmin: ( user.rolesId === 1 ? true : false )
 			}
 		});
-
-		
-	} catch (error) {
+	} catch (error) {	
 		// console.log(error);
 		// let msg = error.data.body;
 		toast.error('No ha se ha podido iniciar sesión', { ...toastOptions });
@@ -121,8 +122,8 @@ export const refreshTokenAction = () => async(dispatch, getState) => {
 		const res = await axios.get(api);
 		// console.log(res.data.body);
 		axios.defaults.headers.Authorization = `Bearer ${res.data}`;
-		axiosToken = axios.defaults.headers.Authorization;
-		dispatch({ type: USER_REFRESH, payload: res.data.body, });
+		// axiosToken = axios.defaults.headers.Authorization;
+		dispatch({ type: USER_REFRESH, payload: res.data, });
 		// console.log(axiosToken);
 		// Cookie.set('jwt', res.data, { expires: 30 });
 	} catch (error) {
@@ -136,11 +137,11 @@ export const refreshTokenAction = () => async(dispatch, getState) => {
 };
 
 export const logoutUserAction = () => (dispatch) => {
-	dispatch({ type: USER_LOGOUT });
 	localStorage.removeItem('user');
 	axios.defaults.headers.Authorization = null;
 	Cookie.set('jwt', null);
 	toast.info('Se ha cerrado sesión', {...toastOptions});
+	dispatch({ type: USER_LOGOUT });
 };
 
 export const readUserAction = () => async (dispatch) => {
@@ -153,3 +154,4 @@ export const readUserAction = () => async (dispatch) => {
 		});
 	}
 };
+	

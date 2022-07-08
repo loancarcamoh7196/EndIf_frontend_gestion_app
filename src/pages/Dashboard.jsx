@@ -1,7 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { NavLink, Link, Outlet } from 'react-router-dom';
 import axios from 'axios';
-// import { useDispatch, useSelector, useStore } from 'react-redux';
+import useAuth from '@hooks/useAuth';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 
 // import { logoutUserAction } from '@redux/userAuthDuck';
 
@@ -9,6 +10,12 @@ import Layout from '@layouts/Main';
 import apiURL from '@services/api';
 
 const Dashboard = () => {
+  const user = useSelector(store => store.user.info);
+  const {login} = useAuth();
+  login(user);
+  
+  // console.log(useAuth());
+
   const body = {
     "nombre": "Prueba",
     "codigoInterno": "17",

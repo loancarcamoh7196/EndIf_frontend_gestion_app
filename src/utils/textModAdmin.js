@@ -91,7 +91,18 @@ const user = {
     agregar: 'Agregar Usuario',
     editar: 'Editar Usuario',
   },
-  txt: {},
+  txt: {
+    valUsername: '*Campo Requerido. Recuerda que esta permitidos solo caracteres especiales: _ .',
+    valPass: '*Campo Requerido',
+    valPass2: '*Campo Requerido',
+    valNombres: '*Campo Requerido, sin caracteres especiales.',
+    valApellidos: '*Campo Requerido, sin caracteres especiales.',
+    valEmail: '*Campo Requerido. Ejemplo: prueba@endif.cl',
+    valPorcentajeDcto: '*Campo Requerido. Recuerda que el porcentaje no puede ser mayor a 100',
+    valEmpresaRut: '*Campo Requerido',
+    valRoles: '*Campo Requerido',
+    valActivo: '*Campo Requerido',
+  },
   plhld: {
     username: 'user_name',
     pass: '*****',
@@ -125,7 +136,9 @@ const role = {
     agregar: 'Agregar Rol',
     editar: 'Editar Rol',
   },
-  txt: {},
+  txt: {
+    valNombre: '*Campo obligatorio, sin caracteres especiales.',
+  },
   plhld: {
     nombre: 'Encargado de Inventario'
   },

@@ -312,7 +312,7 @@
 label:not(.form-check-label):not(.custom-file-label) {
   font-weight: 700;
 }
-
+  
 .warning-feedback {
   font-size: 80%;
   color: #ffc107;

@@ -8,25 +8,27 @@ import 'datatables.net-fixedcolumns-bs4';
 import 'datatables.net-rowgroup-bs4';
 import 'datatables.net-scroller-bs4';
 import 'datatables.net-fixedheader-bs4';
-// import jszip from 'jszip';
+// import * as jszip from 'jszip';
 import 'pdfmake';
 import 'datatables.net-buttons-bs4';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import 'datatables.net-buttons/js/buttons.print.js';
-import pdfMake from "pdfmake/build/pdfmake";
-import pdfFonts from "pdfmake/build/vfs_fonts";
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+const jzip = require('jzip');
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+window.JSZip = jzip;
 
-const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true}) => {
-  const buttons = [ 'copy', 'csv', 'excel', 'pdf', 'print' ];
-  
+const DataTable = ({ id='table', data, encabezado, opciones, styleHeadDark=true, title='EndIf'}) => {
+  const buttons = ['copy', 'csv', 'excel', 'pdf', 'print'];
+
   useEffect(() => {
     // $(`#${id}`).DataTable({loading: false});
     $(`#${id}`).DataTable().destroy();
     $(`#${id}`).DataTable({
       language: {
-        'decimal': '',
+        'decimal': ',',
         'emptyTable': 'No hay información',
         'info': 'Mostrando _START_ a _END_ de _TOTAL_ Entradas',
         'infoEmpty': 'Mostrando 0 to 0 of 0 Entradas',
@@ -43,7 +45,8 @@ const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true})
           'last': 'Ultimo',
           'next': 'Siguiente',
           'previous': 'Anterior'
-        }
+        },
+        'buttons': { copy: 'Copiar', csv: 'CSV', excel: 'Excel', pdf: 'PDF', 'print': 'Imprimir'}
       },
       loading: opciones.loading,
       destroy: opciones.destroy,
@@ -60,10 +63,9 @@ const DataTable = ({id='table', data, encabezado, opciones, styleHeadDark=true})
       serverSide: opciones.serverSide,
       fixedHeader: opciones.fixedHeader,
       dom: 'Bfrtip',
-      buttons:( opciones.buttons && buttons)
-      
+      buttons:( opciones.buttons && buttons),
     })
-  }, []);
+  }, [1000]);
 
   return (
     <div className='table-responsive'>

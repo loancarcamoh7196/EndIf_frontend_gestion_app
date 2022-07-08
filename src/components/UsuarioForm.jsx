@@ -40,6 +40,45 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
   const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
 	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
 
+  const [validation, setValidation] = useState({
+		username: true,
+		pass: true,
+    pass2: true,
+		nombres: true,
+		apellidos: true,
+		email: true,   
+		porcentajeDcto: true,
+		empresaRut: true,
+		rolesId: true,
+		activo: true
+	});
+
+	const validacion = (campo) => {
+		const _rut = /^(\d{1,2}(\d{3}){2}-[\dkK])$/;
+		const _fono = /^(\+?56)?(\s?)[98765432]\d{8}$/mg;
+		const _email = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+    const _username = /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/mg;
+    const _names = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
+    const _pass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$/gm;
+
+		// console.log(campo);
+    console.log(validation);
+
+		if (campo.nombre === 'username') {
+			(campo.valor.length > 0 && campo.valor.length <=30 && _username.test(campo.valor)) ? setValidation({...validation, username: true}) : setValidation({...validation, username: false});
+		}else if (campo.nombre === 'nombres' ){
+			(campo.valor.length >= 3 && campo.valor.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, nombres: true}) : setValidation({...validation, nombres: false});
+		}else if ((campo.nombre === 'pass' && _pass.test(campo.valor)) || (campo.nombre === 'pass2' && _pass.test(campo.valor))) {
+			(campo.valor.length >= 5 && campo.valor.length <=50 ) ? setValidation({...validation, pass: true, pass2: true}) : setValidation({...validation, pass: false, pass2: false});
+		}else if (campo.nombre === 'apellidos'){
+			(campo.valor.length <=20 && _names.test(campo.valor)) ? setValidation({...validation, apellidos: true}) : setValidation({...validation, apellidos: false});
+		}else if (campo.nombre === 'email'){
+			(campo.valor.length <=50 && _email.test(campo.valor)) ? setValidation({...validation, email: true}) : setValidation({...validation, email: false});
+		}else if (campo.nombre === 'porcentajeDcto' && campo.valor <=100 ){  
+			(campo.valor.length <=3) ? setValidation({...validation, porcentajeDcto: true}) : setValidation({...validation, porcentajeDcto: false});
+		}else  return false;
+	}
+
   // ejecucion de metodo al renderizar pagina
   useEffect(() => { 
     dispatch(getEmpresasAction()); // Recupera al cargar datos de empresas
@@ -86,6 +125,8 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
       }
       const valPass = validarPassword(form.pass, form.pass2);
       if(!valPass) return;
+
+      validation.map(e => console.log(e));
 
 			const options = { id, body: form };
 			dispatch(updateUsuarioAction(options));
@@ -143,16 +184,18 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
               <label htmlFor='username'>{user.lbl.username}</label>
               <input 
                 type='text'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.username && 'is-invalid'}`} 
                 name='username'
                 placeholder={user.plhld.username}
                 onChange={handleChange}
                 value={form.username}
                 maxLength={30} 
                 required
+                onBlur={(e) => { validacion({nombre: 'username', valor: e.target.value}) }}
               />
+              {!validation.username && <span className='text-danger'>{user.txt.valUsername}</span>}
             </div>
-          {(!formNewUsuario) && 
+          {(!formNewUsuario) &&  // Opcion modificar contraseña, para editar
             <div className='form-group'>
               <div className='icheck-pumpkin'>
                 <input 
@@ -172,25 +215,29 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
               <label htmlFor='pass'>{user.lbl.pass}</label>
               <input 
                 type='password'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.pass && 'is-invalid'}`} 
                 name='pass'
                 placeholder={user.plhld.pass}
                 onChange={handleChange}
                 value={form.pass}
                 required
+                onBlur={(e) => { validacion({nombre: 'pass', valor: e.target.value}) }}
               />
+              {!validation.pass && <span className='text-danger'>{user.txt.valPass}</span>}
             </div>
             <div className='form-group'>
               <label htmlFor='pass2'>{user.lbl.pass2}</label>
               <input 
                 type='password'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.pass2 && 'is-invalid'}`} 
                 name='pass2'
                 placeholder={user.plhld.pass}
                 onChange={handleChange}
-                value={form.pass2}
+                value={form.pass2}                                          
                 required
+                onBlur={(e) => { validacion({nombre: 'pass2', valor: e.target.value}) }}
               />
+              {!validation.pass2 && <span className='text-danger'>{user.txt.valPass2}</span>}
             </div>
             </Fragment>
           }  
@@ -201,52 +248,60 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
               <label htmlFor='nombres'>{user.lbl.nombres}</label>
               <input
                 type='text'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.nombres && 'is-invalid'}`} 
                 name='nombres'
                 placeholder={user.plhld.nombres}
                 onChange={handleChange}
                 value={form.nombres}
                 required
+                onBlur={(e) => { validacion({nombre: 'nombres', valor: e.target.value}) }}
               />
+              {!validation.nombres && <span className='text-danger'>{user.txt.valNombres}</span>}
             </div>
 
             <div className='form-group'>
               <label htmlFor='apellidos'>{user.lbl.apellidos}</label>
               <input
                 type='text'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.apellidos && 'is-invalid'}`} 
                 name='apellidos'
                 placeholder={user.plhld.apellidos}
                 onChange={handleChange}
                 value={form.apellidos}
                 required
+                onBlur={(e) => { validacion({nombre: 'apellidos', valor: e.target.value}) }}
               />
+              {!validation.apellidos && <span className='text-danger'>{user.txt.valApellidos}</span>}
             </div>
 
             <div className='form-group'>
               <label htmlFor='email'>{user.lbl.email}</label>
               <input
                 type='email'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.email && 'is-invalid'}`} 
                 name='email'
                 placeholder={user.plhld.email}
                 onChange={handleChange}
                 value={form.email}
+                onBlur={(e) => { validacion({nombre: 'email', valor: e.target.value}) }}
               />
+              {!validation.email && <span className='text-danger'>{user.txt.valEmail}</span>}
             </div>
 
             <div className='form-group'>
               <label htmlFor='porcentajeDcto'>{user.lbl.porcentajeDcto}</label>
               <input
                 type='number'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.porcentajeDcto && 'is-invalid'}`} 
                 name='porcentajeDcto'
                 placeholder={user.lbl.porcentajeDcto}
                 onChange={handleChange}
                 value={form.porcentajeDcto}
                 min='1' max='100'
                 required
+                onBlur={(e) => { validacion({nombre: 'porcentajeDcto', valor: e.target.value}) }}
               />
+              {!validation.porcentajeDcto && <span className='text-danger'>{user.txt.valPorcentajeDcto}</span>}
             </div>
           </div>
           <div className='col-sm-12'>
@@ -288,7 +343,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
               <select
                 id='rolesId'
                 name='rolesId'
-                className='form-control select2 hidden'
+                className='form-control select2'
                 onChange={handleChange} 
                 required
               >

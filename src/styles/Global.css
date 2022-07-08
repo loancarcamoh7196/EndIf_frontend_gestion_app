@@ -7,3 +7,13 @@
 .hidden {
   display: none;
 }
+
+.dropdown-dark{
+  font-weight: bold;
+  background-color: bisque;
+}
+.dropdown-dark:hover{
+  background-color: #fd7e14;
+  border-color: #aa4e01;
+  color: white;
+}

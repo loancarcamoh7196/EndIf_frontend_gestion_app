@@ -1,8 +1,9 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '@styles/404.scss';
 
 export default function NotFound(){
+  const navigate = useNavigate();
   return (
 		<Fragment>
       <div id='notfound'>
@@ -15,7 +16,8 @@ export default function NotFound(){
           </div>
           <p>
             La página que estas buscando no existe o no se encuentra disponible. <br></br>
-            <Link to='/'>Volver</Link>
+            {/* <Link to='/'>Volver</Link> */}
+            <button className='btn btn-outline-danger' onClick={() => navigate(-1)}>Volver</button>
           </p>
         </div>
       </div>

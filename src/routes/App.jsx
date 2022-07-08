@@ -1,5 +1,5 @@
 /** 
- * * Archivo de configuracion de rutas
+ ** Archivo de configuracion de rutas
 */
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
@@ -54,4 +54,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App; 

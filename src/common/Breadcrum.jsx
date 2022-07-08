@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 
 /*
   Ejemplo de contenido de parametro links

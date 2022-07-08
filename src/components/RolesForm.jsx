@@ -41,6 +41,19 @@ export default function FormRol({ formNewRol = true, rolForm }) {
   // ejecucion de metodo al renderizar pagina
   // useEffect(() => { }, []);
 
+  const [validation, setValidation] = useState({
+		nombre: true
+	});
+
+	const validacion = (campo) => {
+		const _names = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
+		// console.log(campo)
+
+		if (campo.nombre === 'nombre') {
+			(campo.valor.length >=4 && campo.valor.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, nombre: true}) : setValidation({...validation, nombre: false});
+		} else  return false;
+	}
+
 	// Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
     id: rolForm.id,
@@ -124,7 +137,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
               <label htmlFor='nombre'>{role.lbl.nombre}</label>
               <input 
                 type='text'
-                className='form-control form-control-border'
+                className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
                 id='nombre'
                 name='nombre'
                 placeholder={role.plhld.nombre}
@@ -133,7 +146,9 @@ export default function FormRol({ formNewRol = true, rolForm }) {
                 describedby='nombreError'
                 maxLength={30} 
                 required
+                onBlur={(e) => { validacion({nombre: 'nombre', valor: e.target.value}) }}
               />
+              {!validation.nombre && <span className='text-danger'>{role.txt.valNombre}</span>}
             </div>
           </div>
           <div className='col-sm-5'>

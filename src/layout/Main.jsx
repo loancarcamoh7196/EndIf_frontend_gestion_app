@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 // Toastify
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -26,7 +26,6 @@ const Main = ({ children, breadKey='Bread',title='Default', links, haveLink=fals
           </section>
         </div>
         <Footer  />
-        
         <ToastContainer />
       </div>
     </Fragment>
