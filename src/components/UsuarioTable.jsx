@@ -14,7 +14,7 @@ const EmpresaTable = ({data}) => {
   let encabezado = []; // Contenedor encabezado de la tabla
 
   const options = {
-    responsive: true,
+    responsive: false,
     loading: true,
     destroy: true,
     paging: true,

@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import Switch from 'react-switch';
+// import Switch from 'react-switch';
+// import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import endPoints from '@services/api';
 import { universal, user } from '../utils/textModAdmin';
 
@@ -83,10 +84,14 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
 		}else  return false;
 	}
 
+  const passRef = useRef(null);
+  const pass2Ref = useRef(null);
+
   // ejecucion de metodo al renderizar pagina
   useEffect(() => { 
     dispatch(getEmpresasAction()); // Recupera al cargar datos de empresas
     dispatch(getRolesAction()); // Recupera al cargar datos de roles
+    console.log(form.activo)
   }, []);
 
 	// Almacenamiento de Datos formulario
@@ -108,8 +113,8 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
     const isCorrect = (pass === pass2);
     if(!isCorrect){
       toast.error('Contraseña no coinciden',{...toastOptions});
-      // document.getElementsByName('pass').value = ''; 
-      // document.getElementsByName('pass2').value = ''; 
+      passRef.current.value = '';
+      pass2Ref.current.value = '';
     }else delete form.pass2
     return isCorrect;
   };
@@ -144,7 +149,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
       const valPass = validarPassword(form.pass, form.pass2);
       if(!valPass) return;
 
-      validation.map(e => console.log(e));
+      // validation.map(e => console.log(e));
 
 			const options = { id, body: form };
 			dispatch(updateUsuarioAction(options));
@@ -175,15 +180,17 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
 	};
 
 	const handleChange = (e) => {
-		if(e == typeof boolean) {
-			setForm({...form, 'activo': isCheckActiva});
-			return;
-		}else {
+		// if(e == typeof boolean) {
+		// 	setForm({...form, 'activo': isCheckActiva});
+		// 	return;
+		// }else {
+      // console.log(e);
 			const target = e.target;
 			const value = (target.type === 'checkbox' ? target.checked : target.value);
 			const name = target.name;
 			setForm({  ...form, [name]: value });
-		}
+		// }
+    console.log(value);
 		// console.log(form);
 	};
 
@@ -244,6 +251,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
                 value={form.pass}
                 required
                 onBlur={(e) => { validacion({nombre: 'pass', valor: e.target.value}) }}
+                ref={passRef}
               />
               {!validation.pass && <span className='text-danger'>{user.txt.valPass}</span>}
             </div>
@@ -258,6 +266,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
                 value={form.pass2}                                          
                 required
                 onBlur={(e) => { validacion({nombre: 'pass2', valor: e.target.value}) }}
+                ref={pass2Ref}
               />
               {!validation.pass2 && <span className='text-danger'>{user.txt.valPass2}</span>}
             </div>
@@ -328,21 +337,16 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
           </div>
           <div className='col-sm-12'>
             <div className='form-group'>
-              <label htmlFor='react-switch' className='mb-3 mr-2'>{user.lbl.activo}</label>
-              <Switch
-                className='react-switch'
-                id='small-radius-switch'
-                onChange={(e) => {
-                  setIsCheckActiva(!isCheckActiva)		
-                  handleChange(e)
-                }}
-                checked={isCheckActiva}
-                // required
-                height={40}
-                width={70}
-                borderRadius={6}
-                activeBoxShadow='0px 0px 1px 2px #fffc35'
-              />
+              <div className='custom-control custom-switch custom-switch-off-danger custom-switch-on-success'>
+                <input
+                  type='checkbox'
+                  className='custom-control-input '
+                  id='activo'
+                  name='activo'
+                  onChange={handleChange}
+                />
+                <label className='custom-control-label checkboxtext' for='activo'>{user.lbl.activo}</label>
+              </div>
             </div>
           </div> 
           <div className='col-md-6'>

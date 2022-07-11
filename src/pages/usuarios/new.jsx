@@ -24,10 +24,9 @@ export default function NewUsuario() {
 		apellidos: '',
 		email: '',
 		activo: true,
-		porcentajeDcto: false,
+		porcentajeDcto: 1,
 		empresaRut: '',
 		rolesId: 0,
-		activo: false
   };
 
   return (

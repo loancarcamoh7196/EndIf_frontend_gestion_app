@@ -7,7 +7,14 @@ const universal = {
     endif: 'EndIf',
     gestion: 'Gestión',
     inicieSession: 'Inicie Sesión',
-
+    dashboard: 'Dashboard',
+    admin: 'Administracion',
+    mantenedor: 'Gestión',
+    empresa: 'Empresas',
+    usuario: ' Usuarios',
+    roles: 'Roles',
+    producto: 'Productos',
+    tienda: 'Sucursales'
   },
   lbl: {
     usuario: 'Usuario',

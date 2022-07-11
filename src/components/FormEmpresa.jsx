@@ -145,15 +145,15 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	};
 
 	const handleChange = (e) => {
-		if(e == typeof boolean) {
-			setForm({...form, 'activa': isCheckActiva});
-			return;
-		}else {
+		// if(e == typeof boolean) {
+		// 	setForm({...form, 'activa': isCheckActiva});
+		// 	return;
+		// }else {
 			const target = e.target;
 			const value = (target.type === 'checkbox' ? target.checked : target.value);
 			const name = target.name;
 			setForm({  ...form, [name]: value });
-		}
+		// }
 		validacion(form);
 		// console.log(form);
 	};
@@ -256,21 +256,16 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 
 				<div className='col-sm-4'>
 					<div className='form-group'>
-						<label htmlFor='react-switch'>{company.lbl.activa}</label>
-						<Switch
-							className='react-switch'
-							id='small-radius-switch'
-							onChange={(e) => {
-								setIsCheckActiva(!isCheckActiva)		
-								handleChange(e)
-							}}
-							checked={isCheckActiva}
-							// required
-							height={40}
-							width={70}
-							borderRadius={6}
-							activeBoxShadow='0px 0px 1px 2px #fffc35'
-						/>
+						<div className='custom-control custom-switch custom-switch-off-danger custom-switch-on-success'>
+							<input
+								type='checkbox'
+								className='custom-control-input '
+								id='activa'
+								name='activa'
+								onChange={handleChange}
+							/>
+							<label className='custom-control-label checkboxtext' for='activa'>{company.lbl.activa}</label>
+						</div>
 					</div>
 					<div className=' form-group'>
 						<h3 className='mt-5 mb-3 text-md'>{company.title.secModulo}</h3>

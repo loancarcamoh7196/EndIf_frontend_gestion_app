@@ -42,7 +42,6 @@ const Edit = () => {
 		porcentajeDcto: usuario.porcentajeDcto,
 		empresaRut: usuario.empresaRut,
 		rolesId: usuario.rolesId,
-		activo: usuario.activo,
   };
 
   return (

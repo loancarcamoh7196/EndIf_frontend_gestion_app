@@ -3941,7 +3941,7 @@ input[type="button"].btn-block {
 
 .custom-switch .custom-control-label::before {
   left: -2.25rem;
-  width: 1.75rem;
+  width: 2.75rem;
   pointer-events: all;
   border-radius: 0.5rem;
 }
