@@ -93,6 +93,7 @@ const user = {
   },
   txt: {
     valUsername: '*Campo Requerido. Recuerda que esta permitidos solo caracteres especiales: _ .',
+    valUsername2: 'Este username no se encuentra disponible, favor de ingresar otro',
     valPass: '*Campo Requerido',
     valPass2: '*Campo Requerido',
     valNombres: '*Campo Requerido, sin caracteres especiales.',

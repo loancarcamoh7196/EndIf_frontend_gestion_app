@@ -26,7 +26,8 @@ export default function NewUsuario() {
 		activo: true,
 		porcentajeDcto: false,
 		empresaRut: '',
-		rolesId: 0
+		rolesId: 0,
+		activo: false
   };
 
   return (

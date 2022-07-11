@@ -5,8 +5,10 @@
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import Switch from 'react-switch';
+import endPoints from '@services/api';
 import { universal, user } from '../utils/textModAdmin';
 
 // Componentes propios
@@ -16,6 +18,7 @@ import Card from '@common/Card';
 import { addUsuarioAction, updateUsuarioAction } from '@redux/usuariosDuck';
 import { getEmpresasAction } from '@redux/empresasDuck';
 import { getRolesAction } from '@redux/rolesDuck';
+
 
 // Opciones Toast
 const toastOptions = {
@@ -36,6 +39,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
 	// Manejo de Checkbox
 	const [isCheckActiva, setIsCheckActiva] = useState(true);
 	const [changePass, setChangePass] = useState(false);
+  const [valUsername, setValUsername] = useState(false);
 
   const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
 	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
@@ -62,7 +66,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
     const _pass = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{5,}$/gm;
 
 		// console.log(campo);
-    console.log(validation);
+    // console.log(validation);
 
 		if (campo.nombre === 'username') {
 			(campo.valor.length > 0 && campo.valor.length <=30 && _username.test(campo.valor)) ? setValidation({...validation, username: true}) : setValidation({...validation, username: false});
@@ -109,9 +113,23 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
     }else delete form.pass2
     return isCorrect;
   };
+
+  // ** Validación de username
+  const validarUsername = async (e) => {
+    const valor = e.target.value;
+    try {
+      const API = endPoints.usuarios.confirmUsername(valor);
+      const res = await axios.post(API);
+      // console.log(res)
+      setValUsername(true);
+    } catch(error) {
+      // console.log(error);
+      setValUsername(false);
+    };
+  };
 	
 	/**
-	 * * Manejador de Actualizar Producto
+	 * * Manejador de Actualizar Usuario
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
@@ -139,7 +157,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
 	};
 
 	/** 
-	 * * Manejador para Agregar Producto
+	 * * Manejador para Agregar Usuario
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
@@ -191,9 +209,13 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
                 value={form.username}
                 maxLength={30} 
                 required
-                onBlur={(e) => { validacion({nombre: 'username', valor: e.target.value}) }}
+                onBlur={(e) => {
+                  validacion({nombre: 'username', valor: e.target.value});
+                  validarUsername(e);
+                }}
               />
               {!validation.username && <span className='text-danger'>{user.txt.valUsername}</span>}
+              {valUsername && <span className='text-danger'>{user.txt.valUsername2}</span>}
             </div>
           {(!formNewUsuario) &&  // Opcion modificar contraseña, para editar
             <div className='form-group'>

@@ -32,6 +32,7 @@ const endPoints = {
     add: () => `${api_url}:${puerto}/${version}/usuarios`,
     update: (id) => `${api_url}:${puerto}/${version}/usuarios/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/usuarios/${id}/`,
+    confirmUsername: (username) => `${api_url}:${puerto}/${version}/usuarios/${username}/`,
   },
   roles: {
     list: () => `${api_url}:${puerto}/${version}/roles/` ,
