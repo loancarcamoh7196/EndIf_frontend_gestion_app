@@ -87,6 +87,13 @@ body {
   font-weight: 400;
   text-decoration: none;
 }
+.color__notfound {
+  color: #e01818;
+  border-color: #e01818;
+}
+.color__notfound:hover {
+  background-color: #e01818;
+}
 
 @media only screen and (max-width: 480px) {
   .notfound {

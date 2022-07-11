@@ -17,7 +17,8 @@ export default function NotFound(){
           <p>
             La página que estas buscando no existe o no se encuentra disponible. <br></br>
             {/* <Link to='/'>Volver</Link> */}
-            <button className='btn btn-outline-danger' onClick={() => navigate(-1)}>Volver</button>
+            <br  />
+            <button className='btn btn-outline-danger btn-block color__notfound' onClick={() => navigate(-1)}>Volver</button>
           </p>
         </div>
       </div>

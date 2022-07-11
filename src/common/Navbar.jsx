@@ -18,10 +18,13 @@ const Navbar = () => {
   const {auth, logout} = useAuth();
   // console.log(auth);
   
+  // useEffect(() => { (auth === undefined) && dispatch(auth) }, []);
+  
+
   const handleLogOut = () => {
 		dispatch(logoutUserAction());
     logout();
-		navigate('/')
+		navigate('/');
 	}
 
   return (

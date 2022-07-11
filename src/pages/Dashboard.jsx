@@ -10,12 +10,6 @@ import Layout from '@layouts/Main';
 import apiURL from '@services/api';
 
 const Dashboard = () => {
-  const user = useSelector(store => store.user.info);
-  const {login} = useAuth();
-  login(user);
-  
-  // console.log(useAuth());
-
   const body = {
     "nombre": "Prueba",
     "codigoInterno": "17",
@@ -105,8 +99,6 @@ const Dashboard = () => {
   return (
     <Layout title='Dashboard' links={link}>
       <section className='block'>
-
-
         <div className='card'>
           <div className='card-body'>
             <button className='btn btn-primary'  onClick={handleHundred} > Probar 100 registros </button> <br />
@@ -116,7 +108,6 @@ const Dashboard = () => {
           </div>
         </div>
       </section>
-      <Outlet  />
     </Layout>
   );
 }

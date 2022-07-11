@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { universal } from '../utils/textModUniversal';
 
+import useAuth from '@hooks/useAuth';
 import Layout from '@layouts/Login';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -19,6 +20,9 @@ const Login = () => {
 	const loading = useSelector((store) => store.user.loading);
 	const activo = useSelector((store) => store.user.activo);
 	const [form, setForm] = useState({ username: '', password: '' });
+	const user = useSelector(store => store.user.info);
+	const { login } = useAuth();
+	// console.log(useAuth());
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -31,7 +35,7 @@ const Login = () => {
 			dispatch(loginUserAction(options));
 			// let  activo = useStore( (store) => store.user.activo );
 			// (activo && navigate('/dashboard'))
-
+			login(user);
 			navigate('/dashboard')
 		} catch (error) {
 			toast.error(`Error: ${error}`);

@@ -20,7 +20,7 @@ const Main = ({ children, breadKey='Bread',title='Default', links, haveLink=fals
           <Header key={breadKey} title={title} links={links} haveLink={haveLink} />
 
           <section className='content'>
-            <div class="container-fluid">
+            <div className='container-fluid'>
               {children}
             </div>
           </section>
