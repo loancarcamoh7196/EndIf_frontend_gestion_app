@@ -22,4 +22,4 @@ const Default = ({children}) => {
   )
 }
 
-export default Default
+export default Default;

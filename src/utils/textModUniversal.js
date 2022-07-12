@@ -8,13 +8,14 @@ const universal = {
     gestion: 'Gestión',
     inicieSession: 'Inicie Sesión',
     dashboard: 'Dashboard',
-    admin: 'Administracion',
+    admin: 'Administración',
     mantenedor: 'Gestión',
     empresa: 'Empresas',
     usuario: ' Usuarios',
     roles: 'Roles',
     producto: 'Productos',
-    tienda: 'Sucursales'
+    tienda: 'Sucursales',
+
   },
   lbl: {
     usuario: 'Usuario',
@@ -23,6 +24,7 @@ const universal = {
     home: 'Home',
     dashboard: 'Dashboard',
     admin: 'Administración',
+    brandCompany: 'EndIf'
   },
   btn: {
     ingresar: 'Ingresar',
@@ -30,7 +32,9 @@ const universal = {
     cerrar: 'Cerrar Sesión',
   },
   txt: {
-    forget: 'Olvide mi contraseña'
+    forget: 'Olvide mi contraseña',
+    altEmpresa: 'Endif Logo',
+    informe: 'Informe',
   },
   plhld: {
     search: 'Buscar ...',

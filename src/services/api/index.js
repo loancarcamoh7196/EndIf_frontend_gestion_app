@@ -55,6 +55,20 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}/edit`,
     delete: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}/`,
   },
+  tiendas: {
+    list: () => `${api_url}:${puerto}/${version}/tiendas` ,
+    get: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/tiendas`,
+    update: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}/`,
+  },
+  listaPrecios: {
+    list: () => `${api_url}:${puerto}/${version}/listaprecios` ,
+    get: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/listaprecios`,
+    update: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/`,
+  },
   productos: {
     list: () => `${api_url}:${puerto}/${version}/productos` ,
     get: (id) => `${api_url}:${puerto}/${version}/productos/${id}`,
@@ -62,15 +76,19 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/productos/${id}/edit`,
     delete: (id) => `${api_url}:${puerto}/${version}/productos/${id}/`,
   },
-  listaPrecio: {
-    list: () => `${api_url}:${puerto}/${version}/listaprecios` ,
-    get: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}`,
-    add: () => `${api_url}:${puerto}/${version}/listaprecios`,
-    update: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/edit`,
-    delete: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/`,
+  precios: {
+    list: () => `${api_url}:${puerto}/${version}/precios` ,
+    get: (id) => `${api_url}:${puerto}/${version}/precios/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/precios`,
+    update: (id) => `${api_url}:${puerto}/${version}/precios/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/precios/${id}/`,
   },  
-  priceLists: {
-    getPriceLists: (bd) => `${api_url}:${puerto}/${version}/pricelist/?empresaBd=${bd}`,
+  barras: {
+    list: () => `${api_url}:${puerto}/${version}/barras` ,
+    get: (id) => `${api_url}:${puerto}/${version}/barras/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/barras`,
+    update: (id) => `${api_url}:${puerto}/${version}/barras/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/barras/${id}/`,
   },
 };
 

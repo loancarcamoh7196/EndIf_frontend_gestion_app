@@ -7,7 +7,7 @@ import { company } from '../../utils/textModAdmin'
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';
-import Form from '@components/FormEmpresa';
+import Form from '@components/EmpresaForm';
 
 // Redux
 // import { getEmpresaAction } from '@redux/empresasDuck'
