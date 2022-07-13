@@ -28,6 +28,14 @@ import RolesEdit from '@pages/roles/edit';
 import TiendaIndex from '@pages/tiendas/index';
 import TiendaNew from '@pages/tiendas/new';
 import TiendaEdit from '@pages/tiendas/edit';
+// Mantenedor Familias ~ Sub Familias
+import FamiliaIndex from '@pages/familias/index';
+import FamiliaNew from '@pages/familias/new';
+import FamiliaEdit from '@pages/familias/edit';
+// Mantenedor Productos ~ Marca 
+import ProductoIndex from '@pages/productos/index';
+import ProductoNew from '@pages/productos/new';
+import ProductoEdit from '@pages/productos/edit';
 
 
 const App = () => {
@@ -55,8 +63,15 @@ const App = () => {
           <Route exact path='/tiendas' element={<TiendaIndex />} />
           <Route exact path='/tiendas/new' element={<TiendaNew />} />
           <Route exact path='/tiendas/:id/edit' element={<TiendaEdit />} />
+          {/* Mod Familias */}
+          <Route exact path='/familias' element={<FamiliaIndex />} />
+          <Route exact path='/familias/new' element={<FamiliaNew />} />
+          <Route exact path='/familias/:id/edit' element={<FamiliaEdit />} />
+          {/* Mod Productos */}
+          <Route exact path='/productos' element={<ProductoIndex />} />
+          <Route exact path='/productos/new' element={<ProductoNew />} />
+          <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
           
-
           <Route exact path='login' element={<Login />}  />
           <Route path='*' element={<NotFound />} />
         </Routes>

@@ -92,14 +92,14 @@ const Sidebar = () => {
                   </NavLink>
                 </li>
                 <li className='nav-item'>
-                  <NavLink to='/n' className='nav-link'>
+                  <NavLink to='/familias' className='nav-link'>
                     <i className='far fa-circle nav-icon' />
-                    <p>{universal.title.producto}</p>
+                    <p>{universal.title.familia}</p>
                   </NavLink>
                 </li>
                 <li className='nav-item'>
-                  <NavLink to='/t' className='nav-link'>
-                    <i className='far fa-circle nav-icon' />
+                  <NavLink to='/productos' className='nav-link'>
+                    <i className='far fa-cart nav-icon' />
                     <p>{universal.title.producto}</p>
                   </NavLink>
                 </li>

@@ -3,17 +3,17 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
 import axios from 'axios';
-import { role, universal } from '../../utils/textModAdmin';
+import { role, universal } from '@utils/textModAdmin';
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';
-import Form from '@components/RolesForm';
+import Form from '@components/tienda/Form';
 
 // Redux
 // import { getUsuarioAction } from '@redux/rolessDuck'
 const link = [
-  { nombre: 'Administración', url: '/admin' },
-  { nombre:'Roles', url: '/admin/roles' },
+  { nombre: 'Home', url: '/dashboard' },
+  { nombre:'Tienda', url: '/tiendas' },
 	{ nombre:'Editar', url: '' }
 ];
 const fetcher = (url) =>  axios.get(url).then((res) => res.data);

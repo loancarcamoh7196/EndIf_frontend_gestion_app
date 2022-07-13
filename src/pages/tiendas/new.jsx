@@ -1,34 +1,35 @@
 /**
- ** Pagina : /admin/roles/new
+ ** Pagina : /tiendas
+ *? Mentenedor de sucursales
  */
 import { Fragment } from 'react';
-import { role } from '../../utils/textModAdmin'
+import { shop } from '@utils/textModGestion'
 
 import Layout from '@layouts/Main';
-import Form from '@components/TiendaForm';
+import Form from '@components/tienda/Form';
 
 
 const link = [
-  { nombre: 'Administración', url: '/admin' },
-  { nombre:'Roles', url: '/admin/roles' },
-	{ nombre:'Nueva', url: '/admin/roles/new' }
+  { nombre: 'Home', url: '/dashboard' },
+  { nombre:'Sucursales', url: '/tiendas' },
+	{ nombre:'Nueva', url: '/tiendas/new' }
 ];
 
 
-export default function NewRoles() {
-  const rolForm = {
+export default function NewTienda() {
+  const tiendaForm = {
 		id: 0,
 		nombre: '',
-		accesoGestion: false,
-		accesoPv: false,
-		accesoContabilidad: false,
-		accesoInventario: false,
-		accesoInventarioMovil: false,
+		empresaRut: '',
+		direccionId: 0,
+		calle: '',
+		ciudad: '',
+		comunaId: 0
   };
 
   return (
-		<Layout title={role.title.new} links={link} haveLink={true}>
-			<Form rolForm={rolForm} />
+		<Layout title={shop.title.new} links={link} haveLink={true}>
+			<Form tiendaForm={tiendaForm} />
 		</Layout>
   );
 }

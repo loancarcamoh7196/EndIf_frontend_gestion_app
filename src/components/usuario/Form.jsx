@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 // import Switch from 'react-switch';
 // import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import endPoints from '@services/api';
-import { universal, user } from '../utils/textModAdmin';
+import { universal, user } from '../../utils/textModAdmin';
 
 // Componentes propios
 import Card from '@common/Card';

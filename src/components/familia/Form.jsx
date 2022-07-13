@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Switch from 'react-switch';
-import { universal, role } from '../utils/textModAdmin';
+import { universal, role } from '../../utils/textModAdmin';
 
 // Componentes propios
 import Card from '@common/Card';

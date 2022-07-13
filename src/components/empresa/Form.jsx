@@ -5,7 +5,7 @@
 import { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { universal, company } from '../utils/textModAdmin'
+import { universal, company } from '@utils/textModAdmin'
 import Switch from 'react-switch';
 import '@styles/Form.scss';
 

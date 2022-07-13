@@ -3,11 +3,11 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
 import axios from 'axios';
-import { user } from '../../utils/textModAdmin';
+import { user } from '@utils/textModAdmin';
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';
-import Form from '@components/UsuarioForm';
+import Form from '@components/usuario/Form';
 
 // Redux
 // import { getUsuarioAction } from '@redux/usuariosDuck'

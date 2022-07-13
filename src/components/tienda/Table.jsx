@@ -40,33 +40,36 @@ const TiendaTable = ({data}) => {
   ];
   
   // rellenar cuerpo de Tabla
-  data.map((result) => {
-    content.push(
-      <tr key={result.id} id={`fil-${result.id}`}>
-        <td>{result.id} </td>
-        <td>{result.nombre}</td>
-        <td>{result.empresaRut}</td>
-        <td>{result.direccionId}</td>
-        <td> 
-          <Link
-            to={`/tiendas/${result.id}/edit`} 
-            className='btn btn-xs btn-outline-warning btn-block'
-          >
-            <i className='fa-solid fa-file-pen' />
-          </Link>
-          <br  />
-          <button
-            className='btn btn-xs btn-outline-danger btn-block' 
-            onClick={()=>{
-              dispatch(deleteTiendaAction({ id: result.id }));
-            }}
-          >
-            <i className='fa-solid fa-trash-can' /> 
-          </button>
-        </td>
-      </tr>
-    )
-  });
+  if (data.length >0) {
+    data.map((result) => {
+      content.push(
+        <tr key={result.id} id={`fil-${result.id}`}>
+          <td>{result.id} </td>
+          <td>{result.nombre}</td>
+          <td>{result.empresaRut} - {result.empresa.razonSocial}</td>
+          <td>{result.direccion.calle}, {result.direccion.ciudad}</td>
+          <td> 
+            <Link
+              to={`/tiendas/${result.id}/edit`} 
+              className='btn btn-xs btn-outline-warning btn-block'
+            >
+              <i className='fa-solid fa-file-pen' />
+            </Link>
+            <br  />
+            <button
+              className='btn btn-xs btn-outline-danger btn-block' 
+              onClick={()=>{
+                dispatch(deleteTiendaAction({ id: result.id }));
+              }}
+            >
+              <i className='fa-solid fa-trash-can' /> 
+            </button>
+          </td>
+        </tr>
+      )
+    });
+  }else content.push(<tr>Sin datos</tr>);
+  
 
   // Llenar encabezado de Tabla
   head.map((i) => encabezado.push(<th>{i.row}</th>) );

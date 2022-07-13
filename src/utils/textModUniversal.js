@@ -15,7 +15,7 @@ const universal = {
     roles: 'Roles',
     producto: 'Productos',
     tienda: 'Sucursales',
-
+    familia: '(Sub) Familias'
   },
   lbl: {
     usuario: 'Usuario',

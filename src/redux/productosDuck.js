@@ -28,7 +28,7 @@ const PRODUCTO_ADD = 'PRODUCTO_ADD';
 const PRODUCTO_DELETE = 'PRODUCTO_DELETE';
 
 //Reducer
-export default function productsReducer(state = dataInicial, action){
+export default function productosReducer(state = dataInicial, action){
 	switch (action.type) {
 		case PRODUCTO_ERROR:
 			return { ...state, ...action.payload };

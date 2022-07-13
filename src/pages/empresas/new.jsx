@@ -4,16 +4,13 @@
 import React, { Fragment } from 'react';
 
 import Layout from '@layouts/Main';
-import Form from '@components/FormEmpresa';
-import { Link, Outlet } from 'react-router-dom';
+import Form from '@components/empresa/Form';
 
 const link = [
   { nombre: 'Administración', url: '/admin' },
   { nombre:'Empresas', url: '/admin/empresas' },
 	{ nombre:'Nueva', url: '/admin/empresas/new' }
 ];
-
-const titlePage = 'Agregar Empresa';
 
 export default function NewEmpresa() {
   const empresaForm = {

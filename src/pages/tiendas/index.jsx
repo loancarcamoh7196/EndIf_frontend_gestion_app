@@ -3,26 +3,25 @@
  */
 import { Fragment, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { shop, universal } from '../../utils/textModGestion';
+import { shop, universal } from '@utils/textModGestion';
 import { NavLink, Link } from 'react-router-dom';
 
 //redux
-import { getRolesAction } from '@redux/rolesDuck';
+import { getTiendasAction } from '@redux/tiendasDuck';
 
 // Componentes
 import Layout from '@layouts/Main';
-import Table from '@components/RolesTable';
+import Table from '@components/tienda/Table';
 import Card from '@common/Card';
 
 const link = [
   { nombre: 'Home', url: '/dashboard' },
-  { nombre:'Roles', url: '/tiendas' }
+  { nombre:'Tienda', url: '/tiendas' }
 ];
 
 const Index = () => {
   const dispatch = useDispatch();
-  
-  useEffect(() => { dispatch(getRolesAction()) }, []);
+  useEffect(() => { dispatch(getTiendasAction()) }, []);
   let tiendas = useSelector((store) => store.tiendas.list);
 
   return (

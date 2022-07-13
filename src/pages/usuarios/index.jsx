@@ -11,7 +11,7 @@ import { getUsuariosAction } from '@redux/usuariosDuck';
 
 // Componentes
 import Layout from '@layouts/Main';
-import Table from '@components/UsuarioTable';
+import Table from '@components/usuario/Table';
 import Card from '@common/Card';
 
 const link = [

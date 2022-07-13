@@ -25,47 +25,49 @@ const DataTable = ({ id='table', data, encabezado, opciones, styleHeadDark=true,
 
   useEffect(() => {
     // $(`#${id}`).DataTable({loading: false});
-    $(`#${id}`).DataTable().destroy();
-    $(`#${id}`).DataTable({
-      language: {
-        'decimal': ',',
-        'emptyTable': 'No hay información',
-        'info': 'Mostrando _START_ a _END_ de _TOTAL_ Entradas',
-        'infoEmpty': 'Mostrando 0 to 0 of 0 Entradas',
-        'infoFiltered': '(Filtrado de _MAX_ total entradas)',
-        'infoPostFix': '',
-        'thousands': ',',
-        'lengthMenu': 'Mostrar _MENU_ Entradas',
-        'loadingRecords': 'Cargando...',
-        'processing': 'Procesando...',
-        'search': 'Buscar:',
-        'zeroRecords': 'Sin resultados encontrados',
-        'paginate': {
-          'first': 'Primero',
-          'last': 'Ultimo',
-          'next': 'Siguiente',
-          'previous': 'Anterior'
+    setTimeout(() => {
+      $(`#${id}`).DataTable().destroy();
+      $(`#${id}`).DataTable({
+        language: {
+          'decimal': ',',
+          'emptyTable': 'No hay información',
+          'info': 'Mostrando _START_ a _END_ de _TOTAL_ Entradas',
+          'infoEmpty': 'Mostrando 0 to 0 of 0 Entradas',
+          'infoFiltered': '(Filtrado de _MAX_ total entradas)',
+          'infoPostFix': '',
+          'thousands': ',',
+          'lengthMenu': 'Mostrar _MENU_ Entradas',
+          'loadingRecords': 'Cargando...',
+          'processing': 'Procesando...',
+          'search': 'Buscar:',
+          'zeroRecords': 'Sin resultados encontrados',
+          'paginate': {
+            'first': 'Primero',
+            'last': 'Ultimo',
+            'next': 'Siguiente',
+            'previous': 'Anterior'
+          },
+          'buttons': { copy: 'Copiar', csv: 'CSV', excel: 'Excel', pdf: 'PDF', 'print': 'Imprimir'}
         },
-        'buttons': { copy: 'Copiar', csv: 'CSV', excel: 'Excel', pdf: 'PDF', 'print': 'Imprimir'}
-      },
-      loading: opciones.loading,
-      destroy: opciones.destroy,
-      paging: opciones.paging,  
-      lengthChange: opciones.lengthChange,  
-      searching: opciones.searching,
-      ordering: opciones.ordering,
-      info: opciones.info,
-      autoWidth: opciones.true,
-      responsive: opciones.responsive,
-      stateSave: opciones.stateSave,
-      bDestroy: opciones.bDestroy,
-      processing: opciones.processing,
-      serverSide: opciones.serverSide,
-      fixedHeader: opciones.fixedHeader,
-      dom: 'Bfrtip',
-      buttons:( opciones.buttons && buttons),
-    })
-  }, [1000]);
+        loading: opciones.loading,
+        destroy: opciones.destroy,
+        paging: opciones.paging,  
+        lengthChange: opciones.lengthChange,  
+        searching: opciones.searching,
+        ordering: opciones.ordering,
+        info: opciones.info,
+        autoWidth: opciones.true,
+        responsive: opciones.responsive,
+        stateSave: opciones.stateSave,
+        bDestroy: opciones.bDestroy,
+        processing: opciones.processing,
+        serverSide: opciones.serverSide,
+        fixedHeader: opciones.fixedHeader,
+        dom: 'Bfrtip',
+        buttons:( opciones.buttons && buttons),
+      })
+    }, 5000);
+  }, [data]);
 
   return (
     <div className='table-responsive'>

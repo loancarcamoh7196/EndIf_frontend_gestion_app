@@ -10,7 +10,7 @@ import { getEmpresasAction, deleteEmpresaAction } from '@redux/empresasDuck';
 
 // Componentes
 import Layout from '@layouts/Main';
-import Table from '@components/EmpresaTable';
+import Table from '@components/empresa/Table';
 import Card from '@common/Card';
 import Form from '@pages/empresas/new';
 

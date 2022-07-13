@@ -3,11 +3,11 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
 import axios from 'axios';
-import { company } from '../../utils/textModAdmin'
+import { company } from '@utils/textModAdmin'
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';
-import Form from '@components/EmpresaForm';
+import Form from '@components/empresa/Form';
 
 // Redux
 // import { getEmpresaAction } from '@redux/empresasDuck'

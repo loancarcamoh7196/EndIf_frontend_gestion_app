@@ -1,5 +1,5 @@
 /**
- * * Formulario de Tienda
+ * * Formulario de Roles
  * ? Para agregar y Editar
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
@@ -7,16 +7,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Switch from 'react-switch';
-import { universal, shop, toastOptions } from '../utils/textModGestion';
+import { universal, role } from '../../utils/textModAdmin';
 
 // Componentes propios
 import Card from '@common/Card';
 
 // Redux ~ Duck necesarios
-import { addTiendaAction, updateTiendaAction } from '@redux/tiendasDuck';
+import { addRolAction, updateRolAction } from '@redux/rolesDuck';
 
+// Opciones Toast
+const toastOptions = {
+	position: 'top-right',
+	autoClose: 8000,
+	hideProgressBar: false,
+	closeOnClick: true,
+	pauseOnHover: true,
+	draggable: true,
+	progress: undefined,
+};
 
-export default function FormTienda({ formNewTienda = true, rolForm }) {
+export default function FormRol({ formNewRol = true, rolForm }) {
 	const params = useParams(); // Acceso a params de la URL
 	const dispatch = useDispatch(); //Disparador
 	const navigate = useNavigate(); // Navegador de Pagina
@@ -26,7 +36,7 @@ export default function FormTienda({ formNewTienda = true, rolForm }) {
 	const [changePass, setChangePass] = useState(false);
 
   const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
-	// let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
+	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
 
   // ejecucion de metodo al renderizar pagina
   // useEffect(() => { }, []);
@@ -48,8 +58,11 @@ export default function FormTienda({ formNewTienda = true, rolForm }) {
 	const [form, setForm] = useState({
     id: rolForm.id,
 		nombre: rolForm.nombre,
-		empresaRut: rolForm.empresaRut,
-		direccionId: rolForm.direccionId,
+		accesoGestion: rolForm.accesoGestion,
+		accesoPv: rolForm.accesoPv,
+    accesoContabilidad: rolForm.accesoContabilidad,
+		accesoInventario: rolForm.accesoInventario,  
+		accesoInventarioMovil: rolForm.accesoInventarioMovil
 	});
 	
 	/**
@@ -64,7 +77,7 @@ export default function FormTienda({ formNewTienda = true, rolForm }) {
 			// console.log('Entro update');
 
 			const options = { id, body: form };
-			dispatch(updateTiendaAction(options));
+			dispatch(updateRolAction(options));
 			navigate('/admin/roles');
 		} catch (error) {
 			console.log(error);
@@ -80,7 +93,7 @@ export default function FormTienda({ formNewTienda = true, rolForm }) {
 	const postData = async (form) => {
     try {	
       delete form.id;
-      dispatch(addTiendaAction({body: form}));
+      dispatch(addRolAction({body: form}));
       navigate('/admin/roles');
 		} catch (error) {
 			// setMessage('Falló la edición');
@@ -99,7 +112,7 @@ export default function FormTienda({ formNewTienda = true, rolForm }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		formNewTienda ? postData(form) : putData(form);
+		formNewRol ? postData(form) : putData(form);
 	};
 
 	return (
@@ -108,9 +121,9 @@ export default function FormTienda({ formNewTienda = true, rolForm }) {
       <Card style='card-default' haveTitle={false} title='prueba'> 
         <div className='row'>
           <div className='col-sm-7'>
-            { (!formNewTienda) && 
+            { (!formNewRol) && 
               <div className='form-group'>
-                <label htmlFor='id'>{shop.lbl.id}</label>
+                <label htmlFor='id'>{role.lbl.id}</label>
                 <input 
                   type='number'
                   className='form-control form-control-border'
@@ -200,7 +213,7 @@ export default function FormTienda({ formNewTienda = true, rolForm }) {
           </div> 
         
           <div className='col-12 mt-5'>
-            <input type='submit' className='btn btn-outline-success btn-block' value={formNewTienda ? shop.btn.agregar : shop.btn.editar} />
+            <input type='submit' className='btn btn-outline-success btn-block' value={formNewRol ? role.btn.agregar : role.btn.editar} />
             <Link to='/admin/roles' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
           </div>
         </div>

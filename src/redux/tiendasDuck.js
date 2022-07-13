@@ -81,38 +81,54 @@ export const getTiendaAction = (options) => async (dispatch, getState) => {
 };
 
 export const addTiendaAction = (options) => async (dispatch, getState) => {
-	const { body } = options; // Opciones para solicitud a  API
+	const { tienda, direccion } = options; // Opciones para solicitud a  API
 	const api = endPoints.tiendas.add();
+	const apiDir= endPoints.direcciones.add();
 	// console.log(body);
 	// console.log(api);
 	try {
-		const res = await axios.post(api, body);
+		const direccionRes = await axios.post(apiDir, direccion);
+		toast.success(direccionRes, { ...toastOptions});
+    tienda.direccionId = direccionRes.data.id;
+		toast.success(`Direccion Agregada`, {...toastOptions});
+		const res = await axios.post(api, tienda);
 		// console.log(res);
-		toast.success(`Sucursal ${body.id}- ${body.nombre} ha sido agregado existosamente`, {...toastOptions});
+		toast.success(`Sucursal ${tienda.id}- ${tienda.nombre} ha sido agregado existosamente`, {...toastOptions});
 		dispatch({ type: TIENDA_ADD, payload: [...getState().tiendas.list, res.data] });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`No ha sea podido agregar el rol, porfavor revise los datos e intentelo más tarde`, {...toastOptions});
+		toast.error(`No ha sea podido agregar la sucursal, porfavor revise los datos e intentelo más tarde`, {...toastOptions});
 		toast.error(msg, {...toastOptions});	
 		dispatch({ type: TIENDA_ERROR });	
 	}
 };
 
 export const updateTiendaAction = (options) => async (dispatch, getState) => {
-	const { id, body } = options; // Opciones para solicitud a  API
+	const { id, tienda, direccion } = options; // Opciones para solicitud a  API
 	const api = endPoints.tiendas.update(id); // URL API
 
 	try {
-		const res = await axios.patch(api, body);
-		// console.log(res.data);
-		let newList = getState().tiendas.list.map((e) =>  e.id === id ? res.data : e );
-		toast.success(`Tienda ${body.id} - ${body.nombre} ha sido modificado correctamente`, {...toastOptions});
+		const res = await axios.patch(api, tienda);
+    let newList = getState().tiendas.list.map((e) =>  e.id === id ? res.data : e );
+    // console.log('Nue  lisat: ', newList)
+    toast.success(`La sucursal ${id} ha sido actualizada existosamente.`, {...toastOptions});
+    
+    if(Object.keys(direccion).length !== 0){
+      try {
+        const direccionApi = endPoints.direcciones.update(direccion.id); // URL API para direccion
+        delete direccion.id; // quitar Id de datos actualizar
+        const dir = await axios.patch(direccionApi, direccion);
+        toast.success('Dirección Actualizada', {...toastOptions});
+        } catch (error) {
+        toast.error(`La direccion de la sucursal ${id}, no se ha podido actualizar.`, toastOptions);
+      }
+    }
 		dispatch({  type: TIENDA_UPDATE, payload: newList });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`Tienda ${body.nombre} no se ha podido actualizar.`, {...toastOptions});
+		toast.error(`Tienda ${tienda.nombre} no se ha podido actualizar.`, {...toastOptions});
 		toast.error(msg, {...toastOptions});
 		dispatch({ type: TIENDA_ERROR });
 	}

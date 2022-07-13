@@ -4,7 +4,7 @@
 import { Fragment } from 'react';
 
 import Layout from '@layouts/Main';
-import Form from '@components/UsuarioForm';
+import Form from '@components/usuario/Form';
 
 
 const link = [
