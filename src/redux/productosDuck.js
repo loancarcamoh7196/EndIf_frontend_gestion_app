@@ -5,9 +5,9 @@ import { toast } from 'react-toastify';
 
 //Constantes
 const dataInicial = {
-	results:[],
-	offset: 0,
-	listaId: 1
+	list:[],
+	cargado: false,
+  unidad: {}
 }
 
 const toastOptions = {
@@ -48,7 +48,7 @@ export default function productosReducer(state = dataInicial, action){
 }
 
 //Acciones
-export const getProductosAccion= (options) => async (dispatch, getState) => {
+export const getProductosAction= (options) => async (dispatch, getState) => {
 	const user = getState().user.result;
 	// console.log(user)
 	// const bd = (user.id == 1 ) ? 'gestioncoffeetest': user.bdNombre;
@@ -150,51 +150,3 @@ export const deleteProductoAction = (options) => async (dispatch) => {
 	}
 };
 
-
-
-
-
-
-// export const siguientePokeAction = (numero) => async (dispatch, getState) => {
-// 	const { listaId, offset } = getState().pokemones;
-	
-// 	const siguiente = offset + numero;
-
-// 	console.log('siguiente: ', siguiente);
-// 	try {
-// 		const res = await axios.get(
-// 			`https://pokeapi.co/api/v2/pokemon?offset=${siguiente}&limit=20`
-// 		);
-// 		dispatch({
-// 			type: GET_POKE_NEXT_SUCCESS,
-// 			payload: {
-// 				array: res.data.results,
-// 				offset: siguiente,
-// 			},
-// 		});
-// 	} catch (error) {
-// 		const {loading, activo} = getState().user;
-
-// 		if (!loading && activo) dispatch(refreshTokenAction());
-//     else console.log('No ha podido refrescar token');
-//     dispatch({ type: COMPANY_ERROR });
-// 	}
-// };
-
-// export const anteriorPokemonAccion = () => async (dispatch, getState) => {
-// 	const { previous } = getState().pokemones;
-
-// 	try {
-// 		const res = await axios.get(previous);
-// 		dispatch({
-// 			type: SIGUIENTE_POKEMONES_EXITO,
-// 			payload: res.data,
-// 		});
-// 	} catch (error) {
-// 		const {loading, activo} = getState().user;
-		
-// 		if (!loading && activo) dispatch(refreshTokenAction());
-//     else console.log('No ha podido refrescar token');
-//     dispatch({ type: COMPANY_ERROR });
-// 	}
-// };

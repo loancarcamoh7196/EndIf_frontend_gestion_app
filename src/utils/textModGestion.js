@@ -62,7 +62,9 @@ const address = {
 };
 
 const family ={
-  title: {},
+  title: {
+    index: 'Familias',
+  },
   lbl: {},
   btn: {},
   txt: {},
@@ -72,7 +74,9 @@ const family ={
 };
 
 const product = {
-  title: {},
+  title: {
+    index: 'Productos'
+  },
   lbl: {},
   btn: {},
   txt: {},
@@ -124,5 +128,11 @@ const toastOptions = {
 module.exports = {
   toastOptions,
   universal,
-  shop
+  shop,
+  address,
+  family,
+  product,
+  subfamily,
+  brand,
+  tax
 };

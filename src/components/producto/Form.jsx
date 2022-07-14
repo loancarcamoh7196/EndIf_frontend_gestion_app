@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Switch from 'react-switch';
-import { universal, role } from '../../utils/textModAdmin';
+import { product, role } from '@utils/textModGestion';
 
 // Componentes propios
 import Card from '@common/Card';
 
 // Redux ~ Duck necesarios
-import { addRolAction, updateRolAction } from '@redux/rolesDuck';
+import { addProductoAction, updateProductoAction } from '@redux/productosDuck';
 
 // Opciones Toast
 const toastOptions = {
@@ -26,7 +26,7 @@ const toastOptions = {
 	progress: undefined,
 };
 
-export default function FormRol({ formNewRol = true, rolForm }) {
+export default function FormProduct({ formNewRol = true, rolForm }) {
 	const params = useParams(); // Acceso a params de la URL
 	const dispatch = useDispatch(); //Disparador
 	const navigate = useNavigate(); // Navegador de Pagina
@@ -35,7 +35,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 	const [isCheckActiva, setIsCheckActiva] = useState(true);
 	const [changePass, setChangePass] = useState(false);
 
-  const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
+  const productos = useSelector((store)=> store.productos.list); //Valores para Select de Productos
 	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
 
   // ejecucion de metodo al renderizar pagina
@@ -78,7 +78,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 
 			const options = { id, body: form };
 			dispatch(updateRolAction(options));
-			navigate('/admin/roles');
+			navigate('/productos');
 		} catch (error) {
 			console.log(error);
 			// setMessage('Falló la edición');
@@ -94,7 +94,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
     try {	
       delete form.id;
       dispatch(addRolAction({body: form}));
-      navigate('/admin/roles');
+      navigate('/productos');
 		} catch (error) {
 			// setMessage('Falló la edición');
       console.log(error);

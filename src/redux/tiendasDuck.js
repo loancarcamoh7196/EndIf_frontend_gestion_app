@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import endPoints from '@services/api';
 import { refreshTokenAction } from '@redux/userAuthDuck';
 
-//Data inicial
+//? Data inicial
 const dataInicial = {
 	list: [],
 	unidad: {},
@@ -21,7 +21,7 @@ const toastOptions = {
 	progress: undefined,
 };
 
-//Types
+//? Types
 const TIENDA_LIST = 'TIENDA_LIST';
 const TIENDA_GET = 'TIENDA_GET';
 const TIENDA_ADD = 'TIENDA_ADD';
@@ -29,7 +29,7 @@ const TIENDA_UPDATE = 'TIENDA_UPDATE';
 const TIENDA_DELETE = 'TIENDA_DELETE';
 const TIENDA_ERROR = 'TIENDA_ERROR';
 
-//Reducer
+//? Reducer
 export default function tiendasReducer(state = dataInicial, action) {
 	switch (action.type) {
 		case TIENDA_ERROR:
@@ -49,7 +49,7 @@ export default function tiendasReducer(state = dataInicial, action) {
 	}
 }
 
-// Action
+//? Action
 export const getTiendasAction = (options) => async (dispatch, getState) => {
 	const api = endPoints.tiendas.list();
 	// const { activo, loading } = getState().user;
@@ -93,7 +93,7 @@ export const addTiendaAction = (options) => async (dispatch, getState) => {
 		toast.success(`Direccion Agregada`, {...toastOptions});
 		const res = await axios.post(api, tienda);
 		// console.log(res);
-		toast.success(`Sucursal ${tienda.id}- ${tienda.nombre} ha sido agregado existosamente`, {...toastOptions});
+		toast.success(`Sucursal con ID ${res.data.id}- ${res.data.nombre} ha sido agregado existosamente`, toastOptions);
 		dispatch({ type: TIENDA_ADD, payload: [...getState().tiendas.list, res.data] });
 	} catch (error) {
 		// console.log(error);

@@ -15,7 +15,6 @@ import productosReducer from '@redux/productosDuck';
 
 //Declaración de Reducers
 const rootReducer = combineReducers({
-	productos: productosReducer,
 	user: userAuthReducer,
 	empresas: empresasReducer,
 	usuarios: usuariosReducer,
@@ -23,7 +22,7 @@ const rootReducer = combineReducers({
 	comunas: comunasReducer,
 	roles: rolesReducer,
 	tiendas: tiendasReducer,
-	familia: familiasReducer,
+	familias: familiasReducer,
 	productos: productosReducer,
 });
 
