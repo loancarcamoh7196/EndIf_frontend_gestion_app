@@ -59,7 +59,7 @@ const endPoints = {
     list: () => `${api_url}:${puerto}/${version}/tiendas` ,
     get: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}`,
     add: () => `${api_url}:${puerto}/${version}/tiendas`,
-    update: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}/edit`,
+    update: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}`,
     delete: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}/`,
   },
   listaPrecios: {

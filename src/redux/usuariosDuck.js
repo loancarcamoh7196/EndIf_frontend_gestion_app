@@ -126,7 +126,7 @@ export const deleteUsuarioAction = (options) => async (dispatch, getState) => {
 	// console.log(body);
 	try {
 		const res = await axios.delete(api);
-		let newList = getState().usuarios.list.filter((e)=> e.id !== id);
+		let newList = getState().usuarios.list.filter((e)=> e.id != id);
 
 		toast.warning(`El usuario con ID: ${id} ha sido eliminado.`, {...toastOptions});
 		dispatch({ type: USUARIO_DELETE, payload: newList });

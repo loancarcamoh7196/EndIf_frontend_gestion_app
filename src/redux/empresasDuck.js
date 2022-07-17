@@ -165,7 +165,7 @@ export const deleteEmpresaAction = (options) => async (dispatch, getState) => {
     const res = await axios.delete(api);
     // const info = await axios.get(endPoints.empresas.list());
     // console.log(res);
-    let empList = getState().empresas.list.filter((e)=> e.rut !== rut);
+    let empList = getState().empresas.list.filter((e)=> e.rut != rut);
 
     // console.log(getState().empresas.list.filter((e)=> e.rut !== rut));
     toast.warning(`Empresa con ID: ${rut} ha sido eliminado exitosamente`);

@@ -8,10 +8,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 // import Switch from 'react-switch';
 import { universal, shop } from '@utils/textModGestion';
 
-// Componentes propios
+//* Componentes propios
 import Card from '@common/Card';
 
-// Redux ~ Duck necesarios
+//* Redux ~ Duck necesarios
 import { addTiendaAction, updateTiendaAction } from '@redux/tiendasDuck';
 import { getEmpresasAction } from '@redux/empresasDuck';
 import { getRegionesAction } from '@redux/regionesDuck';
@@ -26,32 +26,34 @@ export default function FormTienda({ formNewTienda = true, tiendaForm }) {
 	// Manejo de Checkbox
 	const [changeDireccion, setChangeDireccion] = useState(false);
 
-  const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
-  const regiones = useSelector((store)=> store.regiones.res); //Valores para Select de Regiones
-	let comunas = useSelector((store)=> store.comunas.res); // Valores para Select Comunas
+  const empresas = useSelector((store)=> store.empresas.list); //? Valores para Select de Empresas
+  const regiones = useSelector((store)=> store.regiones.res); //? Valores para Select de Regiones
+	let comunas = useSelector((store)=> store.comunas.res); //? Valores para Select Comunas
 
-  // ejecucion de metodo al renderizar pagina
+  //* Ejecución de metodo al renderizar pagina
   useEffect(() => {
     dispatch(getEmpresasAction())
-    dispatch(getRegionesAction()); // Recupera al cargar datos de regiones
+    dispatch(getRegionesAction());
 		if (!formNewTienda) {
 			regiones.filter( i=> (i.comunas.map(e => e.id === form.comunaId  &&  dispatch(getComunasAction({regionId: i.id, comunas: i.comunas})))));
 		}
   }, []);
 
-  //Control Validaciones
+  //* Control Validaciones
   const [validation, setValidation] = useState({
 		nombre: true,
     calle: true,
     ciudad: true
 	});
 
+  //* Método para validar campos 
 	const validacion = (campo) => {
-		const _names = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
+		const _names =
+      /^(?!.* $)[0-9a-zA-Z-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð \s]+$/gm;
     const _calle = /^[#.0-9a-zA-Z-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð\s,-]+$/gm;
 
 		if (campo.nombre === 'nombre') {
-			(campo.valor.length >=4 && campo.valor.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, nombre: true}) : setValidation({...validation, nombre: false});
+			(campo.valor.length >=3 && campo.valor.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, nombre: true}) : setValidation({...validation, nombre: false});
 		}else if (campo.nombre === 'calle'){
       (campo.valor.length >=4 && campo.valor.length <=30 && _calle.test(campo.valor)) ? setValidation({...validation, calle: true}) : setValidation({...validation, calle: false});
     } else if (campo.nombre === 'ciudad'){
@@ -60,7 +62,7 @@ export default function FormTienda({ formNewTienda = true, tiendaForm }) {
 	}
 
 	//* Almacenamiento de Datos formulario
-	const [form, setForm] = useState({
+	const [form, setForm] = useState( {
     id: tiendaForm.id,
 		nombre: tiendaForm.nombre,
 		empresaRut: tiendaForm.empresaRut,
@@ -75,11 +77,9 @@ export default function FormTienda({ formNewTienda = true, tiendaForm }) {
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
-		// console.log('Entro en Editar');
     delete form.id;
 		const { id } = params; // Extraer ID de URL
 		try {
-			// console.log('Entro update');
       delete form.id;
       const { nombre, empresaRut, direccionId, regionId, comunaId, calle, ciudad } = form;
       let dir = { comunaId, calle, ciudad };
@@ -89,9 +89,7 @@ export default function FormTienda({ formNewTienda = true, tiendaForm }) {
 			navigate('/tiendas');
 		} catch (error) {
 			console.log(error);
-			// setMessage('Falló la edición');
 		}
-		// console.log('Soy update');
 	};
 
 	/** 
@@ -108,10 +106,8 @@ export default function FormTienda({ formNewTienda = true, tiendaForm }) {
       dispatch(addTiendaAction(options));
       navigate('/tiendas');
 		} catch (error) {
-			// setMessage('Falló la edición');
       console.log(error);
 		}
-		// console.log('Soy Agregar');
 	};
 
 	const handleChange = (e) => {

@@ -43,7 +43,7 @@ export default function tiendasReducer(state = dataInicial, action) {
 		case TIENDA_UPDATE:
 			return { ...state,  list: action.payload };
 		case TIENDA_DELETE:
-			return { ...state, list: 	action.payload };
+			return { ...state, list: action.payload };
 		default:
 			return { ...state };
 	}
@@ -109,9 +109,11 @@ export const updateTiendaAction = (options) => async (dispatch, getState) => {
 	const api = endPoints.tiendas.update(id); // URL API
 
 	try {
+		console.log(api);
 		const res = await axios.patch(api, tienda);
-    let newList = getState().tiendas.list.map((e) =>  e.id === id ? res.data : e );
-    // console.log('Nue  lisat: ', newList)
+		console.log(tienda);
+    let newList = getState().tiendas.list.map((e) =>  e.id == id ? res.data : e );
+    // console.log('Nueva  lista: ', newList)
     toast.success(`La sucursal ${id} ha sido actualizada existosamente.`, {...toastOptions});
     
     if(Object.keys(direccion).length !== 0){
@@ -141,7 +143,7 @@ export const deleteTiendaAction = (options) => async (dispatch, getState) => {
 	// console.log(body);
 	try {
 		const res = await axios.delete(api);
-		let newList = getState().tiendas.list.filter((e)=> e.id !== id);
+		let newList = getState().tiendas.list.filter((e)=> e.id != id);
 
 		toast.warning(`La tienda con ID: ${id} ha sido eliminado.`, {...toastOptions});
 		dispatch({ type: TIENDA_DELETE, payload: newList });
