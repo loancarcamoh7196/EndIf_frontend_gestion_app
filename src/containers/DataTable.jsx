@@ -29,13 +29,13 @@ const DataTable = ({ id='table', data, encabezado, opciones, styleHeadDark=true,
       $(`#${id}`).DataTable().destroy();
       $(`#${id}`).DataTable({
         language: {
+          'thousands': '.',
           'decimal': ',',
           'emptyTable': 'No hay información',
           'info': 'Mostrando _START_ a _END_ de _TOTAL_ Entradas',
           'infoEmpty': 'Mostrando 0 to 0 of 0 Entradas',
           'infoFiltered': '(Filtrado de _MAX_ total entradas)',
           'infoPostFix': '',
-          'thousands': ',',
           'lengthMenu': 'Mostrar _MENU_ Entradas',
           'loadingRecords': 'Cargando...',
           'processing': 'Procesando...',
@@ -64,23 +64,27 @@ const DataTable = ({ id='table', data, encabezado, opciones, styleHeadDark=true,
         serverSide: opciones.serverSide,
         fixedHeader: opciones.fixedHeader,
         dom: 'Bfrtip',
-        buttons:( opciones.buttons && buttons),
+        buttons: buttons,
+        lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 registros', '25 registros', '50 registros', 'Mostrar todos' ]
+        ],
       })
-    }, 5000);
+    }, 3000);
   }, [data]);
 
   return (
     <div className='table-responsive'>
       <table id={id} className='table  table-hover table-bordered'>
-      <thead className={styleHeadDark && 'thead-dark'}>
-        <tr>
-          { encabezado.map((i) => i) }
-        </tr>
-      </thead>
-      <tbody>
-        { data.map((result) => result) }
-      </tbody>
-    </table>
+        <thead className={styleHeadDark && 'thead-dark'}>
+          <tr>
+            { encabezado.map((i) => i) }
+          </tr>
+        </thead>
+        <tbody>
+          { data.map((result) => result) }
+        </tbody>
+      </table>
     </div>
   );
 }

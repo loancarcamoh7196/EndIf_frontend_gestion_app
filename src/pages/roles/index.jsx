@@ -3,7 +3,7 @@
  */
 import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { role, universal } from '../../utils/textModAdmin';
+import { role, universal } from '../../utils/texts/modAdmin';
 import { Link } from 'react-router-dom';
 
 //redux

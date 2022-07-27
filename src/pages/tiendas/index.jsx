@@ -3,7 +3,7 @@
  */
 import { Fragment, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { shop, universal } from '@utils/textModGestion';
+import { shop, universal } from '../../utils/texts/modGestion';
 import { NavLink, Link } from 'react-router-dom';
 
 //redux

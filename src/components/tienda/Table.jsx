@@ -31,7 +31,7 @@ const TiendaTable = ({data}) => {
     buttons: false
   }; // Opciones de la DataTable
 
-  const head = [
+  const titulos = [
     { row: 'ID' },
     { row: 'Nombre' },
     { row: 'Empresa' },
@@ -41,25 +41,24 @@ const TiendaTable = ({data}) => {
   
   // rellenar cuerpo de Tabla
   if (data.length >0) {
-    data.map((result) => {
+    data.map((row) => 
       content.push(
-        <tr key={result.id} id={`fil-${result.id}`}>
-          <td>{result.id} </td>
-          <td>{result.nombre}</td>
-          <td>{result.empresaRut} - {result.empresa.razonSocial}</td>
-          <td>{result.direccion.calle}, {result.direccion.ciudad}</td>
+        <tr key={row.id} id={`fil-${row.id}`}>
+          <td>{row.id} </td>
+          <td>{row.nombre}</td>
+          <td>{row.empresaRut} - {row.empresa.razonSocial}</td>
+          <td>{row.direccion.calle}, {row.direccion.ciudad}</td>
           <td> 
             <Link
-              to={`/tiendas/${result.id}/edit`} 
+              to={`/tiendas/${row.id}/edit`} 
               className='btn btn-xs btn-outline-warning btn-block'
             >
               <i className='fa-solid fa-file-pen' />
             </Link>
-            <br  />
             <button
               className='btn btn-xs btn-outline-danger btn-block' 
               onClick={()=>{
-                dispatch(deleteTiendaAction({ id: result.id }));
+                dispatch(deleteTiendaAction({ id: row.id }));
               }}
             >
               <i className='fa-solid fa-trash-can' /> 
@@ -67,12 +66,11 @@ const TiendaTable = ({data}) => {
           </td>
         </tr>
       )
-    });
+    );
   }else content.push(<tr>Sin datos</tr>);
   
-
   // Llenar encabezado de Tabla
-  head.map((i) => encabezado.push(<th>{i.row}</th>) );
+  titulos.map((i) => encabezado.push(<th>{i.row}</th>) );
   
   return  <DataTable id='tab_usuarios' key='tab_usuarios' encabezado={encabezado} data={content} opciones={options}  /> ;
 }

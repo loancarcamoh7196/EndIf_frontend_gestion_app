@@ -1,6 +1,6 @@
 /**
- ** Componente Roles Table
- *  
+ ** Componente Familia Table
+ *  /familias
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
@@ -31,59 +31,41 @@ const EmpresaTable = ({data}) => {
     buttons: false
   }; // Opciones de la DataTable
 
-  const head = [
+  const titulos = [
     { row: 'ID' },
     { row: 'Nombre' },
-    { row: 'Acceso Gestion' },
-    { row: 'Acceso Puntos de Venta' },
-    { row: 'Acceso Contabilidad' },
-    { row: 'Acceso Inventario' },
-    { row: 'Acceso Inventario Movil' },
+    { row: 'Empresa' },
     { row: 'Acciones' }
   ];
   
+  console.log(data);
+
+
   // rellenar cuerpo de Tabla
-  data.map((result) => {
+  data.map((row) =>
     content.push(
-      <tr key={result.id} id={`fil-${result.id}`}>
-        <td>{result.id} </td>
-        <td>{result.nombre}</td>
-        <td>
-          {result.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
-        </td>
-        <td>
-          {result.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {result.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {result.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {result.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
+      <tr key={row.id} id={`fil-${row.id}`}>
+        <td>{row.id} </td>
+        <td>{row.nombre}</td>
+        <td>{row.subfamilia.map((e)=><p> {e.nombre} </p>)}</td>
         <td> 
-          <Link to={`/admin/roles/${result.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
+          <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
             <i className='fa-solid fa-file-pen' />
           </Link>
-          <br  />
           <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-            dispatch(deleteRolAction({ id: result.id }));
+            dispatch(deleteRolAction({ id: row.id }));
           }}>
             <i className='fa-solid fa-trash-can' /> 
           </button>
         </td>
-        
-
       </tr>
     )
-  });
+  );
 
   // Llenar encabezado de Tabla
-  head.map((i) => encabezado.push(<th>{i.row}</th>) );
+  titulos.map((i) => encabezado.push(<th>{i.row}</th>) );
   
-  return  <DataTable id='tab_usuarios' key='tab_usuarios' encabezado={encabezado} data={content} opciones={options}  /> ;
+  return  (<DataTable id='tab_usuarios' key='tab_usuarios' encabezado={encabezado} data={content} opciones={options}  /> );
 }
 
 export default EmpresaTable;

@@ -14,7 +14,7 @@ import familiasReducer from '@redux/familiasDuck';
 import productosReducer from '@redux/productosDuck';
 
 //Declaración de Reducers
-const rootReducer = combineReducers({
+const appReducer = combineReducers({
 	user: userAuthReducer,
 	empresas: empresasReducer,
 	usuarios: usuariosReducer,
@@ -25,6 +25,11 @@ const rootReducer = combineReducers({
 	familias: familiasReducer,
 	productos: productosReducer,
 });
+
+const rootReducer= (state, action)=>{
+	if (action.type === 'USER_LOGOUT')  return appReducer(undefined, action);
+  return appReducer(state, action)
+}
 
 // Store de App
 export default function generateStore() {

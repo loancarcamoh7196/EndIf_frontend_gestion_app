@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { universal } from '../utils/textModUniversal';
+import { universal } from '../utils/texts/general';
 
 import useAuth from '@hooks/useAuth';
 import Layout from '@layouts/Login';

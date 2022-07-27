@@ -3,12 +3,12 @@ import { toast } from 'react-toastify';
 import endPoints from '@services/api';
 import { refreshTokenAction } from '@redux/userAuthDuck';
 
+
+
 //? Data inicial
 const dataInicial = {
 	list: [],
-	unidad: {},
-	formNew: false,
-	formEdit: false
+	loading: false
 };
 
 const toastOptions = {
@@ -81,7 +81,7 @@ export const getTiendaAction = (options) => async (dispatch, getState) => {
 };
 
 export const addTiendaAction = (options) => async (dispatch, getState) => {
-	const { tienda, direccion } = options; // Opciones para solicitud a  API
+	const { familia, direccion } = options; // Opciones para solicitud a  API
 	const api = endPoints.tiendas.add();
 	const apiDir= endPoints.direcciones.add();
 	// console.log(body);
@@ -89,9 +89,9 @@ export const addTiendaAction = (options) => async (dispatch, getState) => {
 	try {
 		const direccionRes = await axios.post(apiDir, direccion);
 		toast.success(direccionRes, { ...toastOptions});
-    tienda.direccionId = direccionRes.data.id;
+    familia.direccionId = direccionRes.data.id;
 		toast.success(`Direccion Agregada`, {...toastOptions});
-		const res = await axios.post(api, tienda);
+		const res = await axios.post(api, familia);
 		// console.log(res);
 		toast.success(`Sucursal con ID ${res.data.id}- ${res.data.nombre} ha sido agregado existosamente`, toastOptions);
 		dispatch({ type: TIENDA_ADD, payload: [...getState().tiendas.list, res.data] });
@@ -105,13 +105,13 @@ export const addTiendaAction = (options) => async (dispatch, getState) => {
 };
 
 export const updateTiendaAction = (options) => async (dispatch, getState) => {
-	const { id, tienda, direccion } = options; // Opciones para solicitud a  API
+	const { id, familia, direccion } = options; // Opciones para solicitud a  API
 	const api = endPoints.tiendas.update(id); // URL API
 
 	try {
 		console.log(api);
-		const res = await axios.patch(api, tienda);
-		console.log(tienda);
+		const res = await axios.patch(api, familia);
+		console.log(familia);
     let newList = getState().tiendas.list.map((e) =>  e.id == id ? res.data : e );
     // console.log('Nueva  lista: ', newList)
     toast.success(`La sucursal ${id} ha sido actualizada existosamente.`, {...toastOptions});
@@ -130,7 +130,7 @@ export const updateTiendaAction = (options) => async (dispatch, getState) => {
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`Tienda ${tienda.nombre} no se ha podido actualizar.`, {...toastOptions});
+		toast.error(`Tienda ${familia.nombre} no se ha podido actualizar.`, {...toastOptions});
 		toast.error(msg, {...toastOptions});
 		dispatch({ type: TIENDA_ERROR });
 	}
@@ -145,12 +145,12 @@ export const deleteTiendaAction = (options) => async (dispatch, getState) => {
 		const res = await axios.delete(api);
 		let newList = getState().tiendas.list.filter((e)=> e.id != id);
 
-		toast.warning(`La tienda con ID: ${id} ha sido eliminado.`, {...toastOptions});
+		toast.warning(`La familia con ID: ${id} ha sido eliminado.`, {...toastOptions});
 		dispatch({ type: TIENDA_DELETE, payload: newList });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`No se ha podido eliminar la tienda con ID: ${id}, porfavor vuelva intentarlo más tarde.`, {...toastOptions});
+		toast.error(`No se ha podido eliminar la familia con ID: ${id}, porfavor vuelva intentarlo más tarde.`, {...toastOptions});
 		toast.error(msg, {...toastOptions});
 		dispatch({ type: TIENDA_ERROR });
 	}

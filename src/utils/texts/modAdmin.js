@@ -1,16 +1,7 @@
 /**
  ** Texto duro del modulo Administración 
- *? Invocar import { [nombre_modulo] } from '../utils/textModAdmin';
+ *? Invocar import { [nombre_modulo] } from '../utils/texts/modAdmin';
  */
-const universal = {
-  btn: {
-    volver: 'Volver'
-  },
-  title: {},
-  lbl: {
-    nueva: 'Nueva'
-  }
-};
 
 const company = {
   title: {
@@ -148,7 +139,6 @@ const role = {
 };
 
 module.exports = {
-  universal,
   company,
   user,
   role

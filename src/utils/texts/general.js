@@ -1,6 +1,6 @@
 /**
  ** Texto duro del modulo Universal 
- *? Invocar import { universal } from '../utils/textModUniversal';
+ *? Invocar import { universal } from '../utils/text/general';
  */
 const universal = {
   title: {
@@ -15,7 +15,8 @@ const universal = {
     roles: 'Roles',
     producto: 'Productos',
     tienda: 'Sucursales',
-    familia: '(Sub) Familias'
+    familia: '(Sub) Familias',
+
   },
   lbl: {
     usuario: 'Usuario',
@@ -43,19 +44,20 @@ const universal = {
   },
   slct: {},
   lnk: {},
-  toastify:{
-    options:{
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    }
-  }
+};
+
+const toastOptions= {
+  position: 'top-right',
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+
 };
 
 module.exports = {
-  universal
-};
+  universal,
+  toastOptions
+}

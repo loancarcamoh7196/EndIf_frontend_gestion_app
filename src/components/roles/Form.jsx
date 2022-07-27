@@ -1,13 +1,13 @@
 /**
  * * Formulario de Roles
- * ? Para agregar y Editar
+ * ? Para agregar y editar
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Switch from 'react-switch';
-import { universal, role } from '../../utils/textModAdmin';
+import { universal, role } from '../../utils/texts/modAdmin';
 
 // Componentes propios
 import Card from '@common/Card';

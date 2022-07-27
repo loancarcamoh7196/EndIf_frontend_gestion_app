@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 //Constantes
 const dataInicial = {
 	list:[],
-	cargado: false,
+	loading: false,
   unidad: {}
 }
 

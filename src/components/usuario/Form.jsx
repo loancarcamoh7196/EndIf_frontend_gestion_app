@@ -1,6 +1,6 @@
 /**
  * * Formulario de Usuarios
- * ? Para agregar y Editar
+ * ? Para agregar y editar
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,7 +10,10 @@ import { toast } from 'react-toastify';
 // import Switch from 'react-switch';
 // import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import endPoints from '@services/api';
-import { universal, user } from '../../utils/textModAdmin';
+import {
+  universal,
+  user,
+} from '../../utils/texts/modAdmin';
 
 // Componentes propios
 import Card from '@common/Card';

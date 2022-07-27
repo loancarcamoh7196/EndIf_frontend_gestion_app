@@ -2,7 +2,7 @@
  ** Pagina : /admin/roles/new
  */
 import { Fragment } from 'react';
-import { role } from '@utils/textModAdmin'
+import { family } from '../../utils/texts/modGestion';
 
 import Layout from '@layouts/Main';
 import Form from '@components/roles/Form';
@@ -27,7 +27,7 @@ export default function NewRoles() {
   };
 
   return (
-		<Layout title={role.title.new} links={link} haveLink={true}>
+		<Layout title={family.title.new} links={link} haveLink={true}>
 			<Form rolForm={rolForm} />
 		</Layout>
   );

@@ -3,7 +3,7 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
 import axios from 'axios';
-import { user } from '@utils/textModAdmin';
+import { user } from '../../utils/texts/modAdmin';
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';

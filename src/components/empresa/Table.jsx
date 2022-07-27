@@ -1,6 +1,6 @@
 /**
  ** Componente Empresa Table
- *  
+ *? componente alojado en /admin/empresas 
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
@@ -14,7 +14,7 @@ const EmpresaTable = ({data}) => {
   let encabezado = []; // Contenedor encabezado de la tabla
 
   const options = {
-    responsive: false,
+    responsive: true,
     loading: true,
     destroy: true,
     paging: true,

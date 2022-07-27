@@ -1,12 +1,12 @@
 /**
  * * Formulario de Tienda
- * ? Para agregar y Editar
+ * ? Para agregar y editar
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 // import Switch from 'react-switch';
-import { universal, shop } from '@utils/textModGestion';
+import { universal, shop } from '../../utils/texts/modGestion';
 
 //* Componentes propios
 import Card from '@common/Card';

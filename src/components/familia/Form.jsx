@@ -1,6 +1,6 @@
 /**
  * * Formulario de Roles
- * ? Para agregar y Editar
+ * ? Para agregar y editar
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

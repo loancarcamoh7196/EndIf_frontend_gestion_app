@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 //Data inicial
 const dataInicial = {
-  res: [],
+  list: [],
 }
 
 const toastOptions = {
@@ -28,7 +28,7 @@ export default function comunasReducer(state = dataInicial, action) {
     case COMUNA_ERROR:
       return { ...state, ...action.payload }
     case COMUNAS_GET:
-      return { ...state, res: action.payload } 
+      return { ...state, list: action.payload } 
     default:
       return {...state};
   }

@@ -6,9 +6,6 @@ import { refreshTokenAction } from '@redux/userAuthDuck';
 //Data inicial
 const dataInicial = {
 	list: [],
-	unidad: {},
-	formNew: false,
-	formEdit: false
 };
 
 const toastOptions = {

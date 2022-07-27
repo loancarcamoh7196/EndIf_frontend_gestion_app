@@ -1,6 +1,6 @@
 /**
- ** Componente Roles Table
- *  
+ ** Componente Producto Table
+ * ? Alojada en  /producto
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'

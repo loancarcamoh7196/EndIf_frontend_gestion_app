@@ -5,15 +5,14 @@
 import { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { universal, company } from '@utils/textModAdmin'
-import Switch from 'react-switch';
+import { universal } from '@utils/texts/general';
+import { company } from '@utils/texts/modAdmin';
 import '@styles/Form.scss';
 
-// Componentes externo
-// import BootstrapSwitchButton from 'bootstrap-switch-button-react';
+//* Componentes externo
 import Card from '@common/Card';
 
-// Redux ~ Duck necesarios
+//* Redux ~ Duck necesarios
 import { addEmpresaAction, updateEmpresaAction } from '@redux/empresasDuck';
 import { getRegionesAction } from '@redux/regionesDuck';
 import { getComunasAction } from '@redux/comunasDuck';
@@ -23,21 +22,21 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	const dispatch = useDispatch(); //Disparador
 	const navigate = useNavigate(); // Navegador de Pagina
 
-	// Manejo de Checkbox
+	//* Manejo de Checkbox
 	const [isCheckActiva, setIsCheckActiva] = useState(true);
 	const [changeDireccion, setChangeDireccion] = useState(false);
 
-  const regiones = useSelector((store)=> store.regiones.res); //Valores para Select de Regiones
-	let comunas = useSelector((store)=> store.comunas.res); // Valores para Select Comunas
+  const regiones = useSelector((store)=> store.regiones.list); //Valores para Select de Regiones
+	let comunas = useSelector((store)=> store.comunas.list); // Valores para Select Comunas
 
   useEffect(() => {
     dispatch(getRegionesAction()); // Recupera al cargar datos de regiones
 		if (!formNewEmpresa) {
 			regiones.filter( i=> (i.comunas.map(e => e.id === form.comunaId  &&  dispatch(getComunasAction({regionId: i.id, comunas: i.comunas})))));
 		}
-  }, []);
+  }, [regiones]);
 
-	// Almacenamiento de Datos formulario
+	//* Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
 		rut: empresaForm.rut,
 		razonSocial: empresaForm.razonSocial,
@@ -57,7 +56,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 		ciudad: empresaForm.ciudad
 	});
 
-	// State
+	//* State
 	const [validation, setValidation] = useState({
 		rut: true,
 		razonSocial: true,
@@ -94,6 +93,25 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 			(campo.valor.length <=30 ) ? setValidation({...validation, ciudad: true}) : setValidation({...validation, ciudad: false});
 		}
 		else  return false;
+	}
+
+	const handleComunas = async(e) =>{
+		const target = e.target; //* Dropdown completo
+		// console.log(target);
+		const value = target.value; //* Valor seleccionado
+		// console.log(value);
+		// const name = target.name; //Nombre dropdown
+
+		// console.log(regiones);
+		let reg = regiones.filter( i=> i.id == value);
+		// console.log(reg);
+		let region = reg[0];
+		let comunas = region.comunas;
+
+		// console.log(region);
+
+		let options = { regionId: parseInt(value), comunas: comunas };
+		dispatch(getComunasAction(options));
 	}
 
 	/**
@@ -145,15 +163,10 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	};
 
 	const handleChange = (e) => {
-		// if(e == typeof boolean) {
-		// 	setForm({...form, 'activa': isCheckActiva});
-		// 	return;
-		// }else {
-			const target = e.target;
-			const value = (target.type === 'checkbox' ? target.checked : target.value);
-			const name = target.name;
-			setForm({  ...form, [name]: value });
-		// }
+		const target = e.target;
+		const value = (target.type === 'checkbox' ? target.checked : target.value);
+		const name = target.name;
+		setForm({  ...form, [name]: value });
 		validacion(form);
 		// console.log(form);
 	};
@@ -342,17 +355,7 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 								className='form-control select2'
 								// { !formNewEmpresa && onload={}}
 								onChange={handleChange}
-								onClick={(e) => {
-									const target = e.target; // Dropdown completo
-									const value = target.value; // Valor seleccionado
-									const name = target.name; //Nombre dropdown
-
-									let reg = regiones.filter( i=> i.id === value);
-									let region = reg[0];
-									let comunas = region.comunas;
-									let options = { regionId: parseInt(value), comunas: comunas };
-									dispatch(getComunasAction(options));
-								}}
+								onClick={handleComunas}
 							>
 								<option disabled selected={(!formNewEmpresa)&& 'selected'}>{company.slct.region}</option>
 								{ (regiones.length > 0) && regiones.map((i) => <option value={i.id} selected={(i.comunas.map(e => e.id === form.comunaId)) && 'selected'}>{i.nombre}</option>) }

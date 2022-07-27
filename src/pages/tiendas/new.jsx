@@ -3,7 +3,7 @@
  *? Mentenedor de sucursales
  */
 import { Fragment } from 'react';
-import { shop } from '@utils/textModGestion'
+import { shop } from '../../utils/texts/modGestion';
 
 import Layout from '@layouts/Main';
 import Form from '@components/tienda/Form';

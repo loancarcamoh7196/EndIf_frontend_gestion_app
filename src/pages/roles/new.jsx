@@ -2,7 +2,7 @@
  ** Pagina : /admin/roles/new
  */
 import { Fragment } from 'react';
-import { role } from '@utils/textModAdmin'
+import { role } from '../../utils/texts/modAdmin';
 
 import Layout from '@layouts/Main';
 import Form from '@components/roles/Form';

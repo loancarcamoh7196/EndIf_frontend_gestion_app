@@ -86,8 +86,12 @@ const product = {
 };
 
 const subfamily = {
-  title: {},
-  lbl: {},
+  title: {
+    index: 'SubFamilia'
+  },
+  lbl: {
+    
+  },
   btn: {},
   txt: {},
   plhld: {},
@@ -97,7 +101,9 @@ const subfamily = {
 
 const brand = {
   title: {},
-  lbl: {},
+  lbl: {
+    marca: 'Marca del Producto'
+  },
   btn: {},
   txt: {},
   plhld: {},

@@ -90,6 +90,13 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/barras/${id}/edit`,
     delete: (id) => `${api_url}:${puerto}/${version}/barras/${id}/`,
   },
+  familias: {
+    list: () => `${api_url}:${puerto}/${version}/familias` ,
+    get: (id) => `${api_url}:${puerto}/${version}/familias/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/familias`,
+    update: (id) => `${api_url}:${puerto}/${version}/familias/${id}/edit`,
+    delete: (id) => `${api_url}:${puerto}/${version}/familias/${id}/`,
+  },
 };
 
 export default endPoints;

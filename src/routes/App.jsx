@@ -41,7 +41,7 @@ import ProductoEdit from '@pages/productos/edit';
 const App = () => {
   return (
     <Router>
-      <Theme.Provider value=''>
+      {/* <Theme.Provider value=''> */}
         <Routes>
           <Route exact path='/' element={<Home />} />
           <Route exact path='/dashboard' element={<Dashboard />} />
@@ -75,7 +75,7 @@ const App = () => {
           <Route exact path='login' element={<Login />}  />
           <Route path='*' element={<NotFound />} />
         </Routes>
-      </Theme.Provider>
+      {/* </Theme.Provider> */}
     </Router>
   );
 };

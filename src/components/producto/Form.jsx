@@ -1,13 +1,13 @@
 /**
- * * Formulario de Roles
- * ? Para agregar y Editar
+ * * Formulario de Producto
+ * ? Para agregar y editar
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Switch from 'react-switch';
-import { product, role } from '@utils/textModGestion';
+import { product, role } from '../../utils/texts/modGestion';
 
 // Componentes propios
 import Card from '@common/Card';

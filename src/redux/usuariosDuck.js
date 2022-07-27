@@ -6,9 +6,6 @@ import { refreshTokenAction } from '@redux/userAuthDuck';
 //Data inicial
 const dataInicial = {
 	list: [],
-	unidad: {},
-	formNew: false,
-	formEdit: false
 };
 
 const toastOptions = {
@@ -41,9 +38,9 @@ export default function usuariosReducer(state = dataInicial, action) {
     case USUARIO_ADD:
       return { ...state, list: action.payload };
 		case USUARIO_UPDATE:
-			return { ...state,  list: action.payload };
+			return { ...state, list: action.payload };
 		case USUARIO_DELETE:
-			return { ...state, list: 	action.payload };
+			return { ...state, list: action.payload };
 		default:
 			return { ...state };
 	}

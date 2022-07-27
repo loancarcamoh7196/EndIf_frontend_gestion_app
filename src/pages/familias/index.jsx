@@ -3,7 +3,7 @@
  */
 import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { family, universal } from '@utils/textModGestion';
+import { family, universal } from '../../utils/texts/modGestion';
 import { Link } from 'react-router-dom';
 
 //redux

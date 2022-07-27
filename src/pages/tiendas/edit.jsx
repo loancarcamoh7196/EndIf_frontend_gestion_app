@@ -3,14 +3,12 @@ import { useParams  } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import useSWR from 'swr';
 import axios from 'axios';
-import { shop, universal } from '@utils/textModGestion';
+import { shop, universal } from '../../utils/texts/modGestion';
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';
 import Form from '@components/tienda/Form';
 
-// Redux
-// import { getUsuarioAction } from '@redux/rolessDuck'
 const link = [
   { nombre: 'Home', url: '/dashboard' },
   { nombre:'Tienda', url: '/tiendas' },

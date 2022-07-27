@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 //Data inicial
 const dataInicial = {
   list: [],
-  cargado: false,
-  unidad: {}
+  loading: false
 }
 
 const toastOptions = {
@@ -35,7 +34,7 @@ export default function familiasReducer(state = dataInicial, action) {
     case FAMILIA_ERROR:
       return { ...state, ...action.payload }
     case FAMILIAS_LIST:
-      return { ...state, list: action.payload.list , cargado: action.payload.cargado} 
+      return { ...state, list: action.payload.list , loading: action.payload.cargado} 
     case FAMILIA_GET:
       return  { ...state, ...action.payload }
     case FAMILIA_ADD:
@@ -54,7 +53,7 @@ export default function familiasReducer(state = dataInicial, action) {
 // Action
 export const getFamiliasAction = (options) => async (dispatch, getState) => {
 	// const { body } = options; // Opciones para solicitud a  API
-	const api = endPoints.empresas.list();
+	const api = endPoints.familias.list();
   // const { activo, loading } = getState().user; // Op
   // console.log(body);
   // console.log(api);
@@ -79,7 +78,7 @@ export const getFamiliasAction = (options) => async (dispatch, getState) => {
 export const getFamiliaAction= (options) => async (dispatch, getState) => {
   const { rut } = options;
   // const { activo, loading } = getState().user;
-  const api = endPoints.empresas.get(rut); 
+  const api = endPoints.familias.get(rut); 
   // console.log('API: ',api)
   try {
     const res = await axios.get(api);
@@ -102,7 +101,7 @@ export const getFamiliaAction= (options) => async (dispatch, getState) => {
 export const addFamiliaAction = (options) => async (dispatch, getState) => {
 	const { empresa, direccion } = options; // Opciones para solicitud a  API
   const direccionApi = endPoints.direcciones.add(); // URL API para direccion
-	const api = endPoints.empresas.add(); // URL API para empresa
+	const api = endPoints.familias.add(); // URL API para empresa
 	try {
     const direccionRes = await axios.post(direccionApi, direccion);
     // console.log('RES add Dir: ',direccionRes);
@@ -112,7 +111,7 @@ export const addFamiliaAction = (options) => async (dispatch, getState) => {
     
     toast.success(`Direccion Agregada`, {...toastOptions});
     toast.success(`Familia ${empresa.razonSocial} ha sido agregada correctamente.`, { ...toastOptions})
-    dispatch({ type: FAMILIA_ADD , payload: [...getState().empresas.list, res.data] });
+    dispatch({ type: FAMILIA_ADD , payload: [...getState().familias.list, res.data] });
 	} catch (error) {
 		// console.log(error);
     let msg = error.response.data.body;
@@ -127,11 +126,11 @@ export const updateFamiliaAction = (options) => async (dispatch, getState) => {
   // console.log('RUT Update:', rut);
   // console.log('Familia UPD: ', empresa);
   // console.log('Dir UPD: ', direccion);
-  const api = endPoints.empresas.update(rut); // URL API
+  const api = endPoints.familias.update(rut); // URL API
   // console.log(body);
   try {
     const res = await axios.patch(api, empresa);
-    let newList = getState().empresas.list.map((e) =>  e.rut === rut ? res.data : e );
+    let newList = getState().familias.list.map((e) =>  e.rut === rut ? res.data : e );
     // console.log('Nue  lisat: ', newList)
     toast.success(`La empresa con RUT: ${rut} ha sido actualizada existosamente.`, {...toastOptions});
     
@@ -158,16 +157,16 @@ export const updateFamiliaAction = (options) => async (dispatch, getState) => {
 
 export const deleteFamiliaAction = (options) => async (dispatch, getState) => {
   const { rut } = options; // Opciones para solicitud a  API
-  const api = endPoints.empresas.delete(rut); // URL API
+  const api = endPoints.familias.delete(rut); // URL API
   // console.log(api);
   try {
     // console.log(body);
     const res = await axios.delete(api);
-    // const info = await axios.get(endPoints.empresas.list());
+    // const info = await axios.get(endPoints.familias.list());
     // console.log(res);
-    let empList = getState().empresas.list.filter((e)=> e.rut !== rut);
+    let empList = getState().familias.list.filter((e)=> e.rut !== rut);
 
-    // console.log(getState().empresas.list.filter((e)=> e.rut !== rut));
+    // console.log(getState().familias.list.filter((e)=> e.rut !== rut));
     toast.warning(`Familia con ID: ${rut} ha sido eliminado exitosamente`);
     dispatch({ type: FAMILIA_DELETE , payload: empList });
     // dispatch({type: FAMILIAS_GET, payload: info.data})

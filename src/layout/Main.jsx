@@ -18,7 +18,6 @@ const Main = ({ children, breadKey='Bread',title='Default', links, haveLink=fals
         <Menu />
         <div className='content-wrapper'>
           <Header key={breadKey} title={title} links={links} haveLink={haveLink} />
-          
           <section className='content'>
             <div className='container-fluid'>
               {children}
