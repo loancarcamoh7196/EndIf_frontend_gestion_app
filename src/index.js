@@ -2,6 +2,7 @@ import React from 'react';
 // import ReactDOM from 'react-dom/client';
 import { createRoot, hydrateRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import generateStore from '@redux/store';
 import App from '@routes/App';
 // import reportWebVitals from './reportWebVitals';
@@ -11,13 +12,13 @@ const container = document.getElementById('root');
 const root = createRoot(container);
 // const root = hydrateRoot(container, <App tab='home' />);
 //Crear store
-const store = generateStore();
+const {persistor,store} = generateStore();
 
 root.render(
   <Provider store={store}>
-    <AuthProvider  >
+    <PersistGate loading={null} persistor={persistor}>
       <App />
-    </AuthProvider>
+    </PersistGate>
   </Provider>
 );
 

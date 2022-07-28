@@ -1,34 +1,31 @@
 /**
- ** Pagina : /admin/roles/new
+ ** Pagina : /familias/new
  */
 import { Fragment } from 'react';
 import { family } from '../../utils/texts/modGestion';
 
 import Layout from '@layouts/Main';
-import Form from '@components/roles/Form';
+import Form from '@components/familia/Form';
 
 
 const link = [
-  { nombre: 'Administración', url: '/admin' },
-  { nombre:'Roles', url: '/admin/roles' },
-	{ nombre:'Nueva', url: '/admin/roles/new' }
+  { nombre: 'Dashboard', url: '/dashboard' },
+  { nombre:'Familias', url: '/familias' },
+	{ nombre:'Nueva', url: '/familias/new' }
 ];
 
 
-export default function NewRoles() {
-  const rolForm = {
+export default function NewFamily() {
+  const familyForm = {
 		id: 0,
 		nombre: '',
-		accesoGestion: false,
-		accesoPv: false,
-		accesoContabilidad: false,
-		accesoInventario: false,
-		accesoInventarioMovil: false,
+		empresaRut: false,
+		
   };
 
   return (
 		<Layout title={family.title.new} links={link} haveLink={true}>
-			<Form rolForm={rolForm} />
+			<Form familyForm={familyForm} />
 		</Layout>
   );
 }

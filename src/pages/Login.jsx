@@ -17,10 +17,10 @@ const Login = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate(); // Navegador de Pagina
 
-	const loading = useSelector((store) => store.user.loading);
-	const activo = useSelector((store) => store.user.activo);
+	const loading = useSelector((store) => store.auth.loading);
+	const activo = useSelector((store) => store.auth.activo);
 	const [form, setForm] = useState({ username: '', password: '' });
-	const user = useSelector(store => store.user.info);
+	const user = useSelector(store => store.auth.info);
 	const { login } = useAuth();
 	// console.log(useAuth());
 
@@ -33,7 +33,7 @@ const Login = () => {
 
 		try {
 			dispatch(loginUserAction(options));
-			// let  activo = useStore( (store) => store.user.activo );
+			// let  activo = useStore( (store) => store.auth.activo );
 			// (activo && navigate('/dashboard'))
 			login(user);
 			navigate('/dashboard')

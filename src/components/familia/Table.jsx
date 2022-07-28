@@ -1,12 +1,12 @@
 /**
  ** Componente Familia Table
- *  /familias
+ *?  /familias
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 
-import { deleteRolAction } from '@redux/rolesDuck';
+import { deleteFamiliaAction } from '@redux/familiasDuck';
 
 const EmpresaTable = ({data}) => {
   const dispatch = useDispatch();
@@ -38,10 +38,7 @@ const EmpresaTable = ({data}) => {
     { row: 'Acciones' }
   ];
   
-  console.log(data);
-
-
-  // rellenar cuerpo de Tabla
+  //? Rellenar cuerpo de Tabla
   data.map((row) =>
     content.push(
       <tr key={row.id} id={`fil-${row.id}`}>
@@ -49,11 +46,11 @@ const EmpresaTable = ({data}) => {
         <td>{row.nombre}</td>
         <td>{row.subfamilia.map((e)=><p> {e.nombre} </p>)}</td>
         <td> 
-          <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
+          <Link to={`/familias/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
             <i className='fa-solid fa-file-pen' />
           </Link>
           <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-            dispatch(deleteRolAction({ id: row.id }));
+            dispatch(deleteFamiliaAction({ id: row.id }));
           }}>
             <i className='fa-solid fa-trash-can' /> 
           </button>
@@ -62,10 +59,17 @@ const EmpresaTable = ({data}) => {
     )
   );
 
-  // Llenar encabezado de Tabla
+  //? Llenar encabezado de Tabla
   titulos.map((i) => encabezado.push(<th>{i.row}</th>) );
   
-  return  (<DataTable id='tab_usuarios' key='tab_usuarios' encabezado={encabezado} data={content} opciones={options}  /> );
+  return  (
+    <DataTable
+      id='tab_usuarios'
+      key='tab_usuarios'
+      encabezado={encabezado}
+      data={content}
+      opciones={options}
+    /> );
 }
 
 export default EmpresaTable;

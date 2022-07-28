@@ -1,4 +1,10 @@
+/**
+ ** Configuración de Store
+ */
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -13,9 +19,9 @@ import tiendasReducer from '@redux/tiendasDuck';
 import familiasReducer from '@redux/familiasDuck';
 import productosReducer from '@redux/productosDuck';
 
-//Declaración de Reducers
+//* Declaración de Reducers
 const appReducer = combineReducers({
-	user: userAuthReducer,
+	auth: userAuthReducer,
 	empresas: empresasReducer,
 	usuarios: usuariosReducer,
 	regiones: regionesReducer,
@@ -26,18 +32,29 @@ const appReducer = combineReducers({
 	productos: productosReducer,
 });
 
+//* Limpieza de Storage en caso de logout
 const rootReducer= (state, action)=>{
 	if (action.type === 'USER_LOGOUT')  return appReducer(undefined, action);
   return appReducer(state, action)
 }
+//* Persist - Redux
+const persistConfig ={
+	key: 'root',
+	storage,
+	whitelist: [ 'auth']
+}
 
-// Store de App
+const persistedReducer = persistReducer(persistConfig, appReducer);
+
+//* Store de App
 export default function generateStore() {
 	const store = createStore(
-		rootReducer,
+		persistedReducer,
 		composeWithDevTools(applyMiddleware(thunk))
 	);
-	readUserAction()(store.dispatch);
+	// readUserAction()(store.dispatch, store.getState);
 
-	return store;
+	const persistor = persistStore(store);	
+
+	return {persistor, store};
 }

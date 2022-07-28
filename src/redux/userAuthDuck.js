@@ -1,9 +1,13 @@
+/**
+ * * Redux de Manejo de Session
+ */
 import axios from 'axios';
 import Cookie from 'js-cookie';
 import endPoints from '@services/api';
 import { toast } from 'react-toastify';
+import { toastOptions } from '../utils/texts/general';
 
-//Data inicial
+//* Data inicial
 const dataInicial = {
   loading: false,
   activo: false,
@@ -12,24 +16,14 @@ const dataInicial = {
 	info: [],
 }
 
-const toastOptions = {
-	position: 'top-right',
-	autoClose: 8000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
-
-//Types
+//* Types
 const LOADING = 'LOADING';
 const USER_ERROR = 'USER_ERROR';
 const USER_SUCCESS = 'USER_SUCCESS';
 const USER_LOGOUT = 'USER_LOGOUT';
 const USER_REFRESH = 'USER_REFRESH';
 
-//Reducer
+//* Reducer
 export default function userAuthReducer(state = dataInicial, action) {
   switch(action.type) {
     case LOADING:
@@ -47,7 +41,7 @@ export default function userAuthReducer(state = dataInicial, action) {
   }
 }
 
-//Action
+//* Action
 export const loginUserAction = (options) => async (dispatch, getState) => {
 	const { body } = options; // Opciones para solicitud a  API
 	const api = endPoints.auth.login;	
@@ -79,6 +73,7 @@ export const loginUserAction = (options) => async (dispatch, getState) => {
 				rolesId: user.rolesId
 			})
 		);
+		localStorage.setItem('token', refreshToken);
 		
 		toast.success('Inicio de Sesión Exitoso', { ...toastOptions });
 		// console.log(axios.defaults.headers.Authorization);
@@ -106,13 +101,12 @@ export const loginUserAction = (options) => async (dispatch, getState) => {
 		// let msg = error.data.body;
 		toast.error('No ha se ha podido iniciar sesión', { ...toastOptions });
 		// toast.error(msg, {...toastOptions});
-
 		dispatch({ type: USER_ERROR });
 	}
 };
 
 export const refreshTokenAction = () => async(dispatch, getState) => {
-  const { token } = getState().user;
+  const { token } = getState().auth;
 	let axiosToken = axios.defaults.headers.Authorization;
 	const api = endPoints.auth.refreshToken;
 	// console.log(api)
@@ -144,14 +138,29 @@ export const logoutUserAction = () => (dispatch) => {
 	dispatch({ type: USER_LOGOUT });
 };
 
-export const readUserAction = () => async (dispatch) => {
+export const readUserAction = () => async (dispatch, getState) => {
+	const userAuth = getState().auth;
 	if (localStorage.getItem('user')) {
 		dispatch({
 			type: USER_SUCCESS,
 			payload: {
-				user: JSON.parse(localStorage.getItem('user')),
+				info: userAuth.info,
+				token: userAuth.token,
+				isAdmin: ( userAuth.info.rolesId === 1 ? true : false )
 			},
 		});
-	}
+	}else return null;
 };
+
+// export const loadUser = () => {
+//   return (dispatch, getState) => {
+//     const token = getState().auth.token;
+//     if (token) {
+//       dispatch({
+//         type: "USER_LOADED",
+//         token,
+//       });
+//     } else return null;
+//   };
+// };
 	

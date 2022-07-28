@@ -30,7 +30,7 @@ const Index = () => {
       <Card style='card-default' > 
         <div className='row'>
           <div className='col-4 mb-3 float-sm-right'>
-            <Link to='/admin/familias/new' className='btn btn-sm btn-block btn-outline-success float-sm-right'> <i className='fa-solid fa-plus' />{universal.lbl.nueva}</Link>
+            <Link to='/familias/new' className='btn btn-sm btn-block btn-outline-success float-sm-right'> <i className='fa-solid fa-plus' />{universal.lbl.nueva}</Link>
           </div>
 
           <div className='col-12 col-md-12 col-xl-12'>

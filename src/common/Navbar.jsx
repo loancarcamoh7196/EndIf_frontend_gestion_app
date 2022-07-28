@@ -12,9 +12,9 @@ import UserIcon from '@assets/icons/user_icon.png';
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let activo = useSelector(store => store.user.activo);
-	let isAdmin = useSelector(store => store.user.isAdmin);
-  let user = useSelector(store => store.user.info);
+  let activo = useSelector(store => store.auth.activo);
+	let isAdmin = useSelector(store => store.auth.isAdmin);
+  let user = useSelector(store => store.auth.info);
   const {auth, logout} = useAuth();
   // console.log(auth);
   

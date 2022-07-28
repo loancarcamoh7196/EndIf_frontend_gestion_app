@@ -1,32 +1,20 @@
 /**
- * * Formulario de Roles
+ * * Formulario de Familia
  * ? Para agregar y editar
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Switch from 'react-switch';
-import { universal, role } from '../../utils/textModAdmin';
-
-// Componentes propios
+import { shop, family } from '../../utils/texts/modGestion';
+import { universal, toastOptions } from '../../utils/texts/general';
+//* Componentes propios
 import Card from '@common/Card';
+//* Redux ~ Duck necesarios
+import { addFamiliaAction, updateFamiliaAction } from '@redux/familiasDuck';
+import { getEmpresasAction } from '@redux/empresasDuck';
 
-// Redux ~ Duck necesarios
-import { addRolAction, updateRolAction } from '@redux/rolesDuck';
-
-// Opciones Toast
-const toastOptions = {
-	position: 'top-right',
-	autoClose: 8000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
-
-export default function FormRol({ formNewRol = true, rolForm }) {
+export default function FormFamily({ formNewFamily = true, familyForm }) {
 	const params = useParams(); // Acceso a params de la URL
 	const dispatch = useDispatch(); //Disparador
 	const navigate = useNavigate(); // Navegador de Pagina
@@ -38,8 +26,10 @@ export default function FormRol({ formNewRol = true, rolForm }) {
   const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
 	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
 
-  // ejecucion de metodo al renderizar pagina
-  // useEffect(() => { }, []);
+  //? Ejecución de metodo al renderizar pagina
+  useEffect(() => {
+    dispatch(getEmpresasAction())
+  }, []);
 
   const [validation, setValidation] = useState({
 		nombre: true
@@ -54,15 +44,11 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 		} else  return false;
 	}
 
-	// Almacenamiento de Datos formulario
+	//? Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
-    id: rolForm.id,
-		nombre: rolForm.nombre,
-		accesoGestion: rolForm.accesoGestion,
-		accesoPv: rolForm.accesoPv,
-    accesoContabilidad: rolForm.accesoContabilidad,
-		accesoInventario: rolForm.accesoInventario,  
-		accesoInventarioMovil: rolForm.accesoInventarioMovil
+    id: familyForm.id,
+		nombre: familyForm.nombre,
+		empresaRut: familyForm.empresaRut
 	});
 	
 	/**
@@ -77,7 +63,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 			// console.log('Entro update');
 
 			const options = { id, body: form };
-			dispatch(updateRolAction(options));
+			dispatch(updateFamiliaAction(options));
 			navigate('/admin/roles');
 		} catch (error) {
 			console.log(error);
@@ -93,7 +79,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 	const postData = async (form) => {
     try {	
       delete form.id;
-      dispatch(addRolAction({body: form}));
+      dispatch(addFamiliaAction({body: form}));
       navigate('/admin/roles');
 		} catch (error) {
 			// setMessage('Falló la edición');
@@ -112,7 +98,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		formNewRol ? postData(form) : putData(form);
+		formNewFamily ? postData(form) : putData(form);
 	};
 
 	return (
@@ -121,9 +107,9 @@ export default function FormRol({ formNewRol = true, rolForm }) {
       <Card style='card-default' haveTitle={false} title='prueba'> 
         <div className='row'>
           <div className='col-sm-7'>
-            { (!formNewRol) && 
+            { (!formNewFamily) && 
               <div className='form-group'>
-                <label htmlFor='id'>{role.lbl.id}</label>
+                <label htmlFor='id'>{family.lbl.id}</label>
                 <input 
                   type='number'
                   className='form-control form-control-border'
@@ -134,13 +120,13 @@ export default function FormRol({ formNewRol = true, rolForm }) {
               </div>  
             }
             <div className='form-group'>
-              <label htmlFor='nombre'>{role.lbl.nombre}</label>
+              <label htmlFor='nombre'>{family.lbl.nombre}</label>
               <input 
                 type='text'
                 className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
                 id='nombre'
                 name='nombre'
-                placeholder={role.plhld.nombre}
+                placeholder={family.plhld.nombre}
                 onChange={handleChange}
                 value={form.nombre}
                 describedby='nombreError'
@@ -148,73 +134,27 @@ export default function FormRol({ formNewRol = true, rolForm }) {
                 required
                 onBlur={(e) => { validacion({nombre: 'nombre', valor: e.target.value}) }}
               />
-              {!validation.nombre && <span className='text-danger'>{role.txt.valNombre}</span>}
+              {!validation.nombre && <span className='text-danger'>{family.txt.valNombre}</span>}
             </div>
           </div>
           <div className='col-sm-5'>
             <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoGestion' 
-									id='accesoGestion' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoGestion}
-                />
-                <label htmlFor='accesoGestion'>{role.lbl.accesoGestion}</label>
-              </div>
+              <label>{shop.lbl.empresa}</label>
+              <select
+                name='empresaRut' 
+                className='form-control select2'
+                onChange={handleChange}
+                required
+              >
+                <option disabled='disabled' selected={formNewFamily && 'selected'} value=''>{shop.slct.empresa} </option>
+                {(empresas.length > 0) && empresas.map((i) => <option value={i.rut} selected={i.rut === form.empresaRut && 'selected'}>[{i.rut}] - {i.razonSocial}</option>)}
+              </select>  
             </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoPv' 
-									id='accesoPv' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoPv}
-                />
-                <label htmlFor='accesoPv'>{role.lbl.accesoPv}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoContabilidad' 
-									id='accesoContabilidad' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoContabilidad}
-                />
-                <label htmlFor='accesoContabilidad'>{role.lbl.accesoContabilidad}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoInventario' 
-									id='accesoInventario' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoInventario}
-                />
-                <label htmlFor='accesoInventario'>{role.lbl.accesoInventario}</label>
-              </div>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoInventarioMovil' 
-									id='accesoInventarioMovil' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoInventarioMovil}
-                />
-                <label htmlFor='accesoInventarioMovil'>{role.lbl.accesoInventarioMovil}</label>
-              </div>
-            </div>  
           </div> 
         
           <div className='col-12 mt-5'>
-            <input type='submit' className='btn btn-outline-success btn-block' value={formNewRol ? role.btn.agregar : role.btn.editar} />
-            <Link to='/admin/roles' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
+            <input type='submit' className='btn btn-outline-success btn-block' value={formNewFamily ? family.btn.agregar : family.btn.editar} />
+            <Link to='/familias' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
           </div>
         </div>
       </Card>

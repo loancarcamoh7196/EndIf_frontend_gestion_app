@@ -1,7 +1,7 @@
 /** 
  ** Archivo de configuracion de rutas
 */
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 
 import Theme from '@context/ThemeContext';
@@ -11,28 +11,28 @@ import Home from '@pages/Home';
 import Dashboard from '@pages/Dashboard';
 import Login from '@pages/Login';
 import Admin from '@pages/Admin';
-//Mantenedor Empresas
+//? Mantenedor Empresas
 import EmpresaIndex from '@pages/empresas/index';
 import EmpresaNew from '@pages/empresas/new';
 import EmpresaEdit from '@pages/empresas/edit';
 // import EmpresaDelete from '@pages/empresas/delete';
-//Mantenedor Usuarios
+//? Mantenedor Usuarios
 import UsuarioIndex from '@pages/usuarios/index';
 import UsuarioNew from '@pages/usuarios/new';
 import UsuarioEdit from '@pages/usuarios/edit';
-// Mantenedor Roles
+//? Mantenedor Roles
 import RolesIndex from '@pages/roles/index';
 import RolesNew from '@pages/roles/new';
 import RolesEdit from '@pages/roles/edit';
-// Mantenedor Tiendas ~ Sucursales
+//? Mantenedor Tiendas ~ Sucursales
 import TiendaIndex from '@pages/tiendas/index';
 import TiendaNew from '@pages/tiendas/new';
 import TiendaEdit from '@pages/tiendas/edit';
-// Mantenedor Familias ~ Sub Familias
+//? Mantenedor Familias ~ Sub Familias
 import FamiliaIndex from '@pages/familias/index';
 import FamiliaNew from '@pages/familias/new';
 import FamiliaEdit from '@pages/familias/edit';
-// Mantenedor Productos ~ Marca 
+//? Mantenedor Productos ~ Marca 
 import ProductoIndex from '@pages/productos/index';
 import ProductoNew from '@pages/productos/new';
 import ProductoEdit from '@pages/productos/edit';

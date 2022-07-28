@@ -31,6 +31,7 @@ const universal = {
     ingresar: 'Ingresar',
     volver: 'Volver',
     cerrar: 'Cerrar Sesión',
+    new: 'Nueva',
   },
   txt: {
     forget: 'Olvide mi contraseña',

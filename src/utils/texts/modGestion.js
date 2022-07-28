@@ -1,6 +1,6 @@
 /**
  ** Texto duro del modulo Administración 
- *? Invocar import { [nombre_modulo] } from '../utils/textGestion';
+ *? Invocar import { [nombre_modulo] } from '../utils/texts/modGestion';
  */
 const universal = {
   btn: {
@@ -34,9 +34,9 @@ const shop = {
     editar: 'Editar',
   },
   txt: {
-    valNombre: '*Campo requerido,  recuerde que no puede ingresar caracteres especiales',
-    valCalle: '*Campo requerido,  r caracteres especiales permitidos # , ° .',
-    valCiudad: '*Campo requerido, sin caracteres especiales.'
+    valNombre: '* Campo requerido, recuerde que no puede ingresar caracteres especiales',
+    valCalle: '* Campo requerido, caracteres especiales permitidos # , ° .',
+    valCiudad: '* Campo requerido, sin caracteres especiales.'
   },
   plhld: {  
     nombre: 'Sucursal Apoquindo',
@@ -53,44 +53,84 @@ const shop = {
 
 const address = {
   title: {},
-  lbl: {},
+  lbl: {
+    id: 'ID',
+    calle: 'Calle',
+    ciudad: 'Ciudad',
+    comunaId: 'Comuna'
+  },
   btn: {},
   txt: {},
   plhld: {},
-  slct: {},
+  slct: {
+    comunas: 'Seleccione Comuna'
+  },
   lnk: {}
 };
 
 const family ={
   title: {
     index: 'Familias',
+    new: 'Agregar familia',
+    edit: 'Editar familia',
   },
-  lbl: {},
-  btn: {},
-  txt: {},
-  plhld: {},
-  slct: {},
-  lnk: {}
-};
+  lbl: {
+    id: 'ID',
+    nombre: 'Nombre',
+    empresaRut: 'RUT Empresa'
+  },
+  btn: {
 
-const product = {
-  title: {
-    index: 'Productos'
   },
-  lbl: {},
-  btn: {},
   txt: {},
-  plhld: {},
-  slct: {},
+  plhld: {
+    nombre: 'Cervezas',
+  },
+  slct: {
+    empresas: 'Seleccione Empresa'
+  },
   lnk: {}
 };
 
 const subfamily = {
   title: {
-    index: 'SubFamilia'
+    index: 'SubFamilia',
+    new: 'Nueva Sub Familia',
+    edit: 'Editar Sub Familia'
   },
   lbl: {
-    
+    id: 'ID',
+    nombre: 'Nombre Subfamilia',
+    empresaRut: 'RUT Empresa',
+  },
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {
+    subfamilia: 'Seleccione SubFamilia',
+  },
+  lnk: {}
+};
+
+const product = {
+  title: {
+    index: 'Productos',
+    new: 'Nuevo Producto',
+    edit: 'Editar Producto',
+  },
+  lbl: {
+    id: 'ID Producto',
+    nombre: 'Nombre del Producto',
+    codigo: 'Codigo Interno',
+    activo: 'Producto Activo?',
+    exento: 'Esta exento?',
+    esInventario: 'Es Inventario?',
+    comanda: 'Es comanda',
+    esIngrediente: 'Es Ingrediente?',
+    tieneEnvase: 'Tiene Envase?',
+    empresaRut: 'Empresa',
+    unidadId: 'Tipo Producto',
+    subfamilia: 'Subfamilia'
   },
   btn: {},
   txt: {},
@@ -102,7 +142,7 @@ const subfamily = {
 const brand = {
   title: {},
   lbl: {
-    marca: 'Marca del Producto'
+    nombre: 'Marca del Producto'
   },
   btn: {},
   txt: {},

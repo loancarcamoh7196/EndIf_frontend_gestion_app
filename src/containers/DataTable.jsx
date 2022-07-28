@@ -1,6 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 import $ from 'jquery';
-import 'datatables.net-bs4'
+import 'datatables.net-bs4';
+import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
+import 'datatables.net-buttons-bs4';
+import 'datatables.net-buttons/js/buttons.html5.js';
+import 'datatables.net-buttons/js/buttons.print.js';
+import 'datatables.net-buttons/js/buttons.colVis';
+import 'datatables.net-buttons/js/buttons.html5';
+import 'datatables.net-buttons/js/buttons.print';
 import 'datatables.net-responsive-bs4';
 import 'datatables.net-fixedheader-bs4';
 import 'datatables.net-staterestore-bs4';
@@ -8,11 +15,7 @@ import 'datatables.net-fixedcolumns-bs4';
 import 'datatables.net-rowgroup-bs4';
 import 'datatables.net-scroller-bs4';
 import 'datatables.net-fixedheader-bs4';
-// import * as jszip from 'jszip';
-import 'pdfmake';
-import 'datatables.net-buttons-bs4';
-import 'datatables.net-buttons/js/buttons.html5.js';
-import 'datatables.net-buttons/js/buttons.print.js';
+// import 'pdfmake';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 const jzip = require('jzip');
@@ -21,7 +24,48 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 window.JSZip = jzip;
 
 const DataTable = ({ id='table', data, encabezado, opciones, styleHeadDark=true, title='EndIf'}) => {
-  const buttons = ['copy', 'csv', 'excel', 'pdf', 'print'];
+  const buttons =
+    [
+      {
+        extend:'copy',
+        className: 'btn btn-secundary',
+        text: '<i class="fa-solid fa-copy"></i>',
+        titleAttr: 'Copiar Tabla',
+      },
+      {
+        extend: 'csvHtml5',
+        className: 'btn btn-info',
+        text: '<i class="fa-solid fa-file-csv"></i>',
+        titleAttr: 'Exportar a CSV',
+      },
+      {
+        extend: 'excelHtml5',
+        className: 'btn btn-success',
+        text: '<i class="fas fa-file-excel"></i> ',
+        title: '',
+        filename: 'Cuadratura',
+        footer: true,
+        titleAttr: 'Exportar a Excel',
+      },
+      {
+        extend: 'pdfHtml5',
+        orientation:'landscape',
+        pageSize: 'legal',
+        alignment: 'center',
+        className: 'btn btn-danger',
+        text: '<i class="fas fa-file-pdf"></i> ',
+        title: '',
+        filename: 'Cuadratura',
+        footer: true,
+        titleAttr: 'Exportar a PDF',
+      },
+      {
+        extend: 'print',
+        className: 'btn btn-info',
+        text:'<i class="fa-solid fa-print"></i>',
+        titleAttr: 'Imprimir',
+      },
+    ];
 
   useEffect(() => {
     // $(`#${id}`).DataTable({loading: false});

@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { NavLink, Link } from 'react-router-dom';
 import { universal } from '../utils/texts/general';
 
-import SiteIcon from '@assets/icons/dragon_fruit_icon.png';
+import SiteIcon from '@assets/icons/fav.png';
 
 const Sidebar = () => {
   return (

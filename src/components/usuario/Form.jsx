@@ -7,46 +7,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-// import Switch from 'react-switch';
-// import BootstrapSwitchButton from 'bootstrap-switch-button-react'
 import endPoints from '@services/api';
-import {
-  universal,
-  user,
-} from '../../utils/texts/modAdmin';
-
-// Componentes propios
+import { user } from '../../utils/texts/modAdmin';
+import { universal, toastOptions } from '../../utils/texts/general';
+//* Componentes propios
 import Card from '@common/Card';
-
-// Redux ~ Duck necesarios
+//* Redux ~ Duck necesarios
 import { addUsuarioAction, updateUsuarioAction } from '@redux/usuariosDuck';
 import { getEmpresasAction } from '@redux/empresasDuck';
 import { getRolesAction } from '@redux/rolesDuck';
 
-
-// Opciones Toast
-const toastOptions = {
-	position: 'top-right',
-	autoClose: 8000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
-
 export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
-	const params = useParams(); // Acceso a params de la URL
-	const dispatch = useDispatch(); //Disparador
-	const navigate = useNavigate(); // Navegador de Pagina
+	const params = useParams(); //* Acceso a params de la URL
+	const dispatch = useDispatch(); //* Disparador
+	const navigate = useNavigate(); //* Navegador de Pagina
 
-	// Manejo de Checkbox
-	const [isCheckActiva, setIsCheckActiva] = useState(true);
+	//* Manejo de Checkbox
+	// const [isCheckActiva, setIsCheckActiva] = useState(true);
 	const [changePass, setChangePass] = useState(false);
   const [valUsername, setValUsername] = useState(false);
 
-  const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
-	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
+  const empresas = useSelector((store)=> store.empresas.list); //* Valores para Select de Empresas
+	let roles = useSelector((store)=> store.roles.list); //* Valores para Select Roles
 
   const [validation, setValidation] = useState({
 		username: true,
@@ -90,14 +72,14 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
   const passRef = useRef(null);
   const pass2Ref = useRef(null);
 
-  // ejecucion de metodo al renderizar pagina
+  //? Ejecucion de metodo al renderizar pagina
   useEffect(() => { 
-    dispatch(getEmpresasAction()); // Recupera al cargar datos de empresas
-    dispatch(getRolesAction()); // Recupera al cargar datos de roles
-    console.log(form.activo)
+    dispatch(getEmpresasAction()); //* Recupera al cargar datos de empresas
+    dispatch(getRolesAction()); //* Recupera al cargar datos de roles
+    // console.log(form.activo)
   }, []);
 
-	// Almacenamiento de Datos formulario
+	//? Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
 		username: usuarioForm.username,
 		pass: usuarioForm.pass,
@@ -111,7 +93,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
 		rolesId: usuarioForm.rolesId
 	});
 	
-  // Valida contraseña y setea campos
+  //? Valida contraseña y setea campos
   const validarPassword = (pass, pass2) => {
     const isCorrect = (pass === pass2);
     if(!isCorrect){
@@ -122,7 +104,7 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
     return isCorrect;
   };
 
-  // ** Validación de username
+  //? Validación de username
   const validarUsername = async (e) => {
     const valor = e.target.value;
     try {
@@ -183,17 +165,10 @@ export default function FormUsuario({ formNewUsuario = true, usuarioForm }) {
 	};
 
 	const handleChange = (e) => {
-		// if(e == typeof boolean) {
-		// 	setForm({...form, 'activo': isCheckActiva});
-		// 	return;
-		// }else {
-      // console.log(e);
-			const target = e.target;
-			const value = (target.type === 'checkbox' ? target.checked : target.value);
-			const name = target.name;
-			setForm({  ...form, [name]: value });
-		// }
-    console.log(value);
+    const target = e.target;
+    const value = (target.type === 'checkbox' ? target.checked : target.value);
+    const name = target.name;
+    setForm({  ...form, [name]: value });
 		// console.log(form);
 	};
 
