@@ -37,14 +37,31 @@ const universal = {
     forget: 'Olvide mi contraseña',
     altEmpresa: 'Endif Logo',
     informe: 'Informe',
+    reminderCompany: 'Recuerda seleccionar Empresa'
   },
   plhld: {
     search: 'Buscar ...',
-    
+  },
+  slct: {
+    empresa: 'Seleccione Empresa',
+  },
+  lnk: {},
+};
+
+const auth = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {
+    success: 'Inicio de Sesión Exitoso',
+    loginError: 'No ha se ha podido iniciar sesión',
+    refreshError: 'No ha podido actualizar la sesión',
+    closeSession: 'Se ha cerrado sesión',
 
   },
+  plhd: {},
   slct: {},
-  lnk: {},
+  lnk:{}
 };
 
 const toastOptions= {
@@ -60,5 +77,6 @@ const toastOptions= {
 
 module.exports = {
   universal,
+  auth,
   toastOptions
 }

@@ -1,11 +1,13 @@
 /**
  * * Redux de Manejo de Session
+ * ? Nombre en store: auth
  */
 import axios from 'axios';
-import Cookie from 'js-cookie';
 import endPoints from '@services/api';
 import { toast } from 'react-toastify';
-import { toastOptions } from '../utils/texts/general';
+//* Texto 
+import { toastOptions, auth } from '../utils/texts/general';
+
 
 //* Data inicial
 const dataInicial = {
@@ -14,6 +16,7 @@ const dataInicial = {
   token: null,
 	isAdmin: false,
 	info: [],
+	empresaSession: '',
 }
 
 //* Types
@@ -43,41 +46,22 @@ export default function userAuthReducer(state = dataInicial, action) {
 
 //* Action
 export const loginUserAction = (options) => async (dispatch, getState) => {
-	const { body } = options; // Opciones para solicitud a  API
+	const { body } = options; //? Opciones para solicitud a  API
 	const api = endPoints.auth.login;	
-	dispatch({ type: LOADING });
+	dispatch({ type: LOADING }); //? Loader
 	try {
 		const res = await axios.post(api, body);
 		// console.log(res);
 		if (res.status !== 200 ) {
-			toast.error('No ha se ha podido iniciar sesión', { ...toastOptions });
+			toast.error(auth.txt.loginError, toastOptions);
 			dispatch({ type: USER_LOGOUT });
-			throw 'No ha se ha podido iniciar sesión';
+			throw auth.txt.loginError;
 		};
-		const { user, refreshToken, token } = res.data; // data necesaria
+		const { user, refreshToken, token } = res.data; //? data necesaria
 		// axios.defaults.withCredentials = true;
 		axios.defaults.headers.Authorization = `Bearer ${refreshToken}`;
-
-		localStorage.setItem(
-			'user',
-			JSON.stringify({
-				id: user.id,
-				username: user.username,
-				token: user.token_acceso,
-				nombres: user.nombres,
-				apellidos: user.apellidos,
-				email: user.email,
-				porcentajeDcto: user.porcentajeDcto,
-				empresaRut: user.empresaRut,
-				activo: user.activo,
-				rolesId: user.rolesId
-			})
-		);
-		localStorage.setItem('token', refreshToken);
-		
-		toast.success('Inicio de Sesión Exitoso', { ...toastOptions });
+		toast.success(auth.txt.success, toastOptions);
 		// console.log(axios.defaults.headers.Authorization);
-		
 		dispatch({
 			type: USER_SUCCESS,
 			payload: { 	
@@ -99,7 +83,7 @@ export const loginUserAction = (options) => async (dispatch, getState) => {
 	} catch (error) {	
 		// console.log(error);
 		// let msg = error.data.body;
-		toast.error('No ha se ha podido iniciar sesión', { ...toastOptions });
+		toast.error(auth.txt.loginError, toastOptions);
 		// toast.error(msg, {...toastOptions});
 		dispatch({ type: USER_ERROR });
 	}
@@ -119,13 +103,12 @@ export const refreshTokenAction = () => async(dispatch, getState) => {
 		// axiosToken = axios.defaults.headers.Authorization;
 		dispatch({ type: USER_REFRESH, payload: res.data, });
 		// console.log(axiosToken);
-		// Cookie.set('jwt', res.data, { expires: 30 });
 	} catch (error) {
-		//Encaso que no funcione el refresh token cerrar session forzosamente
+		//? En caso que no funcione el refresh token cerrar session forzosamente
 		// console.log(error);
 		// console.log('Ha fallado proceso de refrescar token');
 		// console.log(axiosToken);
-		toast.warning('No ha podido actualizar la sesión', {...toastOptions});
+		toast.warning(auth.txt.refreshError, toastOptions);
 		dispatch({ type: USER_LOGOUT, });
 	}
 };
@@ -133,8 +116,7 @@ export const refreshTokenAction = () => async(dispatch, getState) => {
 export const logoutUserAction = () => (dispatch) => {
 	localStorage.removeItem('user');
 	axios.defaults.headers.Authorization = null;
-	Cookie.set('jwt', null);
-	toast.info('Se ha cerrado sesión', {...toastOptions});
+	toast.info(auth.txt.closeSession, toastOptions);
 	dispatch({ type: USER_LOGOUT });
 };
 
@@ -151,16 +133,3 @@ export const readUserAction = () => async (dispatch, getState) => {
 		});
 	}else return null;
 };
-
-// export const loadUser = () => {
-//   return (dispatch, getState) => {
-//     const token = getState().auth.token;
-//     if (token) {
-//       dispatch({
-//         type: "USER_LOADED",
-//         token,
-//       });
-//     } else return null;
-//   };
-// };
-	

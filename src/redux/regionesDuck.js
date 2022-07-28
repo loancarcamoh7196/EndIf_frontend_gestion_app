@@ -1,28 +1,21 @@
+/**
+ * * Reducer Regiones
+ */
 import axios from 'axios';
 import endPoints from '@services/api';
 import { refreshTokenAction } from '@redux/userAuthDuck';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'; 
+import { toastOptions } from '../utils/texts/general';
 
-//Data inicial
+//* Data inicial
 const dataInicial = {
   list: [],
 }
-
-const toastOptions = {
-	position: "top-right",
-	autoClose: 5000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
-
 //Types
-const REGIONES_GET = 'REGIONES_GET';
+const REGIONES_GET = 'REGIONES_GET';  
 const REGION_ERROR = 'REGION_ERROR';
 
-//Reducer
+//* Reducer
 export default function regionesReducer(state = dataInicial, action) {
   switch(action.type) {
     case REGION_ERROR:
@@ -34,18 +27,15 @@ export default function regionesReducer(state = dataInicial, action) {
   }
 }
 
-// Action
+//* Actions
 export const getRegionesAction = (options) => async (dispatch, getState) => {
-	// const { body } = options; // Opciones para solicitud a  API
+	// const { body } = options; //? Opciones para solicitud a  API
 	const api = endPoints.regiones.list();
-  const { activo, loading } = getState().user;
-  // console.log(body);
-  // console.log(api);
-  // console.log(axios.defaults.headers.Authorization);
+  const { activo, loading } = getState().auth;
+
 	try {
 		const res = await axios.get(api);
     // console.log(res);
-
     dispatch({ type: REGIONES_GET, payload:  res.data });
 	} catch (error) {
 		// console.log(error);

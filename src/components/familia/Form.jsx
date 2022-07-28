@@ -2,7 +2,7 @@
  * * Formulario de Familia
  * ? Para agregar y editar
  */
-import React, { useState, Fragment, useEffect, useRef } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -64,7 +64,7 @@ export default function FormFamily({ formNewFamily = true, familyForm }) {
 
 			const options = { id, body: form };
 			dispatch(updateFamiliaAction(options));
-			navigate('/admin/roles');
+			navigate('/familias');
 		} catch (error) {
 			console.log(error);
 			// setMessage('Falló la edición');
@@ -80,7 +80,7 @@ export default function FormFamily({ formNewFamily = true, familyForm }) {
     try {	
       delete form.id;
       dispatch(addFamiliaAction({body: form}));
-      navigate('/admin/roles');
+      navigate('/familias');
 		} catch (error) {
 			// setMessage('Falló la edición');
       console.log(error);

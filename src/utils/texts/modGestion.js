@@ -80,7 +80,8 @@ const family ={
     empresaRut: 'RUT Empresa'
   },
   btn: {
-
+    agregar: 'Agregar',
+    editar: 'Editar',
   },
   txt: {},
   plhld: {

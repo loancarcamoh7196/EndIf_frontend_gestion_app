@@ -1,13 +1,18 @@
+/**
+ * * Página de Dashboard
+ * ? ruta: /dashboard
+ */
 import React, { useState, useEffect, Fragment } from 'react';
-import { NavLink, Link, Outlet } from 'react-router-dom';
-import axios from 'axios';
-import useAuth from '@hooks/useAuth';
 import { useDispatch, useSelector, useStore } from 'react-redux';
-
-// import { logoutUserAction } from '@redux/userAuthDuck';
-
+import { NavLink, Link } from 'react-router-dom';
+import axios from 'axios';
+//* Texto
+import { universal } from '../utils/texts/general'
+//* Custom Components
 import Layout from '@layouts/Main';
 import apiURL from '@services/api';
+import Card from '../common/Card';
+
 
 const Dashboard = () => {
   const body = {
@@ -98,6 +103,10 @@ const Dashboard = () => {
 
   return (
     <Layout title='Dashboard' links={link}>
+      <Card>
+        {universal.txt.reminderCompany}
+      </Card>
+
       <section className='block'>
         <div className='card'>
           <div className='card-body'>

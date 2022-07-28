@@ -26,15 +26,15 @@ export default function FormEmpresa({ formNewEmpresa = true, empresaForm }) {
 	const [isCheckActiva, setIsCheckActiva] = useState(true);
 	const [changeDireccion, setChangeDireccion] = useState(false);
 
-  const regiones = useSelector((store)=> store.regiones.list); //Valores para Select de Regiones
-	let comunas = useSelector((store)=> store.comunas.list); // Valores para Select Comunas
+  const regiones = useSelector((store)=> store.regiones.list); //? Valores para Select de Regiones
+	let comunas = useSelector((store)=> store.comunas.list); //? Valores para Select Comunas
 
   useEffect(() => {
-    dispatch(getRegionesAction()); // Recupera al cargar datos de regiones
+    dispatch(getRegionesAction()); //* Recupera al cargar datos de regiones
 		if (!formNewEmpresa) {
 			regiones.filter( i=> (i.comunas.map(e => e.id === form.comunaId  &&  dispatch(getComunasAction({regionId: i.id, comunas: i.comunas})))));
 		}
-  }, [regiones]);
+  }, []);
 
 	//* Almacenamiento de Datos formulario
 	const [form, setForm] = useState({

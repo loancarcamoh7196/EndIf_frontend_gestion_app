@@ -1,29 +1,27 @@
+/**
+ * Componente Navbar
+ */
 import React, { Fragment, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { universal } from '../utils/texts/general';
-import useAuth from "@hooks/useAuth";
-
-// redux
+//* Redux
 import { logoutUserAction } from '@redux/userAuthDuck';
-
+//* Image
 import UserIcon from '@assets/icons/user_icon.png';
+//* Custom Components
+import EmpSelect from '../common/EmpresaSelect';
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let activo = useSelector(store => store.auth.activo);
 	let isAdmin = useSelector(store => store.auth.isAdmin);
-  let user = useSelector(store => store.auth.info);
-  const {auth, logout} = useAuth();
-  // console.log(auth);
-  
-  // useEffect(() => { (auth === undefined) && dispatch(auth) }, []);
-  
+  let userLogged = useSelector(store => store.auth.info);
+
 
   const handleLogOut = () => {
 		dispatch(logoutUserAction());
-    logout();
 		navigate('/');
 	}
 
@@ -78,13 +76,14 @@ const Navbar = () => {
           </Link>
           <div className='dropdown-menu dropdown-menu-lg dropdown-menu-right'>
             <span className='dropdown-item dropdown-header'>
-              {auth !== undefined && auth.username }
+              {userLogged !== undefined && userLogged.username }
             </span>
-            {/* <div className='dropdown-divider'></div>
-            <a href='#' className='dropdown-item'>
-              <i className='fas fa-envelope mr-2'></i> 4 new messages
-              <span className='float-right text-muted text-sm'>3 mins</span>
-            </a> */}
+            <div className='dropdown-divider'></div>
+            { isAdmin &&
+              <div to='#' className='dropdown-item'>
+                <EmpSelect  />
+              </div>
+            }
             {/* <div className='dropdown-divider'></div>
             <a href='#' className='dropdown-item'>
               <i className='fas fa-users mr-2'></i> 8 friend requests

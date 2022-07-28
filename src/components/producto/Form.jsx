@@ -8,23 +8,14 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Switch from 'react-switch';
 import { product, role } from '../../utils/texts/modGestion';
+import { toastOptions } from '../../utils/texts/general'
 
-// Componentes propios
+//* Componentes propios
 import Card from '@common/Card';
 
-// Redux ~ Duck necesarios
+//* Redux ~ Duck necesarios
 import { addProductoAction, updateProductoAction } from '@redux/productosDuck';
 
-// Opciones Toast
-const toastOptions = {
-	position: 'top-right',
-	autoClose: 8000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
 
 export default function FormProduct({ formNewRol = true, rolForm }) {
 	const params = useParams(); // Acceso a params de la URL
