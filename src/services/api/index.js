@@ -1,12 +1,11 @@
 /**
  ** URL de consumo de API's
- * ? Contiene rutas de  API Auth y API Enjambre
+ *? Contiene rutas de  API Auth y API Enjambre
  *
  */
 const api_url = process.env.REACT_APP_API_BACKEND;
 const puerto = process.env.REACT_APP_API_PORT;
 const version = process.env.REACT_APP_URI_API;
-
 // console.log(process.env.REACT_APP_API_BACKEND);
 // console.log(process.env.REACT_APP_URI_API);
 
@@ -27,7 +26,17 @@ const endPoints = {
     delete: (id) => `${api_url}:${puerto}/${version}/empresas/${id}/`,
   },
   usuarios: {
-    list: () => `${api_url}:${puerto}/${version}/usuarios/`,
+    list: (options) => {
+      const { empresaRut } = options;
+      let url = '';
+
+      empresaRut !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/usuarios/?empresaRut=${empresaRut}`)
+        : (url = `${api_url}:${puerto}/${version}/usuarios/`);
+
+      return url;
+    },
     get: (id) => `${api_url}:${puerto}/${version}/usuarios/${id}/`,
     add: () => `${api_url}:${puerto}/${version}/usuarios`,
     update: (id) => `${api_url}:${puerto}/${version}/usuarios/${id}/`,
@@ -52,49 +61,99 @@ const endPoints = {
     list: () => `${api_url}:${puerto}/${version}/direcciones` ,
     get: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}`,
     add: () => `${api_url}:${puerto}/${version}/direcciones`,
-    update: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}/edit`,
+    update: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/direcciones/${id}/`,
   },
   tiendas: {
-    list: () => `${api_url}:${puerto}/${version}/tiendas` ,
+    list: (options) => {
+      const { empresaRut } = options;
+      let url = '';
+      
+      empresaRut !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/tiendas/?empresaRut=${empresaRut}`)
+        : (url = `${api_url}:${puerto}/${version}/tiendas`);
+
+      return url;
+    } ,
     get: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}`,
     add: () => `${api_url}:${puerto}/${version}/tiendas`,
     update: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}`,
     delete: (id) => `${api_url}:${puerto}/${version}/tiendas/${id}/`,
   },
   listaPrecios: {
-    list: () => `${api_url}:${puerto}/${version}/listaprecios` ,
+    list: (options) => {
+      const { empresaRut } = options;
+      let url = '';
+      
+      empresaRut !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/listaprecios/?empresaRut=${empresaRut}`)
+        : (url = `${api_url}:${puerto}/${version}/listaprecios`); 
+      
+      return url;
+    },
     get: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}`,
     add: () => `${api_url}:${puerto}/${version}/listaprecios`,
-    update: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/edit`,
+    update: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/`,
   },
   productos: {
-    list: () => `${api_url}:${puerto}/${version}/productos` ,
+    list: (options) => {
+      const { empresaRut } = options;
+      let url = '';
+
+      empresaRut !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/productos/?empresaRut${empresaRut}`)
+        : (url = `${api_url}:${puerto}/${version}/productos`);
+
+      return url;
+    },
     get: (id) => `${api_url}:${puerto}/${version}/productos/${id}`,
     add: () => `${api_url}:${puerto}/${version}/productos`,
-    update: (id) => `${api_url}:${puerto}/${version}/productos/${id}/edit`,
+    update: (id) => `${api_url}:${puerto}/${version}/productos/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/productos/${id}/`,
   },
   precios: {
-    list: () => `${api_url}:${puerto}/${version}/precios` ,
+    list: (options) => {
+      const { empresaRut } = options;
+      let url = '';
+
+      empresaRut !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/precios/?empresaRut=${empresaRut}`)
+        : (url = `${api_url}:${puerto}/${version}/precios`);
+
+      return url;
+    },
     get: (id) => `${api_url}:${puerto}/${version}/precios/${id}`,
     add: () => `${api_url}:${puerto}/${version}/precios`,
-    update: (id) => `${api_url}:${puerto}/${version}/precios/${id}/edit`,
+    update: (id) => `${api_url}:${puerto}/${version}/precios/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/precios/${id}/`,
   },  
   barras: {
     list: () => `${api_url}:${puerto}/${version}/barras` ,
     get: (id) => `${api_url}:${puerto}/${version}/barras/${id}`,
     add: () => `${api_url}:${puerto}/${version}/barras`,
-    update: (id) => `${api_url}:${puerto}/${version}/barras/${id}/edit`,
+    update: (id) => `${api_url}:${puerto}/${version}/barras/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/barras/${id}/`,
   },
   familias: {
-    list: () => `${api_url}:${puerto}/${version}/familias` ,
+    list: (options) => {
+      const { empresaRut } = options;
+      let url = '';
+
+      empresaRut !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/familias/?empresaRut=${empresaRut}`)
+        : (url = `${api_url}:${puerto}/${version}/familias`);
+
+      return url;
+    },
     get: (id) => `${api_url}:${puerto}/${version}/familias/${id}`,
     add: () => `${api_url}:${puerto}/${version}/familias`,
-    update: (id) => `${api_url}:${puerto}/${version}/familias/${id}/edit`,
+    update: (id) => `${api_url}:${puerto}/${version}/familias/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/familias/${id}/`,
   },
 };
