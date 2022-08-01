@@ -3,6 +3,7 @@
  */
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 import storage from 'redux-persist/lib/storage';
 
 import thunk from 'redux-thunk';
@@ -22,14 +23,14 @@ import productosReducer from '@redux/productosDuck';
 //* Declaración de Reducers
 const appReducer = combineReducers({
 	auth: userAuthReducer,
-	empresas: empresasReducer,
-	usuarios: usuariosReducer,
-	regiones: regionesReducer,
-	comunas: comunasReducer,
-	roles: rolesReducer,
-	tiendas: tiendasReducer,
-	familias: familiasReducer,
-	productos: productosReducer,
+	// empresas: empresasReducer,
+	// usuarios: usuariosReducer,
+	// regiones: regionesReducer,
+	// comunas: comunasReducer,
+	// roles: rolesReducer,
+	// tiendas: tiendasReducer,
+	// familias: familiasReducer,
+	// productos: productosReducer,
 });
 
 //* Limpieza de Storage en caso de logout
@@ -39,9 +40,10 @@ const rootReducer= (state, action)=>{
 }
 //* Persist - Redux
 const persistConfig ={
-	key: 'root',
+	key: 'app',
 	storage,
-	whitelist: [ 'auth']
+	whitelist: ['auth'],
+	stateReconciler: hardSet,
 }
 
 const persistedReducer = persistReducer(persistConfig, appReducer);

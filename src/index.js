@@ -1,12 +1,13 @@
+/**
+ ** Archivo Inicial del Proyecto
+ */
 import React from 'react';
-// import ReactDOM from 'react-dom/client';
-import { createRoot, hydrateRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import generateStore from '@redux/store';
 import App from '@routes/App';
 // import reportWebVitals from './reportWebVitals';
-import { AuthProvider } from '@context/AuthContext';
 
 const container = document.getElementById('root');
 const root = createRoot(container);

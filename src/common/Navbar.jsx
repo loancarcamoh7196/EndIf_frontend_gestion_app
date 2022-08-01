@@ -1,5 +1,5 @@
 /**
- * Componente Navbar
+ ** Componente Navbar
  */
 import React, { Fragment, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
@@ -47,6 +47,13 @@ const Navbar = () => {
       </ul>
       {/* -------- Buscador y otros widget ---------- */}
       <ul className='navbar-nav ml-auto'>
+        {/* { isAdmin &&
+          <li className='nav-item'>
+            <div to='#' className='dropdown-item'>
+                <EmpSelect  />
+              </div>
+          </li>      
+        } */}
         <li className='nav-item'>
           <NavLink to='#' className='nav-link' data-widget='navbar-search' role='button'>
             <i className='fas fa-search' />
@@ -79,11 +86,11 @@ const Navbar = () => {
               {userLogged !== undefined && userLogged.username }
             </span>
             <div className='dropdown-divider'></div>
-            { isAdmin &&
+            {/* { isAdmin &&
               <div to='#' className='dropdown-item'>
                 <EmpSelect  />
               </div>
-            }
+            } */}
             {/* <div className='dropdown-divider'></div>
             <a href='#' className='dropdown-item'>
               <i className='fas fa-users mr-2'></i> 8 friend requests
@@ -98,6 +105,7 @@ const Navbar = () => {
             <button className='dropdown-item dropdown-footer dropdown-dark' onClick={handleLogOut}>{universal.btn.cerrar}</button>
           </div>
         </li>
+        
         {/* -------- Full Width ---------- */}
         <li className='nav-item'>
           <NavLink to='#' className='nav-link' data-widget='fullscreen' role='button'>
