@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
-import { deleteFamiliaAction } from '@redux/familiasDuck';
+import { deleteSubFamiliaAction, showFormEditSBAction } from '@redux/subFamiliasDuck';
 
-const SubFamiliaTable = ({data}) => {
+const SubFamiliaTable = ({data, setFormShow, formShow, buttonDelete }) => {
   const dispatch = useDispatch();
   let content = []; //? Contenedor de cuerpo de la tabla
 
@@ -36,15 +36,28 @@ const SubFamiliaTable = ({data}) => {
   
   //* Rellenar cuerpo de Tabla
   data.map((row) => content.push(
-    <tr key={row.id} id={`fil-${row.id}`}>
+    <tr key={row.id.toString()} id={`fil-${row.id}`}>
       <td>{row.id} </td>
       <td>{row.nombre}</td>
       <td> 
-        <Link to={`/familias/${row.id}/edit`} className='btn btn-xs btn-outline-warning'>
+        <button
+          type='button'
+          onClick={()=>{
+            setFormShow({ edit: true, new: false });
+            dispatch(showFormEditSBAction({ id: row.id }));
+          }}
+          className='btn btn-xs btn-outline-warning'
+          data-bs-toggle='offcanvas'
+          data-bs-target='#offcanvasRight'
+          aria-controls='offcanvasRight'
+        >
           <i className='fa-solid fa-file-pen m-1' />
-        </Link>
+        </button>
         &nbsp;
-        <button className='btn btn-xs btn-outline-danger' onClick={()=> dispatch(deleteFamiliaAction({ id: row.id }))}>
+        <button
+          className='btn btn-xs btn-outline-danger'
+          onClick={()=> dispatch(deleteSubFamiliaAction({ id: row.id }))}
+        >
           <i className='fa-solid fa-trash-can m-1' /> 
         </button>
       </td>
@@ -53,7 +66,7 @@ const SubFamiliaTable = ({data}) => {
   
   return  (
     <DataTable
-      key='tab_usuarios'
+      key='tab_subfamilia'
       encabezado={titulos}
       data={content}
       opciones={options}

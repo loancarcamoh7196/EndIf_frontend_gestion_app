@@ -27,8 +27,8 @@ export default function FormTienda({ formNewTienda = true, tiendaForm }) {
 	const [changeDireccion, setChangeDireccion] = useState(false);
 
   const empresas = useSelector((store)=> store.empresas.list); //? Valores para Select de Empresas
-  const regiones = useSelector((store)=> store.regiones.res); //? Valores para Select de Regiones
-	let comunas = useSelector((store)=> store.comunas.res); //? Valores para Select Comunas
+  const regiones = useSelector((store)=> store.regiones.list); //? Valores para Select de Regiones
+	let comunas = useSelector((store)=> store.comunas.list); //? Valores para Select Comunas
 
   //* Ejecución de metodo al renderizar pagina
   useEffect(() => {

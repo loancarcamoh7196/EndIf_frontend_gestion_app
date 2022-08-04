@@ -5,14 +5,13 @@
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
-
+//? Redux
 import { deleteRolAction } from '@redux/rolesDuck';
 
-const EmpresaTable = ({data}) => {
+const ProductoTable = ({data}) => {
   const dispatch = useDispatch();
   let content = []; // Contenedor de cuerpo de la tabla
-  let encabezado = []; // Contenedor encabezado de la tabla
-
+  //* Opciones de la DataTable
   const options = {
     responsive: true,
     loading: true,
@@ -29,61 +28,51 @@ const EmpresaTable = ({data}) => {
     serverSide: false,
     fixedHeader: false,
     buttons: false
-  }; // Opciones de la DataTable
+  }; 
 
-  const head = [
-    { row: 'ID' },
-    { row: 'Nombre' },
-    { row: 'Acceso Gestion' },
-    { row: 'Acceso Puntos de Venta' },
-    { row: 'Acceso Contabilidad' },
-    { row: 'Acceso Inventario' },
-    { row: 'Acceso Inventario Movil' },
-    { row: 'Acciones' }
+  const titulos = [ 
+    'ID', 'Nombre', 'Código Interno','Activo', 'Exento', 'Inventario', 'Comanda', 'Es Ingrediente', 'Tiene Envase', '' 
   ];
   
-  // rellenar cuerpo de Tabla
-  data.map((result) => {
-    content.push(
-      <tr key={result.id} id={`fil-${result.id}`}>
-        <td>{result.id} </td>
-        <td>{result.nombre}</td>
-        <td>
-          {result.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
-        </td>
-        <td>
-          {result.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {result.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {result.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {result.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td> 
-          <Link to={`/admin/roles/${result.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
-            <i className='fa-solid fa-file-pen' />
-          </Link>
-          <br  />
-          <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-            dispatch(deleteRolAction({ id: result.id }));
-          }}>
-            <i className='fa-solid fa-trash-can' /> 
-          </button>
-        </td>
-        
-
-      </tr>
-    )
-  });
-
-  // Llenar encabezado de Tabla
-  head.map((i) => encabezado.push(<th>{i.row}</th>) );
+  //* Generar columnas de Tabla
+  data.map((row) => content.push(
+    <tr key={row.id} id={`fil-${row.id}`}>
+      <td>{row.id} </td>
+      <td>{row.nombre}</td>
+      <td>{row.codigoInterno}</td>
+      <td>
+        {row.activo ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
+      </td>
+      <td>
+        {row.exento ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td>
+        {row.esInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td>
+        {row.comanda ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td>
+        {row.esIngrediente ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td>
+        {row.tieneEnvase ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td> 
+        <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
+          <i className='fa-solid fa-file-pen' />
+        </Link>
+        <br  />
+        <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
+          dispatch(deleteRolAction({ id: row.id }));
+        }}>
+          <i className='fa-solid fa-trash-can' /> 
+        </button>
+      </td>
+    </tr>
+  ));
   
-  return  <DataTable id='tab_usuarios' key='tab_usuarios' encabezado={encabezado} data={content} opciones={options}  /> ;
+  return  <DataTable key='tab_usuarios' encabezado={titulos} data={content} opciones={options}  /> ;
 }
 
-export default EmpresaTable;
+export default ProductoTable;

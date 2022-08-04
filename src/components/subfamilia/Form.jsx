@@ -3,26 +3,20 @@
  * ? ubicado en: /subfamilias/:id
  */
 import React, { Fragment, useEffect, useState } from 'react';
-import {Link, use} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 //* Textos
-import { subfamily } from '../../utils/texts/modGestion';
-import { universal, toastOptions } from '../../utils/texts/general';
+import { subfamily } from '@utils/texts/modGestion';
 //* Redux
 import { addSubFamiliaAction, updateSubFamiliaAction } from '@redux/subFamiliasDuck';
 
 
 export default function FormSubFamilia({subfamilyForm, formNewSubFamily=true }) {
   const dispatch = useDispatch();
-
-  // const empresaSession = useSelector(store => store.auth.empresaSession);
   
-  const [validation, setValidation] = useState({
-		nombre: true
-	});
+  const [validation, setValidation] = useState({ nombre: true });
 
 	const validacion = (campo) => {
-		const _names = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
+		const _names = /^[0-9a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
 		// console.log(campo)
 
 		if (campo.nombre === 'nombre') {
@@ -38,41 +32,32 @@ export default function FormSubFamilia({subfamilyForm, formNewSubFamily=true }) 
 	});
 	
 	/**
-	 * * Manejador de Actualizar Rol
+	 * * Manejador de Actualizar SubFamilia
 	 * @param {element} form campos formulario
 	 */
-	const putData = async (id,form) => { 
-		// console.log('Entro en Editar');
-    delete form.id;
-		// const { id } = params; // Extraer ID de URL
-		try {
-			// console.log('Entro update');
+	const putData = async (form) => { 
+		const { id } = form; // Extraer del form
+		delete form.id;
 
+		try {
 			const options = { id, body: form };
 			dispatch(updateSubFamiliaAction(options));
-			// navigate('/familias');
 		} catch (error) {
 			console.log(error);
-			// setMessage('Falló la edición');
 		}
-		// console.log('Soy update');
 	};
 
 	/** 
-	 * * Manejador para Agregar Rol
+	 * * Manejador para Agregar SubFamilia
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
     try {
-			console.log(form)
       delete form.id;
       dispatch(addSubFamiliaAction({body: form}));
-      // navigate('/familias');
 		} catch (error) {
-			// setMessage('Falló la edición');
       console.log(error);
 		}
-		// console.log('Soy Agregar');
 	};
 
 	const handleChange = (e) => {
@@ -80,14 +65,12 @@ export default function FormSubFamilia({subfamilyForm, formNewSubFamily=true }) 
     const value = (target.type === 'checkbox' ? target.checked : target.value);
     const name = target.name;
     setForm({  ...form, [name]: value });
-		console.log(form);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		formNewSubFamily ? postData(form) : putData(form);
 	};
-
 
   return (
     <Fragment>
@@ -102,6 +85,7 @@ export default function FormSubFamilia({subfamilyForm, formNewSubFamily=true }) 
           <div className='form-group'>
             <label htmlFor='id'>{subfamily.lbl.id}</label>
             <span name='id' className='form-control form-control-border'>{form.id}</span>
+						<input type='hidden' name='id' value={form.id} />
           </div>
         }
 
@@ -124,7 +108,7 @@ export default function FormSubFamilia({subfamilyForm, formNewSubFamily=true }) 
         <div>
           <input
             type='submit'
-            className='btn btn-outline-success btn-md btn-block'
+            className='btn btn-outline-success btn-md btn-block mb-2 text-reset' data-bs-dismiss='offcanvas' 
             value={ formNewSubFamily ? subfamily.btn.new : subfamily.btn.edit }
           />
         </div>

@@ -1,18 +1,17 @@
 /**
  ** Componente Roles Table
- *  
+ *? alojado en: /roles 
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
-
+//? Redux
 import { deleteRolAction } from '@redux/rolesDuck';
 
-const EmpresaTable = ({data}) => {
+const RolesTable = ({data}) => {
   const dispatch = useDispatch();
-  let content = []; //* Contenedor de cuerpo de la tabla
-  let encabezado = []; //* Contenedor encabezado de la tabla
-
+  let content = []; //? Contenedor de cuerpo de la tabla
+  //* Opciones de la DataTable
   const options = {
     responsive: true,
     loading: true,
@@ -29,22 +28,16 @@ const EmpresaTable = ({data}) => {
     serverSide: false,
     fixedHeader: false,
     buttons: false
-  }; //? Opciones de la DataTable
+  }; 
 
+  //* Encabezados
   const titulos = [
-    { row: 'ID' },
-    { row: 'Nombre' },
-    { row: 'Acceso Gestion' },
-    { row: 'Acceso Puntos de Venta' },
-    { row: 'Acceso Contabilidad' },
-    { row: 'Acceso Inventario' },
-    { row: 'Acceso Inventario Movil' },
-    { row: 'Acciones' }
+    'ID', 'Nombre', 'Acceso Gestión', 'Acceso Puntos de Venta', 'Acceso Contabilidad', 'Acceso Inventario', 'Acceso Inventario Movil','Acciones'
   ];
   
-  //* Rellenar cuerpo de Tabla
-  data.map((row) => 
-    content.push(
+  //* Generar columnas de Tabla
+  if (data.length >0) {
+    data.map((row) => content.push(
       <tr key={row.id} id={`fil-${row.id}`}>
         <td>{row.id} </td>
         <td>{row.nombre}</td>
@@ -74,20 +67,16 @@ const EmpresaTable = ({data}) => {
           </button>
         </td>
       </tr>
-    )
-  );
+    ));
+  } else content.push(<tr>Sin datos</tr>);
 
-  //* Llenar encabezado de Tabla
-  titulos.map((i) => encabezado.push(<th>{i.row}</th>) );
-  
   return (
     <DataTable
-      id='tab_usuarios'
       key='tab_usuarios'
-      encabezado={encabezado}
+      encabezado={titulos}
       data={content}
       opciones={options}
     />);
 }
 
-export default EmpresaTable;
+export default RolesTable;

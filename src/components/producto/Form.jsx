@@ -6,18 +6,16 @@ import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import Switch from 'react-switch';
+//* Textos
 import { product, role } from '../../utils/texts/modGestion';
-import { toastOptions } from '../../utils/texts/general'
-
+import { toastOptions, universal } from '../../utils/texts/general'
 //* Componentes propios
 import Card from '@common/Card';
-
 //* Redux ~ Duck necesarios
 import { addProductoAction, updateProductoAction } from '@redux/productosDuck';
 
 
-export default function FormProduct({ formNewRol = true, rolForm }) {
+export default function FormProduct({ formNewProducto = true, productoForm }) {
 	const params = useParams(); // Acceso a params de la URL
 	const dispatch = useDispatch(); //Disparador
 	const navigate = useNavigate(); // Navegador de Pagina
@@ -45,15 +43,15 @@ export default function FormProduct({ formNewRol = true, rolForm }) {
 		} else  return false;
 	}
 
-	// Almacenamiento de Datos formulario
+	//* Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
-    id: rolForm.id,
-		nombre: rolForm.nombre,
-		accesoGestion: rolForm.accesoGestion,
-		accesoPv: rolForm.accesoPv,
-    accesoContabilidad: rolForm.accesoContabilidad,
-		accesoInventario: rolForm.accesoInventario,  
-		accesoInventarioMovil: rolForm.accesoInventarioMovil
+    id: productoForm.id,
+		nombre: productoForm.nombre,
+		accesoGestion: productoForm.accesoGestion,
+		accesoPv: productoForm.accesoPv,
+    accesoContabilidad: productoForm.accesoContabilidad,
+		accesoInventario: productoForm.accesoInventario,  
+		accesoInventarioMovil: productoForm.accesoInventarioMovil
 	});
 	
 	/**
@@ -68,7 +66,7 @@ export default function FormProduct({ formNewRol = true, rolForm }) {
 			// console.log('Entro update');
 
 			const options = { id, body: form };
-			dispatch(updateRolAction(options));
+			dispatch(updateProductoAction(options));
 			navigate('/productos');
 		} catch (error) {
 			console.log(error);
@@ -84,7 +82,7 @@ export default function FormProduct({ formNewRol = true, rolForm }) {
 	const postData = async (form) => {
     try {	
       delete form.id;
-      dispatch(addRolAction({body: form}));
+      dispatch(addProductoAction({body: form}));
       navigate('/productos');
 		} catch (error) {
 			// setMessage('Falló la edición');
@@ -103,7 +101,7 @@ export default function FormProduct({ formNewRol = true, rolForm }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		formNewRol ? postData(form) : putData(form);
+		formNewProducto ? postData(form) : putData(form);
 	};
 
 	return (
@@ -112,7 +110,7 @@ export default function FormProduct({ formNewRol = true, rolForm }) {
       <Card style='card-default' haveTitle={false} title='prueba'> 
         <div className='row'>
           <div className='col-sm-7'>
-            { (!formNewRol) && 
+            { (!formNewProducto) && 
               <div className='form-group'>
                 <label htmlFor='id'>{role.lbl.id}</label>
                 <input 
@@ -204,8 +202,8 @@ export default function FormProduct({ formNewRol = true, rolForm }) {
           </div> 
         
           <div className='col-12 mt-5'>
-            <input type='submit' className='btn btn-outline-success btn-block' value={formNewRol ? role.btn.agregar : role.btn.editar} />
-            <Link to='/admin/roles' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
+            <input type='submit' className='btn btn-outline-success btn-block' value={formNewProducto ? role.btn.agregar : role.btn.editar} />
+            <Link to='/productos' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
           </div>
         </div>
       </Card>
