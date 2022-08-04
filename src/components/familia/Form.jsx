@@ -28,7 +28,7 @@ export default function FormFamily({ formNewFamily = true, familyForm }) {
 
   //? Ejecución de metodo al renderizar pagina
   useEffect(() => {
-    dispatch(getEmpresasAction())
+    dispatch(getEmpresasAction());
   }, []);
 
   const [validation, setValidation] = useState({

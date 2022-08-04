@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { universal } from '../utils/texts/general';
 
-import useAuth from '@hooks/useAuth';
 import Layout from '@layouts/Login';
-import { useDispatch, useSelector, useStore } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-// import '@styles/Login.scss';
-// const bcrypt = require('bcrypt');
-// import bcrypt from 'bcrypt'
-
+//*Texto
+import { universal } from '../utils/texts/general';
+//* Redux
 import { loginUserAction } from '@redux/userAuthDuck';
 import SiteIcon from '@assets/icons/logoendif_old.png';
 
@@ -21,7 +18,7 @@ const Login = () => {
 	const activo = useSelector((store) => store.auth.activo);
 	const [form, setForm] = useState({ username: '', password: '' });
 	const user = useSelector(store => store.auth.info);
-	const { login } = useAuth();
+	// const { login } = useAuth();
 	// console.log(useAuth());
 
 	const handleSubmit = async (e) => {
@@ -35,7 +32,7 @@ const Login = () => {
 			dispatch(loginUserAction(options));
 			// let  activo = useStore( (store) => store.auth.activo );
 			// (activo && navigate('/dashboard'))
-			login(user);
+			// login(user);
 			navigate('/dashboard')
 		} catch (error) {
 			toast.error(`Error: ${error}`);
@@ -101,7 +98,7 @@ const Login = () => {
 								</div>
 								
 								<div className='col-4'>
-									<input type='submit' className='btn btn-primary btn-block' value={universal.btn.ingresar} />
+									<input type='submit' className='btn btn-warning btn-block' value={universal.btn.ingresar} />
 								</div>
 							</div>
 						</form>

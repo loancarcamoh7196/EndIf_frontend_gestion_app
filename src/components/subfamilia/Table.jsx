@@ -1,15 +1,14 @@
 /**
  ** Componente Familia Table
- *?  /familias
+ *?  /subfamilias
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
 import { deleteFamiliaAction } from '@redux/familiasDuck';
-import { subfamily } from '../../utils/texts/modGestion';
 
-const FamiliaTable = ({data}) => {
+const SubFamiliaTable = ({data}) => {
   const dispatch = useDispatch();
   let content = []; //? Contenedor de cuerpo de la tabla
 
@@ -33,24 +32,21 @@ const FamiliaTable = ({data}) => {
   };
 
   //* Encabezado
-  const titulos = ['ID', 'Nombre', 'Empresa', 'Acciones'];
+  const titulos = ['ID', 'Nombre de Sub Familia', 'Acciones'];
   
   //* Rellenar cuerpo de Tabla
   data.map((row) => content.push(
-    <tr key={row.id.toString()} id={`fil-${row.id}`}>
+    <tr key={row.id} id={`fil-${row.id}`}>
       <td>{row.id} </td>
       <td>{row.nombre}</td>
-      <td>{row.subfamilia.map((e)=><p> {e.nombre} </p>)}</td>
       <td> 
-        <Link to={`/familias/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
-          <i className='fa-solid fa-file-pen' />
+        <Link to={`/familias/${row.id}/edit`} className='btn btn-xs btn-outline-warning'>
+          <i className='fa-solid fa-file-pen m-1' />
         </Link>
-        <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=> dispatch(deleteFamiliaAction({ id: row.id }))}>
-          <i className='fa-solid fa-trash-can' /> 
+        &nbsp;
+        <button className='btn btn-xs btn-outline-danger' onClick={()=> dispatch(deleteFamiliaAction({ id: row.id }))}>
+          <i className='fa-solid fa-trash-can m-1' /> 
         </button>
-        <Link to={`/subfamilias/${row.id}`} className='btn btn-xs btn-info btn-block'>
-          {subfamily.btn.showSubFamily}
-        </Link>
       </td>
     </tr>
   ));
@@ -63,4 +59,4 @@ const FamiliaTable = ({data}) => {
       opciones={options}
     /> );
 }
-export default FamiliaTable;
+export default SubFamiliaTable;

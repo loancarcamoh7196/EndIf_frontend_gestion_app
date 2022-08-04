@@ -143,7 +143,7 @@ const endPoints = {
     list: (options) => {
       const { empresaRut } = options;
       let url = '';
-
+      
       empresaRut !=
       undefined
         ? (url = `${api_url}:${puerto}/${version}/familias/?empresaRut=${empresaRut}`)
@@ -155,6 +155,23 @@ const endPoints = {
     add: () => `${api_url}:${puerto}/${version}/familias`,
     update: (id) => `${api_url}:${puerto}/${version}/familias/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/familias/${id}/`,
+  },
+  subFamilias: {
+    list: (options) => {
+      const { familiaId } = options;
+      let url = '';
+      
+      familiaId !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/subfamilias?familiaId=${familiaId}`)
+        : (url = `${api_url}:${puerto}/${version}/subfamilias`);
+
+      return url;
+    },
+    get: (id) => `${api_url}:${puerto}/${version}/subfamilias/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/subfamilias`,
+    update: (id) => `${api_url}:${puerto}/${version}/subfamilias/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/subfamilias/${id}`,
   },
 };
 

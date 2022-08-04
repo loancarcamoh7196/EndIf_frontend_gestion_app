@@ -2,10 +2,10 @@
  ** Pagina : /admin/roles/new
  */
 import { Fragment } from 'react';
-import { role } from '../../utils/texts/modGestion';
+import { product, role } from '../../utils/texts/modGestion';
 
 import Layout from '@layouts/Main';
-import Form from '@components/roles/Form';
+import Form from '@components/producto/Form';
 
 
 const link = [
@@ -15,20 +15,25 @@ const link = [
 ];
 
 
-export default function NewRoles() {
-  const rolForm = {
+export default function NewProducto() {
+  const productoForm = {
 		id: 0,
 		nombre: '',
-		accesoGestion: false,
-		accesoPv: false,
-		accesoContabilidad: false,
-		accesoInventario: false,
-		accesoInventarioMovil: false,
+		codigoInterno: false,
+		activo: false,
+		exento: false,
+		esInventario: false,
+		comanda: false,
+		esIngrediente: false,
+		tieneEnvase: false,
+		empresaRut: '',
+		unidadId: 0,
+		subFamiliaId: 0
   };
 
   return (
-		<Layout title={role.title.new} links={link} haveLink={true}>
-			<Form rolForm={rolForm} />
+		<Layout title={product.title.new} links={link} haveLink={true}>
+			<Form productoForm={productoForm} />
 		</Layout>
   );
 }

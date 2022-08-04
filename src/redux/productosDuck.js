@@ -1,7 +1,11 @@
+/**
+ * * redux de mantenedor Productos
+ */
 import axios from 'axios';
 import endPoints from '@services/api';
 import {refreshTokenAction} from '@redux/userAuthDuck'
 import { toast } from 'react-toastify';
+import { toastOptions } from '../utils/texts/general';
 
 //Constantes
 const dataInicial = {
@@ -9,16 +13,6 @@ const dataInicial = {
 	loading: false,
   unidad: {}
 }
-
-const toastOptions = {
-	position: "top-right",
-	autoClose:5000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
 
 const PRODUCTO_ERROR = 'PRODUCTO_ERROR';
 const PRODUCTOS_LIST = 'PRODUCTOS_LIST';
@@ -41,7 +35,7 @@ export default function productosReducer(state = dataInicial, action){
 		case PRODUCTO_ADD:
 			return {...state, ...action.payload};
 		case PRODUCTO_DELETE:
-			return {...state, ...action.payload}
+			return {...state, ...action.payload}	
 		default:
 			return state;
 	}

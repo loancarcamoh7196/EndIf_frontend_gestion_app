@@ -4,7 +4,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 
-import Theme from '@context/ThemeContext';
+// import Theme from '@context/ThemeContext';
 
 import NotFound from '@pages/NotFound';
 import Home from '@pages/Home';
@@ -15,7 +15,6 @@ import Admin from '@pages/Admin';
 import EmpresaIndex from '@pages/empresas/index';
 import EmpresaNew from '@pages/empresas/new';
 import EmpresaEdit from '@pages/empresas/edit';
-// import EmpresaDelete from '@pages/empresas/delete';
 //? Mantenedor Usuarios
 import UsuarioIndex from '@pages/usuarios/index';
 import UsuarioNew from '@pages/usuarios/new';
@@ -36,6 +35,10 @@ import FamiliaEdit from '@pages/familias/edit';
 import ProductoIndex from '@pages/productos/index';
 import ProductoNew from '@pages/productos/new';
 import ProductoEdit from '@pages/productos/edit';
+//? Mantenedor SubFamilias
+import SubFamiliaIndex from '@pages/subFamilias/index';
+import SubFamiliaNew from '@pages/subFamilias/new';
+import SubFamiliaEdit from '@pages/subFamilias/edit';
 
 
 const App = () => {
@@ -71,6 +74,10 @@ const App = () => {
           <Route exact path='/productos' element={<ProductoIndex />} />
           <Route exact path='/productos/new' element={<ProductoNew />} />
           <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
+          {/* Mod Subfamilia */}
+          <Route exact path='/subfamilias/:id' element={<SubFamiliaIndex />} />
+          {/* <Route exact path='/subfamilias/:id/new' element={<SubFamiliaNew />} /> */}
+          {/* <Route exact path='/subfamilias/:id/edit' element={<SubFamiliaEdit />} /> */}
           
           <Route exact path='login' element={<Login />}  />
           <Route path='*' element={<NotFound />} />

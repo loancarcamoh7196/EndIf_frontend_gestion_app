@@ -19,18 +19,21 @@ import rolesReducer from '@redux/rolesDuck';
 import tiendasReducer from '@redux/tiendasDuck';
 import familiasReducer from '@redux/familiasDuck';
 import productosReducer from '@redux/productosDuck';
+import subFamiliasReducer from '@redux/subFamiliasDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
 	auth: userAuthReducer,
-	// empresas: empresasReducer,
-	// usuarios: usuariosReducer,
-	// regiones: regionesReducer,
-	// comunas: comunasReducer,
-	// roles: rolesReducer,
-	// tiendas: tiendasReducer,
-	// familias: familiasReducer,
-	// productos: productosReducer,
+	empresas: empresasReducer,
+	usuarios: usuariosReducer,
+	regiones: regionesReducer,
+	comunas: comunasReducer,
+	roles: rolesReducer,
+	tiendas: tiendasReducer,
+	familias: familiasReducer,
+	productos: productosReducer,
+	subfamilias: subFamiliasReducer,
+	
 });
 
 //* Limpieza de Storage en caso de logout
@@ -42,11 +45,11 @@ const rootReducer= (state, action)=>{
 const persistConfig ={
 	key: 'app',
 	storage,
-	whitelist: ['auth'],
+	whitelist: ['auth', 'empresas'],
 	stateReconciler: hardSet,
 }
 
-const persistedReducer = persistReducer(persistConfig, appReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 //* Store de App
 export default function generateStore() {
@@ -60,3 +63,4 @@ export default function generateStore() {
 
 	return {persistor, store};
 }
+

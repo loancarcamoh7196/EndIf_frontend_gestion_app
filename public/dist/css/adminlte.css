@@ -3268,12 +3268,12 @@ input[type="button"].btn-block {
 
 .dropdown-menu-left {
   right: auto;
-  left: 0;
+  left: 0 !important;
 }
 
 .dropdown-menu-right {
   right: 0;
-  left: auto;
+  left: auto !important;
 }
 
 @media (min-width: 576px) {

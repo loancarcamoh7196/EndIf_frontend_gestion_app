@@ -1,24 +1,18 @@
+/**
+ ** Redux TiendasDuck
+ */
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import endPoints from '@services/api';
 import { refreshTokenAction } from '@redux/userAuthDuck';
-
+//* Texto
+import { toastOptions } from '../utils/texts/general';
 
 
 //? Data inicial
 const dataInicial = {
 	list: [],
 	loading: false
-};
-
-const toastOptions = {
-	position: "top-right",
-	autoClose: 3000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
 };
 
 //? Types
@@ -51,9 +45,9 @@ export default function tiendasReducer(state = dataInicial, action) {
 
 //? Action
 export const getTiendasAction = (options) => async (dispatch, getState) => {
-	const api = endPoints.tiendas.list();
-	// const { activo, loading } = getState().user;
-	// console.log(body);
+	let { empresaSession } = getState().auth;
+	// console.log(empresaSession);
+	const api = endPoints.tiendas.list({empresaRut: empresaSession});
 	// console.log(api);
 	try {
 		const res = await axios.get(api);

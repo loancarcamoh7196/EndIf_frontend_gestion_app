@@ -102,10 +102,16 @@ const subfamily = {
   lbl: {
     id: 'ID',
     nombre: 'Nombre Subfamilia',
-    empresaRut: 'RUT Empresa',
+    familiaId: 'Familia ID',
   },
-  btn: {},
-  txt: {},
+  btn: {
+    new: 'Agregar',
+    edit: 'Editar',
+    showSubFamily: 'Ver Sub Familias'
+  },
+  txt: {
+    valNombre: '*Campo Obligatorio. '
+  },
   plhld: {},
   slct: {
     subfamilia: 'Seleccione SubFamilia',
@@ -164,7 +170,7 @@ const tax = {
 
 const toastOptions = {
   position: 'top-right',
-	autoClose: 5000,
+	autoClose: 3500,
 	hideProgressBar: false,
 	closeOnClick: true,
 	pauseOnHover: true,

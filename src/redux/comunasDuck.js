@@ -1,22 +1,17 @@
+/**
+ * * Redux de Comunas
+ */
 import axios from 'axios';
 import endPoints from '@services/api';
 import { refreshTokenAction } from '@redux/userAuthDuck';
 import { toast } from 'react-toastify';
+import { toastOptions } from '../utils/texts/general';
 
 //Data inicial
 const dataInicial = {
   list: [],
 }
 
-const toastOptions = {
-	position: "top-right",
-	autoClose: 5000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
 
 //Types
 const COMUNAS_GET = 'COMUNAS_GET';

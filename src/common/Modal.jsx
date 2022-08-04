@@ -1,7 +1,12 @@
+/**
+ * * Componente básico Modal
+ */
 import React from 'react'
 
-//bg-primary
-const Modal = ({children, haveTitle=false, haveCtrl=false , haveFooter=false, style='', id='modal'}) => {
+//? Estilo x defecto: bg-primary
+const Modal = ({
+  children, haveTitle=false, haveCtrl=false , haveFooter=false, style='', id='modal'}
+) => {
   return (
     <div className='modal fade' id={id}>
       <div className='modal-dialog'>

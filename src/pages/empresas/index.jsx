@@ -28,7 +28,7 @@ const Index = () => {
   return (
     <Layout title='Empresas' links={link} haveLink={true}>
       
-      <Card style={'card-default'}> 
+      <Card style='card-default'> 
         <div className='row'>
           <div className='col-4 mb-3 float-sm-right'>
             <Link to='/admin/empresas/new' className='btn btn-sm btn-block btn-outline-success float-sm-right'> <i class="fa-solid fa-plus" />Nueva</Link>

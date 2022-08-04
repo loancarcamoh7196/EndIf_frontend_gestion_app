@@ -66,7 +66,7 @@ const auth = {
 
 const toastOptions= {
   position: 'top-right',
-  autoClose: 5000,
+  autoClose: 2500,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
@@ -75,8 +75,60 @@ const toastOptions= {
 
 };
 
+const exportTable = {
+  copiar: {
+    extend: 'copy',
+    className: 'btn btn-secundary',
+    text: '<i class="fa-solid fa-copy"></i>',
+    titleAttr: 'Copiar Tabla',
+  },
+  csv: {
+    extend: 'csvHtml5',
+    className: 'btn btn-info',
+    text: '<i class="fa-solid fa-file-csv"></i>',
+    titleAttr: 'Exportar a CSV',
+  },
+  excel: {
+    extend: 'excelHtml5',
+    className: 'btn btn-success',
+    text: '<i class="fas fa-file-excel"></i> ',
+    title: '',
+    filename: 'Cuadratura',
+    footer: true,
+    titleAttr: 'Exportar a Excel',
+  },
+  pdf: {
+    extend: 'pdfHtml5',
+    orientation: 'landscape',
+    pageSize:
+      'legal',
+    alignment:
+      'center',
+    className:
+      'btn btn-danger',
+    text: '<i class="fas fa-file-pdf"></i> ',
+    title:
+      '',
+    filename:
+      'Cuadratura',
+    footer: true,
+    titleAttr:
+      'Exportar a PDF',
+  },
+  print: {
+    extend:
+      'print',
+    className:
+      'btn btn-info',
+    text: '<i class="fa-solid fa-print"></i>',
+    titleAttr:
+      'Imprimir',
+  },
+};
+
 module.exports = {
   universal,
   auth,
+  exportTable,
   toastOptions
 }

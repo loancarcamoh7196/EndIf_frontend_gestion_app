@@ -47,13 +47,13 @@ const Navbar = () => {
       </ul>
       {/* -------- Buscador y otros widget ---------- */}
       <ul className='navbar-nav ml-auto'>
-        {/* { isAdmin &&
+        { isAdmin &&
           <li className='nav-item'>
             <div to='#' className='dropdown-item'>
                 <EmpSelect  />
               </div>
           </li>      
-        } */}
+        }
         <li className='nav-item'>
           <NavLink to='#' className='nav-link' data-widget='navbar-search' role='button'>
             <i className='fas fa-search' />
@@ -78,14 +78,14 @@ const Navbar = () => {
         
         {/* -------- Notificaciones ---------- */}
         <li className='nav-item dropdown'>
-          <Link className='nav-link' data-toggle='dropdown' to='#'>
+          <Link to='#' className='nav-link dropdown-toggle' data-bs-toggle="dropdown"  aria-expanded="true" >
             <img src={UserIcon} width={25} />
           </Link>
-          <div className='dropdown-menu dropdown-menu-lg dropdown-menu-right'>
+          <div className='dropdown-menu  dropdown-menu-right'>
             <span className='dropdown-item dropdown-header'>
               {userLogged !== undefined && userLogged.username }
             </span>
-            <div className='dropdown-divider'></div>
+            {/* <div className='dropdown-divider'></div> */}
             {/* { isAdmin &&
               <div to='#' className='dropdown-item'>
                 <EmpSelect  />

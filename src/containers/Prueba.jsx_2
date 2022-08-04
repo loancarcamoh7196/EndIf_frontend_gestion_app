@@ -1,4 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
+/**
+ ** Componente base de DataTable
+ */
+import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import 'datatables.net-bs4';
 import 'datatables.net-bs4/css/dataTables.bootstrap4.min.css';
@@ -15,15 +19,16 @@ import 'datatables.net-fixedcolumns-bs4';
 import 'datatables.net-rowgroup-bs4';
 import 'datatables.net-scroller-bs4';
 import 'datatables.net-fixedheader-bs4';
-// import 'pdfmake';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 const jzip = require('jzip');
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
-window.JSZip = jzip;
+window.JSZip = jzip;;
 
-const DataTable = ({ key='table', data, encabezado, opciones, styleHeadDark=true, title='EndIf'}) => {
+export default function TblFunc(props) {
+  const tableRef = useRef();
+
   const buttons = [
     {
       extend:'copy',
@@ -66,64 +71,66 @@ const DataTable = ({ key='table', data, encabezado, opciones, styleHeadDark=true
     },
   ];
 
+  const editButton = (url,rut) =>{
+    return (
+      <Link
+        to={`${url}/${rut}/edit`}
+        className="btn btn-xs btn-outline-warning btn-block"
+      >
+        <i className="fa-solid fa-file-pen" />
+      </Link>
+    );
+  };
+
   useEffect(() => {
-    setTimeout(() => {
-      $(`#${key}`).DataTable().destroy();
-      $(`#${key}`).DataTable({
-        language: {
-          'thousands': '.',
-          'decimal': ',',
-          'emptyTable': 'No hay información',
-          'info': 'Mostrando _START_ a _END_ de _TOTAL_ Registros',
-          'infoEmpty': 'Mostrando 0 to 0 of 0 Entradas',
-          'infoFiltered': '(Filtrado de _MAX_ total registros)',
-          'infoPostFix': '',
-          'lengthMenu': 'Mostrar _MENU_ Registros',
-          'loadingRecords': 'Cargando...',
-          'processing': 'Procesando...',
-          'search': 'Buscar:',
-          'zeroRecords': 'Sin resultados encontrados',
-          'paginate': {
-            'first': '<|',
-            'last': '|>',
-            'next': '>',
-            'previous': '<'
-          },
+    // console.log(tableRef.current)
+    const table = $(tableRef.current).DataTable({
+      language: {
+        'thousands': '.',
+        'decimal': ',',
+        'emptyTable': 'No hay información',
+        'info': 'Mostrando _START_ a _END_ de _TOTAL_ Registros',
+        'infoEmpty': 'Mostrando 0 to 0 of 0 Registros',
+        'infoFiltered': '(Filtrado de _MAX_ total entradas)',
+        'infoPostFix': '',
+        'lengthMenu': 'Mostrar _MENU_ Registros',
+        'loadingRecords': 'Cargando...',
+        'processing': 'Procesando...',
+        'search': 'Buscar:',
+        'zeroRecords': 'Sin resultados encontrados',
+        'paginate': {
+          'first': '<|',
+          'last': '|>',
+          'next': '>',
+          'previous': '<'
         },
-        loading: opciones.loading,
-        destroy: opciones.destroy,
-        paging: opciones.paging,  
-        lengthChange: opciones.lengthChange,  
-        searching: opciones.searching,
-        ordering: opciones.ordering,
-        info: opciones.info,
-        autoWidth: opciones.true,
-        responsive: opciones.responsive,
-        // stateSave: opciones.stateSave,
-        bDestroy: opciones.bDestroy,
-        processing: opciones.processing,
-        serverSide: opciones.serverSide,
-        fixedHeader: opciones.fixedHeader,
-        dom: 'Bfrtip',
-        buttons: buttons,
-      })
-    }, 1000);
-  }, [data]);
+        // 'buttons': { copy: 'Copiar', csv: 'CSV', excel: 'Excel', pdf: 'PDF', 'print': 'Imprimir'}
+      },
+      data: props.data,
+      columns: props.titles,
+      paging: true,
+      ordering: true,
+      // processing: true,
+      responsive: true,
+      dom: 'Bfrtip',
+      buttons: buttons,
+      serverSide: false,
+      destroy: true  // I think some clean up is happening here
+    });
+
+    // Extra step to do extra clean-up.
+    return function() {
+      console.log("Tabla destruida");
+      table.destroy();
+    }
+  },[props.data]);
 
   return (
-    <div className='table-responsive'>
-      <table id={key} className='table  table-hover table-bordered'>
-        <thead className={styleHeadDark && 'thead-dark'}>
-          <tr>
-            { encabezado.map((i) => <th>{i}</th>) }
-          </tr>
+    <div className='tabla-responsive'>
+      <table className='table table-hover table-bordered' ref={ tableRef }>
+        <thead className={props.styleHeadDark && 'thead-dark'}>
         </thead>
-        <tbody>
-          { data.map((row) => row) }
-        </tbody>
       </table>
     </div>
   );
 }
-
-export default DataTable;

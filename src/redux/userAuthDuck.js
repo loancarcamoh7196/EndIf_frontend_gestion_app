@@ -12,7 +12,7 @@ import { toastOptions, auth } from '../utils/texts/general';
 //* Data inicial
 const dataInicial = {
   loading: false,
-  activo: false,
+  logged: false,
   token: null,
 	isAdmin: false,
 	info: [],
@@ -25,6 +25,7 @@ const USER_ERROR = 'USER_ERROR';
 const USER_SUCCESS = 'USER_SUCCESS';
 const USER_LOGOUT = 'USER_LOGOUT';
 const USER_REFRESH = 'USER_REFRESH';
+const EMPRESA_SESSION = 'EMPRESA_SESSION';
 
 //* Reducer
 export default function userAuthReducer(state = dataInicial, action) {
@@ -32,13 +33,15 @@ export default function userAuthReducer(state = dataInicial, action) {
     case LOADING:
       return {...state, loading: true}
     case USER_ERROR:
-      return {...state, activo: false}
+      return {...state, logged: false}
     case USER_SUCCESS:
-      return  {...state, info: action.payload.info, token: action.payload.token, isAdmin: action.payload.isAdmin, loading: false, activo: true}
+      return  {...state, info: action.payload.info, token: action.payload.token, isAdmin: action.payload.isAdmin, loading: false, logged: true}
     case USER_LOGOUT:
-      return {...state}
+      return {...state, logged: false}
     case USER_REFRESH:
       return {...state, token: action.payload	}
+		case EMPRESA_SESSION:
+			return {...state, empresaSession: action.payload};
     default:
       return {...state};
   }
@@ -132,4 +135,13 @@ export const readUserAction = () => async (dispatch, getState) => {
 			},
 		});
 	}else return null;
+};
+
+export const setEmpresaSessionAction = (options) => async (dispatch, getState) =>{
+	const { empresaRut } = options;
+	try {
+		dispatch({ type: 'EMPRESA_SESSION', payload: empresaRut })
+	} catch (error) {
+		toast.error(error);
+	}
 };

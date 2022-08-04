@@ -1,25 +1,18 @@
-/* // @import '../../node_modules/bootstrap/scss/bootstrap.scss'; */
-/* // @import '../../node_modules/bootstrap/scss/functions'; */
-/* // @import '../../node_modules/admin-lte/build/scss/adminlte.scss'; */
-/* // @import '../../node_modules/admin-lte/dist/css/adminlte.css'; */
-
-
 .hidden {
   display: none;
 }
 
-.dropdown-dark{
+.dropdown-dark {
   font-weight: bold;
   background-color: bisque;
 }
-.dropdown-dark:hover{
+.dropdown-dark:hover {
   background-color: #fd7e14;
   border-color: #aa4e01;
   color: white;
 }
 
-input[type=checkbox]
-{
+input[type=checkbox] {
   /* Double-sized Checkboxes */
   -ms-transform: scale(2); /* IE */
   -moz-transform: scale(2); /* FF */
@@ -30,8 +23,7 @@ input[type=checkbox]
 }
 
 /* Might want to wrap a span around your checkbox text */
-.checkboxtext
-{
+.checkboxtext {
   /* Checkbox text */
   font-size: 110%;
   display: inline;

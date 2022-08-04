@@ -1,5 +1,5 @@
 /**
- * * Reducer Regiones
+ ** Reducer Regiones
  */
 import axios from 'axios';
 import endPoints from '@services/api';

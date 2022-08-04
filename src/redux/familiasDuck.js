@@ -1,25 +1,20 @@
+/**
+ ** Redux Mantenedor Familias
+ */
 import axios from 'axios';
 import endPoints from '@services/api';
 import { refreshTokenAction } from '@redux/userAuthDuck';
 import { toast } from 'react-toastify';
+import { toastOptions } from '../utils/texts/general';
+import { family } from '../utils/texts/modGestion';
 
-//Data inicial
+//* Data inicial
 const dataInicial = {
   list: [],
   loading: false
 }
 
-const toastOptions = {
-	position: "top-right",
-	autoClose: 8000,
-	hideProgressBar: false,
-	closeOnClick: true,
-	pauseOnHover: true,
-	draggable: true,
-	progress: undefined,
-};
-
-//Types
+//* Types
 const FAMILIAS_LIST = 'FAMILIAS_LIST';
 const FAMILIA_GET = 'FAMILIA_GET';
 const FAMILIA_ADD = 'FAMILIA_ADD';
@@ -28,7 +23,7 @@ const FAMILIA_DELETE = 'FAMILIA_DELETE';
 const FAMILIA_ERROR = 'FAMILIA_ERROR';
 const FAMILIA_REFRESH = 'FAMILIA_REFRESH';
 
-//Reducer
+//* Reducer
 export default function familiasReducer(state = dataInicial, action) {
   switch(action.type) {
     case FAMILIA_ERROR:
@@ -50,21 +45,17 @@ export default function familiasReducer(state = dataInicial, action) {
   }
 }
 
-// Action
+//* Action
 export const getFamiliasAction = (options) => async (dispatch, getState) => {
-	// const { body } = options; // Opciones para solicitud a  API
-	const api = endPoints.familias.list();
-  // const { activo, loading } = getState().user; // Op
-  // console.log(body);
-  // console.log(api);
-  // console.log(axios.defaults.headers.Authorization);
+	let { empresaSession } = getState().auth;
+	// console.log(empresaSession);
+	const api = endPoints.familias.list({empresaRut: empresaSession});
+	// console.log(api);
 	try {
 		const res = await axios.get(api);
     // console.log('RES action:', res);
     dispatch({ type: FAMILIAS_LIST, payload: { list: res.data, cargado: true} });
 	} catch (error) {
-		// console.log(error);
-    // console.log(error.request.status)
     // console.log(error);
     // console.log('Usuario a tenido conflicto');
     // console.log('loading: ', loading);
@@ -76,17 +67,15 @@ export const getFamiliasAction = (options) => async (dispatch, getState) => {
 };
 
 export const getFamiliaAction= (options) => async (dispatch, getState) => {
-  const { rut } = options;
+  const { id } = options;
   // const { activo, loading } = getState().user;
-  const api = endPoints.familias.get(rut); 
+  const api = endPoints.familias.get(id); 
   // console.log('API: ',api)
   try {
     const res = await axios.get(api);
     // console.log(res);
     dispatch({ type: FAMILIA_GET});
   } catch (error) {
-    // console.log(error);
-    // console.log(error.request.status);
     // console.log('EDIT FAMILIAS: Necesito renovare el cache');
     // console.log(error);
     // console.log('Usuario a tenido conflicto');
@@ -99,82 +88,57 @@ export const getFamiliaAction= (options) => async (dispatch, getState) => {
 }
 
 export const addFamiliaAction = (options) => async (dispatch, getState) => {
-	const { empresa, direccion } = options; // Opciones para solicitud a  API
-  const direccionApi = endPoints.direcciones.add(); // URL API para direccion
-	const api = endPoints.familias.add(); // URL API para empresa
+	const { body } = options; //? Opciones para solicitud a  API
+	const api = endPoints.familias.add(); //? URL API para empresa
 	try {
-    const direccionRes = await axios.post(direccionApi, direccion);
-    // console.log('RES add Dir: ',direccionRes);
-    toast.success(direccionRes, { ...toastOptions});
-    empresa.direccionId = direccionRes.data.id;
-		const res = await axios.post(api, empresa);
-    
-    toast.success(`Direccion Agregada`, {...toastOptions});
-    toast.success(`Familia ${empresa.razonSocial} ha sido agregada correctamente.`, { ...toastOptions})
+		const res = await axios.post(api, body);
+    toast.success(`Familia ${res.data.nombre} ha sido agregada correctamente.`, toastOptions)
     dispatch({ type: FAMILIA_ADD , payload: [...getState().familias.list, res.data] });
 	} catch (error) {
 		// console.log(error);
     let msg = error.response.data.body;
 		dispatch({ type: FAMILIA_ERROR });
-    toast.error(`No se ha podido agregar empresa, porfavor intentelo más tarde`, {...toastOptions});
-    toast.error(msg, {...toastOptions});
+    toast.error(`No se ha podido agregar familia, porfavor intentelo más tarde`, toastOptions);
+    toast.error(msg, toastOptions);
 	}
 };
 
 export const updateFamiliaAction = (options) => async (dispatch, getState) => {
-  const { rut, empresa, direccion } = options; // Opciones para solicitud a  API
-  // console.log('RUT Update:', rut);
-  // console.log('Familia UPD: ', empresa);
-  // console.log('Dir UPD: ', direccion);
-  const api = endPoints.familias.update(rut); // URL API
+  const { id, body } = options; // Opciones para solicitud a  API
+  const api = endPoints.familias.update(id); // URL API
   // console.log(body);
   try {
-    const res = await axios.patch(api, empresa);
-    let newList = getState().familias.list.map((e) =>  e.rut === rut ? res.data : e );
-    // console.log('Nue  lisat: ', newList)
-    toast.success(`La empresa con RUT: ${rut} ha sido actualizada existosamente.`, {...toastOptions});
-    
-    if(Object.keys(direccion).length !== 0){
-      try {
-        const direccionApi = endPoints.direcciones.update(direccion.id); // URL API para direccion
-        delete direccion.id; // quitar Id de datos actualizar
-        const dir = await axios.patch(direccionApi, direccion);
-        toast.success('Dirección Actualizada', {...toastOptions});
-        } catch (error) {
-        toast.error(`La direccion de la empresa ${rut}, no se ha podido actualizar.`, toastOptions);
-      }
-    }
+    const res = await axios.patch(api, body);
+    let newList = getState().familias.list.map((e) =>  e.id === id ? res.data : e );
+    // console.log('Nueva  lista: ', newList)
+    toast.success(`La familia con ID: ${id} ha sido actualizada existosamente.`, toastOptions);
     
     dispatch({ type: FAMILIA_UPDATE, payload: newList });
   } catch (error) {
     // console.log(error);
     let msg = error.response.data.body;
     toast.error(`No ha se ha podido actualizar los datos de empresa, porfavor intentelo más tarde`);
-    toast.error(msg, {...toastOptions});
+    toast.error(msg, toastOptions);
     dispatch({ type: FAMILIA_ERROR });
   }
 }
 
 export const deleteFamiliaAction = (options) => async (dispatch, getState) => {
-  const { rut } = options; // Opciones para solicitud a  API
-  const api = endPoints.familias.delete(rut); // URL API
+  const { id } = options; // Opciones para solicitud a  API
+  const api = endPoints.familias.delete(id); // URL API
   // console.log(api);
   try {
     // console.log(body);
     const res = await axios.delete(api);
-    // const info = await axios.get(endPoints.familias.list());
     // console.log(res);
-    let empList = getState().familias.list.filter((e)=> e.rut !== rut);
-
-    // console.log(getState().familias.list.filter((e)=> e.rut !== rut));
-    toast.warning(`Familia con ID: ${rut} ha sido eliminado exitosamente`);
-    dispatch({ type: FAMILIA_DELETE , payload: empList });
-    // dispatch({type: FAMILIAS_GET, payload: info.data})
+    let familiaList = getState().familias.list.filter((e)=> e.id != id);
+    toast.warning(`Familia con ID: ${id} ha sido eliminado exitosamente`);
+    dispatch({ type: FAMILIA_DELETE , payload: familiaList });
   } catch (error) {
     // console.log(error);
     let msg = error.response.data;
-    toast.error(`La empresa con ID: ${rut} no se ha podido eliminar`, {...toastOptions})
-    toast.error(msg, {...toastOptions}); // Comentar cuando pase a producción
+    toast.error(`La familia con ID: ${id} no se ha podido eliminar`, toastOptions)
+    toast.error(msg, toastOptions); // Comentar cuando pase a producción
     dispatch({ type: FAMILIA_ERROR });
   }
 }
