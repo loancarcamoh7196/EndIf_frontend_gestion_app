@@ -150,7 +150,7 @@ export const showFormEditSBAction = (options) => async (dispatch, getState) => {
   try {
     dispatch({type: SUBFAMILIA_SHOW, payload: id });
   } catch (error) {
-    toast.error(`La familia con ID: ${id} no se ha podido eliminar`, toastOptions)
+    toast.error(`Error: SubFamilia ${id} no se ha podido cargar`, toastOptions)
     // toast.error(msg, toastOptions); // Comentar cuando pase a producción
     dispatch({ type: SUBFAMILIA_ERROR });
   }

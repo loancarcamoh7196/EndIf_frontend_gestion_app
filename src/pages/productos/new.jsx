@@ -1,25 +1,22 @@
 /**
- ** Pagina : /admin/roles/new
+ ** Pagina : /productos/new
  */
-import { Fragment } from 'react';
-import { product, role } from '../../utils/texts/modGestion';
-
 import Layout from '@layouts/Main';
 import Form from '@components/producto/Form';
-
+//* Texto
+import { product } from '@utils/texts/modGestion';
 
 const link = [
-  { nombre: 'Administración', url: '/admin' },
-  { nombre:'Roles', url: '/admin/roles' },
-	{ nombre:'Nueva', url: '/admin/roles/new' }
+  { nombre: 'Dashboard', url: '/dashboard' },
+  { nombre:'Producto', url: '/productos' },
+	{ nombre:'Nueva', url: '/productos/new' }
 ];
-
 
 export default function NewProducto() {
   const productoForm = {
 		id: 0,
 		nombre: '',
-		codigoInterno: false,
+		codigoInterno: '',
 		activo: false,
 		exento: false,
 		esInventario: false,

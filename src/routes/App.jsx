@@ -37,8 +37,10 @@ import ProductoNew from '@pages/productos/new';
 import ProductoEdit from '@pages/productos/edit';
 //? Mantenedor SubFamilias
 import SubFamiliaIndex from '@pages/subFamilias/index';
-import SubFamiliaNew from '@pages/subFamilias/new';
-import SubFamiliaEdit from '@pages/subFamilias/edit';
+//? Mantenedor Unidades
+import UnidadIndex from '@pages/unidades/index';
+//? Mantenedor Marcas
+import MarcaIndex from '@pages/marcas/index';
 
 
 const App = () => {
@@ -76,8 +78,10 @@ const App = () => {
           <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
           {/* Mod Subfamilia */}
           <Route exact path='/subfamilias/:id' element={<SubFamiliaIndex />} />
-          {/* <Route exact path='/subfamilias/:id/new' element={<SubFamiliaNew />} /> */}
-          {/* <Route exact path='/subfamilias/:id/edit' element={<SubFamiliaEdit />} /> */}
+          {/* Mod Unidad */}
+          <Route exact path='/admin/unidad' element={<UnidadIndex />} />
+          {/* Mod Marcas */}
+          <Route exact path='/admin/marcas' element={<MarcaIndex />} />
           
           <Route exact path='login' element={<Login />}  />
           <Route path='*' element={<NotFound />} />

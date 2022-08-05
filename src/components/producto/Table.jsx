@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
-import { deleteRolAction } from '@redux/rolesDuck';
+import { deleteProductoAction } from '@redux/productosDuck';
 
 const ProductoTable = ({data}) => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const ProductoTable = ({data}) => {
   }; 
 
   const titulos = [ 
-    'ID', 'Nombre', 'Código Interno','Activo', 'Exento', 'Inventario', 'Comanda', 'Es Ingrediente', 'Tiene Envase', '' 
+    'ID', 'Nombre', 'Código Interno','Activo', 'Exento', 'Inventario', 'Comanda', 'Es Ingrediente', 'Tiene Envase', 'Acciones' 
   ];
   
   //* Generar columnas de Tabla
@@ -59,13 +59,13 @@ const ProductoTable = ({data}) => {
         {row.tieneEnvase ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
       </td>
       <td> 
-        <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
+        <Link to={`/productos/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
           <i className='fa-solid fa-file-pen' />
         </Link>
-        <br  />
-        <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-          dispatch(deleteRolAction({ id: row.id }));
-        }}>
+        <button
+          className='btn btn-xs btn-outline-danger btn-block'
+          onClick={()=> dispatch(deleteProductoAction({ id: row.id })) }
+        >
           <i className='fa-solid fa-trash-can' /> 
         </button>
       </td>

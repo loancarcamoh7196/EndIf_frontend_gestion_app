@@ -124,6 +124,8 @@ const product = {
     index: 'Productos',
     new: 'Nuevo Producto',
     edit: 'Editar Producto',
+    seccionBasica: 'Información Básica',
+    seccionRelacion: 'Relaciones del Producto'
   },
   lbl: {
     id: 'ID Producto',
@@ -136,13 +138,25 @@ const product = {
     esIngrediente: 'Es Ingrediente?',
     tieneEnvase: 'Tiene Envase?',
     empresaRut: 'Empresa',
-    unidadId: 'Tipo Producto',
-    subfamilia: 'Subfamilia'
+    unidadId: 'Unidad del Producto',
+    subfamilia: 'Subfamilia a la que pertenece'
   },
-  btn: {},
-  txt: {},
-  plhld: {},
-  slct: {},
+  btn: {
+    agregar: 'Agregar',
+    editar: 'Editar'
+  },
+  txt: {
+    valNombre: '*Campo Obligatorio',
+    valCodigo: '*Campo Obligatorio',
+  },
+  plhld: {
+    nombre: 'Coca Cola',
+    codigo: 'CC-250',
+  },
+  slct: {
+    unidad: 'Seleccione Unidad',
+    subfamilia: 'Seleccione Sub Familia',
+  },
   lnk: {}
 };
 
@@ -167,6 +181,129 @@ const tax = {
   slct: {},
   lnk: {}
 };
+
+
+
+const barcode = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const cashRegister = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const price = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const priceList = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const quadrature = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const documentType = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const paymentMethod = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const sales = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const productSale = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const retailPrice = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const log = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const shift = {
+  title: {},
+  lbl: {},
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
 
 const toastOptions = {
   position: 'top-right',

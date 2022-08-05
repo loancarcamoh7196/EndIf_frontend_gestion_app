@@ -16,7 +16,18 @@ const universal = {
     producto: 'Productos',
     tienda: 'Sucursales',
     familia: '(Sub) Familias',
-
+    marca: 'Marcas',
+    unidad: 'Unidades',
+    caja: 'Cajas',
+    barra: 'Código de Barras',
+    cuadratura: 'Cuadraturas',
+    formaPago: 'Formas de Pago',
+    precio: 'Precios',
+    lista: 'Lista de Precios',
+    oferta: 'Ofertas',
+    promo: 'Promociones',
+    turnos: 'Turnos',
+    venta: 'Ventas'
   },
   lbl: {
     usuario: 'Usuario',

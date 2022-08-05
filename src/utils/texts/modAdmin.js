@@ -138,8 +138,37 @@ const role = {
   lnk: {}
 };
 
+const unit = {
+  title: {
+    index: 'Unidades',
+    new: 'Nueva Unidad',
+    edit: 'Editar Unidad'
+  },
+  lbl: {
+    nombre: 'Unidad',
+    plural: 'Plural'
+  },
+  btn: {
+    agregar: 'Agregar',
+    editar: 'Editar'
+  },
+  txt: {
+    valNombre: '*Campo obligatorio. El campo nombre debe contener de 2 a 3 caracteres.',
+    valPlural: '*Campo obligatorio. El campo plural debe contener minimo 3 caracteres'
+  },
+  plhld: {
+    nombre: 'UNI',
+    plural: 'Unidades'
+  },
+  slct: {
+    txt : 'Seleccione Unidad'
+  },
+  lnk: {},
+};
+
 module.exports = {
   company,
   user,
-  role
+  role,
+  unit
 };

@@ -20,6 +20,8 @@ import tiendasReducer from '@redux/tiendasDuck';
 import familiasReducer from '@redux/familiasDuck';
 import productosReducer from '@redux/productosDuck';
 import subFamiliasReducer from '@redux/subFamiliasDuck';
+import unidadesReducer from '@redux/unidadesDuck';
+import familiaDetalleReducer from '@redux/familiaDetalleDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
@@ -33,7 +35,9 @@ const appReducer = combineReducers({
 	familias: familiasReducer,
 	productos: productosReducer,
 	subfamilias: subFamiliasReducer,
-	
+	unidades: unidadesReducer,
+	familiaDetalle: familiaDetalleReducer,
+
 });
 
 //* Limpieza de Storage en caso de logout

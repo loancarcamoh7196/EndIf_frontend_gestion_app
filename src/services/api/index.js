@@ -173,6 +173,16 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/subfamilias/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/subfamilias/${id}`,
   },
+  unidades: {
+    list: () => `${api_url}:${puerto}/${version}/unidades`,
+    get: (id) => `${api_url}:${puerto}/${version}/unidades/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/unidades`,
+    update: (id) => `${api_url}:${puerto}/${version}/unidades/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/unidades/${id}`,
+  },
+  familiaDetalle :{
+    list: (empresaRut) => `${api_url}:${puerto}/${version}/familia_detalle/${empresaRut}`,
+  }
 };
 
 export default endPoints;

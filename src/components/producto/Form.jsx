@@ -7,31 +7,27 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 //* Textos
-import { product, role } from '../../utils/texts/modGestion';
+import { product, unity, subfamilia } from '@utils/texts/modGestion';
 import { toastOptions, universal } from '../../utils/texts/general'
 //* Componentes propios
 import Card from '@common/Card';
 //* Redux ~ Duck necesarios
 import { addProductoAction, updateProductoAction } from '@redux/productosDuck';
-
+import { getUnidadesAction } from '@redux/unidadesDuck';
+import { getFamiliaDetalleAction } from '@redux/familiaDetalleDuck';
 
 export default function FormProduct({ formNewProducto = true, productoForm }) {
 	const params = useParams(); // Acceso a params de la URL
 	const dispatch = useDispatch(); //Disparador
 	const navigate = useNavigate(); // Navegador de Pagina
 
-	// Manejo de Checkbox
-	const [isCheckActiva, setIsCheckActiva] = useState(true);
-	const [changePass, setChangePass] = useState(false);
-
-  const productos = useSelector((store)=> store.productos.list); //Valores para Select de Productos
-	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
-
-  // ejecucion de metodo al renderizar pagina
-  // useEffect(() => { }, []);
-
+  let unidades = useSelector((store)=> store.unidades.list); //? Valores para Select de Unidades
+  let empresaSession = useSelector((store)=> store.auth.empresaSession); //? Empresa Seleccionda
+  let familiaDetalle = useSelector((store)=> store.familiaDetalle.list); //? Valores para Select de Familia Detalle
+	
   const [validation, setValidation] = useState({
-		nombre: true
+		nombre: true,
+    codigo: true
 	});
 
 	const validacion = (campo) => {
@@ -40,22 +36,29 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 
 		if (campo.nombre === 'nombre') {
 			(campo.valor.length >=4 && campo.valor.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, nombre: true}) : setValidation({...validation, nombre: false});
-		} else  return false;
+		} if (campo.nombre === 'codigo') {
+			(campo.valor.length >=3 && campo.valor.length <=20 && _names.test(campo.valor)) ? setValidation({...validation, codigo: true}) : setValidation({...validation, codigo: false});
+		}  else  return false;
 	}
 
 	//* Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
     id: productoForm.id,
 		nombre: productoForm.nombre,
-		accesoGestion: productoForm.accesoGestion,
-		accesoPv: productoForm.accesoPv,
-    accesoContabilidad: productoForm.accesoContabilidad,
-		accesoInventario: productoForm.accesoInventario,  
-		accesoInventarioMovil: productoForm.accesoInventarioMovil
+		codigoInterno: productoForm.codigoInterno,
+		activo: productoForm.activo,
+    exento: productoForm.exento,
+		esInventario: productoForm.esInventario,  
+		comanda: productoForm.comada,
+    esIngrediente: productoForm.esIngrediente,
+    tieneEnvase: productoForm.tieneEnvase,
+    empresaRut: productoForm.empresaRut,
+    unidadId: productoForm.unidadId,
+    subfamiliaId: productoForm.subfamiliaId,
 	});
 	
 	/**
-	 * * Manejador de Actualizar Rol
+	 * * Manejador de Actualizar P
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
@@ -65,7 +68,7 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 		try {
 			// console.log('Entro update');
 
-			const options = { id, body: form };
+      const options = { id, body: form };
 			dispatch(updateProductoAction(options));
 			navigate('/productos');
 		} catch (error) {
@@ -76,7 +79,7 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 	};
 
 	/** 
-	 * * Manejador para Agregar Rol
+	 * * Manejador para Agregar P
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
@@ -104,15 +107,22 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 		formNewProducto ? postData(form) : putData(form);
 	};
 
+  // ejecucion de metodo al renderizar pagina
+  useEffect(() => {
+    dispatch(getUnidadesAction());
+    dispatch(getFamiliaDetalleAction())
+  }, []);
+
+
 	return (
     <Fragment>
     <form id='formulario' onSubmit={handleSubmit} >
-      <Card style='card-default' haveTitle={false} title='prueba'> 
+      <Card style='card-default' haveTitle={true} title={product.title.seccionBasica}> 
         <div className='row'>
           <div className='col-sm-7'>
             { (!formNewProducto) && 
               <div className='form-group'>
-                <label htmlFor='id'>{role.lbl.id}</label>
+                <label htmlFor='id'>{product.lbl.id}</label>
                 <input 
                   type='number'
                   className='form-control form-control-border'
@@ -123,13 +133,13 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
               </div>  
             }
             <div className='form-group'>
-              <label htmlFor='nombre'>{role.lbl.nombre}</label>
+              <label htmlFor='nombre'>{product.lbl.nombre}</label>
               <input 
                 type='text'
                 className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
                 id='nombre'
                 name='nombre'
-                placeholder={role.plhld.nombre}
+                placeholder={product.plhld.nombre}
                 onChange={handleChange}
                 value={form.nombre}
                 describedby='nombreError'
@@ -137,76 +147,139 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
                 required
                 onBlur={(e) => { validacion({nombre: 'nombre', valor: e.target.value}) }}
               />
-              {!validation.nombre && <span className='text-danger'>{role.txt.valNombre}</span>}
+              {!validation.nombre && <span className='text-danger'>{product.txt.valNombre}</span>}
             </div>
+            <div className='form-group'>
+              <label htmlFor='codigo'>{product.lbl.codigo}</label>
+              <input 
+                type='text'
+                className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
+                id='codigo'
+                name='codigo'
+                placeholder={product.plhld.codigo}
+                onChange={handleChange}
+                value={form.codigoInterno}
+                describedby='nombreError'
+                maxLength={30} 
+                required
+                onBlur={(e) => { validacion({nombre: 'codigo', valor: e.target.value}) }}
+              />
+              {!validation.codigo && <span className='text-danger'>{product.txt.valCodigo}</span>}
+            </div>
+
           </div>
           <div className='col-sm-5'>
             <div className='form-group'>
               <div className='icheck-pumpkin'>
                 <input 
                   type='checkbox'
-                  name='accesoGestion' 
-									id='accesoGestion' 
+                  name='activo' 
+									id='activo' 
 									onChange={handleChange} 
-									defaultChecked={form.accesoGestion}
+									defaultChecked={form.activo}
                 />
-                <label htmlFor='accesoGestion'>{role.lbl.accesoGestion}</label>
+                <label htmlFor='activo'>{product.lbl.activo}</label>
               </div>
             </div>
             <div className='form-group'>
               <div className='icheck-pumpkin'>
                 <input 
                   type='checkbox'
-                  name='accesoPv' 
-									id='accesoPv' 
+                  name='exento' 
+									id='exento' 
 									onChange={handleChange} 
-									defaultChecked={form.accesoPv}
+									defaultChecked={form.exento}
                 />
-                <label htmlFor='accesoPv'>{role.lbl.accesoPv}</label>
+                <label htmlFor='exento'>{product.lbl.exento}</label>
               </div>
             </div>
             <div className='form-group'>
               <div className='icheck-pumpkin'>
                 <input 
                   type='checkbox'
-                  name='accesoContabilidad' 
-									id='accesoContabilidad' 
+                  name='esInventario' 
+									id='esInventario' 
 									onChange={handleChange} 
-									defaultChecked={form.accesoContabilidad}
+									defaultChecked={form.esInventario}
                 />
-                <label htmlFor='accesoContabilidad'>{role.lbl.accesoContabilidad}</label>
+                <label htmlFor='esInventario'>{product.lbl.esInventario}</label>
               </div>
             </div>
             <div className='form-group'>
               <div className='icheck-pumpkin'>
                 <input 
                   type='checkbox'
-                  name='accesoInventario' 
-									id='accesoInventario' 
+                  name='comanda' 
+									id='comanda' 
 									onChange={handleChange} 
-									defaultChecked={form.accesoInventario}
+									defaultChecked={form.comanda}
                 />
-                <label htmlFor='accesoInventario'>{role.lbl.accesoInventario}</label>
+                <label htmlFor='comanda'>{product.lbl.comanda}</label>
               </div>
               <div className='icheck-pumpkin'>
                 <input 
                   type='checkbox'
-                  name='accesoInventarioMovil' 
-									id='accesoInventarioMovil' 
+                  name='esIngrediente' 
+									id='esIngrediente' 
 									onChange={handleChange} 
-									defaultChecked={form.accesoInventarioMovil}
+									defaultChecked={form.esIngrediente}
                 />
-                <label htmlFor='accesoInventarioMovil'>{role.lbl.accesoInventarioMovil}</label>
+                <label htmlFor='esIngrediente'>{product.lbl.esIngrediente}</label>
+              </div>
+              <div className='icheck-pumpkin'>
+                <input 
+                  type='checkbox'
+                  name='tieneEnvase' 
+									id='tieneEnvase' 
+									onChange={handleChange} 
+									defaultChecked={form.tieneEnvase}
+                />
+                <label htmlFor='tieneEnvase'>{product.lbl.tieneEnvase}</label>
               </div>
             </div>  
           </div> 
         
-          <div className='col-12 mt-5'>
-            <input type='submit' className='btn btn-outline-success btn-block' value={formNewProducto ? role.btn.agregar : role.btn.editar} />
-            <Link to='/productos' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
+          <input type='hidden' name='empresaRut' value={empresaSession} />
+        </div>
+      </Card>
+
+      <Card style='card-default' haveTitle={true} title={product.title.seccionRelacion}>
+        <div className='row'>
+          <div className='col-6'>
+            <div className='form-group'>
+              <label htmlFor='unidadId'>{product.lbl.unidadId}</label>
+              <select
+                name='unidadId' 
+                className='form-control select2 custom-select'
+                onChange={handleChange}
+              >
+                <option disabled selected={(!formNewProducto)&& 'selected'}>{product.slct.unidad}</option>
+                { (unidades.length > 0) && unidades.map((i) => <option value={i.id} selected={(i.id === form.unidadId ) && 'selected'}> {i.nombre} - {i.plural} </option>) }
+              </select>
+            </div>
+          </div>
+
+          <div className='col-6'>
+            <div className='form-group'>
+              <label htmlFor='subFamiliaId'>{product.lbl.subfamilia}</label>
+              <select
+                name='subFamiliaId' 
+                className='form-control select2 custom-select'
+                onChange={handleChange}
+              >
+                <option disabled selected={(!formNewProducto)&& 'selected'}>{product.slct.subfamilia}</option>
+                { (familiaDetalle.length > 0) && familiaDetalle.map((i) => <option value={i.subfamiliaId} selected={(i.subfamiliaId === form.subfamiliaId ) && 'selected'}> {i.subfamiliaNombre} - familia padre {i.familiaNombre} </option>) }
+              </select>
+            </div>
           </div>
         </div>
       </Card>
+
+      <div className='col-12 mt-5'>
+        <input type='submit' className='btn btn-outline-success btn-block' value={formNewProducto ? product.btn.agregar : product.btn.editar} />
+        <Link to='/productos' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
+      </div>
+
     </form>
     </Fragment>
 	);
