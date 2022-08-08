@@ -10,15 +10,13 @@ import { logoutUserAction } from '@redux/userAuthDuck';
 //* Image
 import UserIcon from '@assets/icons/user_icon.png';
 //* Custom Components
-import EmpSelect from '../common/EmpresaSelect';
+import EmpSelect from '../common/EmpresaSelect';  
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let activo = useSelector(store => store.auth.activo);
 	let isAdmin = useSelector(store => store.auth.isAdmin);
   let userLogged = useSelector(store => store.auth.info);
-
 
   const handleLogOut = () => {
 		dispatch(logoutUserAction());
@@ -50,8 +48,8 @@ const Navbar = () => {
         { isAdmin &&
           <li className='nav-item'>
             <div to='#' className='dropdown-item'>
-                <EmpSelect  />
-              </div>
+              <EmpSelect  />
+            </div>
           </li>      
         }
         <li className='nav-item'>
@@ -102,7 +100,12 @@ const Navbar = () => {
               <span className='float-right text-muted text-sm'>2 days</span>
             </Link> */}
             <div className='dropdown-divider'></div>
-            <button className='dropdown-item dropdown-footer dropdown-dark' onClick={handleLogOut}>{universal.btn.cerrar}</button>
+            <button
+              className='dropdown-item dropdown-footer dropdown-dark'
+              onClick={handleLogOut}
+            >
+              {universal.btn.cerrar}
+            </button>
           </div>
         </li>
         

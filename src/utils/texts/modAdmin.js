@@ -166,9 +166,32 @@ const unit = {
   lnk: {},
 };
 
+const brand = {
+  title: {
+    index: 'Marcas',
+    new: 'Nueva Marca',
+    edit: 'Editar Marca'
+  },
+  lbl: {
+    id: 'ID',
+    nombre: 'Marca del Producto'
+  },
+  btn: {
+    agregar: 'Agregar',
+    editar: 'Editar',
+  },
+  txt: {
+    valNombre: '*Campo obligatorio. '
+  },
+  plhld: {},
+  slct: {},
+  lnk: {}
+};
+
 module.exports = {
   company,
   user,
   role,
-  unit
+  unit,
+  brand
 };

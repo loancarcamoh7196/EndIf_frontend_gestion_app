@@ -4,8 +4,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route  } from 'react-router-dom';
 
-// import Theme from '@context/ThemeContext';
-
 import NotFound from '@pages/NotFound';
 import Home from '@pages/Home';
 import Dashboard from '@pages/Dashboard';
@@ -39,9 +37,8 @@ import ProductoEdit from '@pages/productos/edit';
 import SubFamiliaIndex from '@pages/subFamilias/index';
 //? Mantenedor Unidades
 import UnidadIndex from '@pages/unidades/index';
-//? Mantenedor Marcas
+//? Mantenedor Marcas 
 import MarcaIndex from '@pages/marcas/index';
-
 
 const App = () => {
   return (

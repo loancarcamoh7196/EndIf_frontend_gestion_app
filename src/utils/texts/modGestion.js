@@ -160,17 +160,6 @@ const product = {
   lnk: {}
 };
 
-const brand = {
-  title: {},
-  lbl: {
-    nombre: 'Marca del Producto'
-  },
-  btn: {},
-  txt: {},
-  plhld: {},
-  slct: {},
-  lnk: {}
-};
 
 const tax = {
   title: {},
@@ -323,6 +312,5 @@ module.exports = {
   family,
   product,
   subfamily,
-  brand,
   tax
 };

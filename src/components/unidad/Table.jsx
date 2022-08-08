@@ -34,7 +34,7 @@ const UnidadesTable = ({data, setFormShow}) => {
   const titulos = [ 'ID', 'Nombre', 'Plural', 'Acciones' ];  
   
   //* Generar columnas de Tabla
-  if (data.length >0) {
+  // if (data.length >0) {
     data.map((row) => content.push(
       <tr key={row.id} id={`fil-${row.id}`}>
         <td>{row.id} </td>
@@ -65,7 +65,7 @@ const UnidadesTable = ({data, setFormShow}) => {
         </td>
       </tr>
     ));
-  } else content.push(<tr>Sin datos</tr>);
+  // } else content.push(<tr>Sin datos</tr>);
 
   return (
     <DataTable

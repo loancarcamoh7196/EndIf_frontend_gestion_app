@@ -182,7 +182,14 @@ const endPoints = {
   },
   familiaDetalle :{
     list: (empresaRut) => `${api_url}:${puerto}/${version}/familia_detalle/${empresaRut}`,
-  }
+  },
+  marcas: {
+    list: () => `${api_url}:${puerto}/${version}/marcas`,
+    get: (id) => `${api_url}:${puerto}/${version}/marcas/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/marcas`,
+    update: (id) => `${api_url}:${puerto}/${version}/marcas/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/marcas/${id}`,
+  },
 };
 
 export default endPoints;

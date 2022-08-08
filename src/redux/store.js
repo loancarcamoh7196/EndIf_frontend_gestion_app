@@ -22,6 +22,7 @@ import productosReducer from '@redux/productosDuck';
 import subFamiliasReducer from '@redux/subFamiliasDuck';
 import unidadesReducer from '@redux/unidadesDuck';
 import familiaDetalleReducer from '@redux/familiaDetalleDuck';
+import marcasReducer from '@redux/marcasDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
@@ -37,7 +38,8 @@ const appReducer = combineReducers({
 	subfamilias: subFamiliasReducer,
 	unidades: unidadesReducer,
 	familiaDetalle: familiaDetalleReducer,
-
+	marcas: marcasReducer,
+	
 });
 
 //* Limpieza de Storage en caso de logout
@@ -65,6 +67,6 @@ export default function generateStore() {
 
 	const persistor = persistStore(store);	
 
-	return {persistor, store};
+	return { persistor, store };
 }
 
