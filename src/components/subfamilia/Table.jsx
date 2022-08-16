@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
-import { deleteSubFamiliaAction, showFormEditSBAction } from '@redux/subFamiliasDuck';
+import { deleteUnidadAction, showFormAction } from '@redux/unidadesDuck';
 
 const SubFamiliaTable = ({data, setFormShow, formShow, buttonDelete }) => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const SubFamiliaTable = ({data, setFormShow, formShow, buttonDelete }) => {
           type='button'
           onClick={()=>{
             setFormShow({ edit: true, new: false });
-            dispatch(showFormEditSBAction({ id: row.id }));
+            dispatch(showFormAction({ id: row.id }));
           }}
           className='btn btn-xs btn-outline-warning'
           data-bs-toggle='offcanvas'
@@ -56,7 +56,7 @@ const SubFamiliaTable = ({data, setFormShow, formShow, buttonDelete }) => {
         &nbsp;
         <button
           className='btn btn-xs btn-outline-danger'
-          onClick={()=> dispatch(deleteSubFamiliaAction({ id: row.id }))}
+          onClick={()=> dispatch(deleteUnidadAction({ id: row.id }))}
         >
           <i className='fa-solid fa-trash-can m-1' /> 
         </button>

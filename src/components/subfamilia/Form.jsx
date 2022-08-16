@@ -108,7 +108,8 @@ export default function FormSubFamilia({subfamilyForm, formNewSubFamily=true }) 
         <div>
           <input
             type='submit'
-            className='btn btn-outline-success btn-md btn-block mb-2 text-reset' data-bs-dismiss='offcanvas' 
+            className='btn btn-outline-success btn-md btn-block mb-2 text-reset'
+						data-bs-dismiss='offcanvas'
             value={ formNewSubFamily ? subfamily.btn.new : subfamily.btn.edit }
           />
         </div>

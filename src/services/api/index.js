@@ -190,6 +190,13 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/marcas/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/marcas/${id}`,
   },
+  cajas: {
+    list: (empresaRut) => `${api_url}:${puerto}/${version}/caja_detalle/${empresaRut}`,
+    get: (id) => `${api_url}:${puerto}/${version}/cajas/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/cajas`,
+    update: (id) => `${api_url}:${puerto}/${version}/cajas/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/cajas/${id}`,
+  },
 };
 
 export default endPoints;

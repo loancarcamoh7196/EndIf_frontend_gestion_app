@@ -171,8 +171,6 @@ const tax = {
   lnk: {}
 };
 
-
-
 const barcode = {
   title: {},
   lbl: {},
@@ -184,12 +182,36 @@ const barcode = {
 };
 
 const cashRegister = {
-  title: {},
-  lbl: {},
-  btn: {},
+  title: {
+    index: 'Cajas',
+    new: 'Nueva Caja',
+    edit: 'Editar Caja'
+  },
+  lbl: {
+    id: 'ID',
+    nombre: 'Nombre',
+    numero: 'Número',
+    puerto: 'Puerto',
+    serv: 'Servidor',
+    serv2: 'Servidor 2',
+    cnx: 'Conexión',
+    esFabrica: 'Es fábrica',
+    activa: 'Esta activa?',
+    sincroniza: 'Sincroniza?',
+    tienda: 'Tienda',
+  },
+  btn: {
+    agregar: 'Agregar',
+    editar: 'Editar'
+  },
   txt: {},
-  plhld: {},
-  slct: {},
+  plhld: {
+    nombre: 'Providencia ',
+    numero: '2'
+  },
+  slct: {
+    tienda: 'Seleccione Tienda',
+  },
   lnk: {},
 };
 
@@ -312,5 +334,6 @@ module.exports = {
   family,
   product,
   subfamily,
-  tax
+  tax,
+  cashRegister
 };

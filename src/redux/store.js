@@ -23,6 +23,7 @@ import subFamiliasReducer from '@redux/subFamiliasDuck';
 import unidadesReducer from '@redux/unidadesDuck';
 import familiaDetalleReducer from '@redux/familiaDetalleDuck';
 import marcasReducer from '@redux/marcasDuck';
+import cajasReducer from '@redux/cajasDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
@@ -39,7 +40,7 @@ const appReducer = combineReducers({
 	unidades: unidadesReducer,
 	familiaDetalle: familiaDetalleReducer,
 	marcas: marcasReducer,
-	
+	cajas: cajasReducer
 });
 
 //* Limpieza de Storage en caso de logout

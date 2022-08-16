@@ -39,6 +39,11 @@ import SubFamiliaIndex from '@pages/subFamilias/index';
 import UnidadIndex from '@pages/unidades/index';
 //? Mantenedor Marcas 
 import MarcaIndex from '@pages/marcas/index';
+//? Mantenedor Cajas
+import CajaIndex from '@pages/cajas/index';
+import CajaNew from '@pages/cajas/new';
+import CajaEdit from '@pages/cajas/edit';
+
 
 const App = () => {
   return (
@@ -79,6 +84,12 @@ const App = () => {
           <Route exact path='/admin/unidad' element={<UnidadIndex />} />
           {/* Mod Marcas */}
           <Route exact path='/admin/marcas' element={<MarcaIndex />} />
+          {/* Mod Cajas */}
+          <Route exact path='/cajas' element={<CajaIndex />} />
+          <Route exact path='/cajas/new' element={<CajaNew />} />
+          <Route exact path='/cajas/:id/edit' element={<CajaEdit />} />
+          {/* Mod Lista Pre */}
+
           
           <Route exact path='login' element={<Login />}  />
           <Route path='*' element={<NotFound />} />
