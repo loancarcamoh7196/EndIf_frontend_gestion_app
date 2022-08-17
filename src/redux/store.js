@@ -24,6 +24,7 @@ import unidadesReducer from '@redux/unidadesDuck';
 import familiaDetalleReducer from '@redux/familiaDetalleDuck';
 import marcasReducer from '@redux/marcasDuck';
 import cajasReducer from '@redux/cajasDuck';
+import listaPreciosReducer from '@redux/listaPreciosDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
@@ -40,7 +41,8 @@ const appReducer = combineReducers({
 	unidades: unidadesReducer,
 	familiaDetalle: familiaDetalleReducer,
 	marcas: marcasReducer,
-	cajas: cajasReducer
+	cajas: cajasReducer,
+	listaPrecios: listaPreciosReducer,
 });
 
 //* Limpieza de Storage en caso de logout

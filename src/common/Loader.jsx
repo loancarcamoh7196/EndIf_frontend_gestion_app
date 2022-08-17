@@ -1,21 +1,18 @@
-import React, { Fragment } from 'react';
-// import Logo from '@assets/img/AdminLTELogo.png';
-import '@styles/Spiner.scss';
+/**
+ * * Componente Loader
+ */
 
-const Loader = () => {
-  // return <div className='loader'></div>;
+export default function Loader() {
   return (
-    <div className="d-flex justify-content-center">
+    <div className='d-flex justify-content-center'>
       <div
-        className="spinner-border"
-        role="status"
+        className='spinner-border'
+        role='status'
       >
-        <span className="visually-hidden">
+        <span className='visually-hidden'>
           Loading...
         </span>
       </div>
     </div>
   );
 }
-
-export default Loader;

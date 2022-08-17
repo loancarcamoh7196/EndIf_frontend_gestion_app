@@ -1,8 +1,7 @@
 /**
  ** Componente Unidades Table
- *? alojado en: /roles 
+ *? alojado en: /unidades 
  */
-import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
@@ -69,7 +68,7 @@ const UnidadesTable = ({data, setFormShow}) => {
 
   return (
     <DataTable
-      key='tab_usuarios'
+      key='tab_unidadeds'
       encabezado={titulos}
       data={content}
       opciones={options}

@@ -4,8 +4,6 @@
  */
 import React, { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 //* Texto
 import { unit } from '@utils/texts/modAdmin';
 import { universal, toastOptions } from '@utils/texts/general';
@@ -15,7 +13,7 @@ import Card from '@common/Card';
 import { addUnidadAction, updateUnidadAction } from '@redux/unidadesDuck';
 
 export default function FormUnidad({ formNewUnidad=true, unidadForm }) {
-	const dispatch = useDispatch(); //Disparador
+	const dispatch = useDispatch(); //? Disparador
 
   //Selector
 
@@ -38,7 +36,7 @@ export default function FormUnidad({ formNewUnidad=true, unidadForm }) {
 		} else  return false;
 	}
 
-	// Almacenamiento de Datos formulario
+	//? Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
     id: unidadForm.id,
 		nombre: unidadForm.nombre,
@@ -46,7 +44,7 @@ export default function FormUnidad({ formNewUnidad=true, unidadForm }) {
 	});
 	
 	/**
-	 * * Manejador de Actualizar Rol
+	 * * Manejador de Actualizar Unidad
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
@@ -62,7 +60,7 @@ export default function FormUnidad({ formNewUnidad=true, unidadForm }) {
 	};
 
 	/** 
-	 * * Manejador para Agregar Rol
+	 * * Manejador para Agregar Unidad
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {

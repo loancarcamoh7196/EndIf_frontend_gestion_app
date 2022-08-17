@@ -197,6 +197,23 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/cajas/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/cajas/${id}`,
   },
+  listaPrecios: {
+    list: (options) => {
+      const { empresaRut } = options;
+      let url = '';
+      
+      empresaRut !=
+      undefined
+        ? (url = `${api_url}:${puerto}/${version}/listaprecios?empresaRut=${empresaRut}`)
+        : (url = `${api_url}:${puerto}/${version}/listaprecios`);
+
+      return url;
+    },
+    get: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/listaprecios`,
+    update: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}`,
+  },
 };
 
 export default endPoints;

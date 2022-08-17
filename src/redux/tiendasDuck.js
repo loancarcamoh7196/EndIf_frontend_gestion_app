@@ -1,5 +1,6 @@
 /**
  ** Redux TiendasDuck
+ *? store: tiendas
  */
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -57,7 +58,7 @@ export const getTiendasAction = (options) => async (dispatch, getState) => {
 		// console.log(error);
 		// let msg = error.response.data;
 		// (loading === false && activo === true) ? dispatch(refreshTokenAction()) : console.log('No ha podido refrescar token');
-		// toast.error(``, {...toastOptions});
+		// toast.error(``, toastOptions);
     dispatch({ type: TIENDA_ERROR });
 	}
 };
@@ -84,38 +85,38 @@ export const addTiendaAction = (options) => async (dispatch, getState) => {
 		const direccionRes = await axios.post(apiDir, direccion);
 		toast.success(direccionRes, { ...toastOptions});
     familia.direccionId = direccionRes.data.id;
-		toast.success(`Direccion Agregada`, {...toastOptions});
+		toast.success(`Direccion Agregada`, toastOptions);
 		const res = await axios.post(api, familia);
 		// console.log(res);
 		toast.success(`Sucursal con ID ${res.data.id}- ${res.data.nombre} ha sido agregado existosamente`, toastOptions);
 		dispatch({ type: TIENDA_ADD, payload: [...getState().tiendas.list, res.data] });
 	} catch (error) {
 		// console.log(error);
-		let msg = error.response.data;
-		toast.error(`No ha sea podido agregar la sucursal, porfavor revise los datos e intentelo más tarde`, {...toastOptions});
-		toast.error(msg, {...toastOptions});	
+		// let msg = error.response.data;
+		toast.error(`No ha sea podido agregar la sucursal, porfavor revise los datos e intentelo más tarde`, toastOptions);
+		// toast.error(msg, toastOptions);	
 		dispatch({ type: TIENDA_ERROR });	
 	}
 };
 
 export const updateTiendaAction = (options) => async (dispatch, getState) => {
-	const { id, familia, direccion } = options; // Opciones para solicitud a  API
-	const api = endPoints.tiendas.update(id); // URL API
+	const { id, familia, direccion } = options; //? Opciones para solicitud a  API
+	const api = endPoints.tiendas.update(id); //? URL API
 
 	try {
-		console.log(api);
+		// console.log(api);
 		const res = await axios.patch(api, familia);
-		console.log(familia);
+		// console.log(familia);
     let newList = getState().tiendas.list.map((e) =>  e.id == id ? res.data : e );
     // console.log('Nueva  lista: ', newList)
-    toast.success(`La sucursal ${id} ha sido actualizada existosamente.`, {...toastOptions});
+    toast.success(`La sucursal ${id} ha sido actualizada existosamente.`, toastOptions);
     
     if(Object.keys(direccion).length !== 0){
       try {
-        const direccionApi = endPoints.direcciones.update(direccion.id); // URL API para direccion
-        delete direccion.id; // quitar Id de datos actualizar
+        const direccionApi = endPoints.direcciones.update(direccion.id); //? URL API para direccion
+        delete direccion.id; //? quitar Id de datos actualizar
         const dir = await axios.patch(direccionApi, direccion);
-        toast.success('Dirección Actualizada', {...toastOptions});
+        toast.success('Dirección Actualizada', toastOptions);
         } catch (error) {
         toast.error(`La direccion de la sucursal ${id}, no se ha podido actualizar.`, toastOptions);
       }
@@ -123,9 +124,9 @@ export const updateTiendaAction = (options) => async (dispatch, getState) => {
 		dispatch({  type: TIENDA_UPDATE, payload: newList });
 	} catch (error) {
 		// console.log(error);
-		let msg = error.response.data;
-		toast.error(`Tienda ${familia.nombre} no se ha podido actualizar.`, {...toastOptions});
-		toast.error(msg, {...toastOptions});
+		// let msg = error.response.data;
+		toast.error(`Tienda ${familia.nombre} no se ha podido actualizar.`, toastOptions);
+		// toast.error(msg, toastOptions);
 		dispatch({ type: TIENDA_ERROR });
 	}
 };
@@ -138,14 +139,13 @@ export const deleteTiendaAction = (options) => async (dispatch, getState) => {
 	try {
 		const res = await axios.delete(api);
 		let newList = getState().tiendas.list.filter((e)=> e.id != id);
-
-		toast.warning(`La familia con ID: ${id} ha sido eliminado.`, {...toastOptions});
+		toast.warning(`La familia con ID: ${id} ha sido eliminado.`, toastOptions);
 		dispatch({ type: TIENDA_DELETE, payload: newList });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`No se ha podido eliminar la familia con ID: ${id}, porfavor vuelva intentarlo más tarde.`, {...toastOptions});
-		toast.error(msg, {...toastOptions});
+		toast.error(`No se ha podido eliminar la sucursal con ID: ${id}, porfavor vuelva intentarlo más tarde.`, toastOptions);
+		toast.error(msg, toastOptions);
 		dispatch({ type: TIENDA_ERROR });
 	}
 };

@@ -207,7 +207,11 @@ const cashRegister = {
   txt: {},
   plhld: {
     nombre: 'Providencia ',
-    numero: '2'
+    numero: '2',
+    puerto: '3030',
+    serv: '168.15.25.76',
+    serv2: '172.1168.1.1',
+    cnx: 'http',
   },
   slct: {
     tienda: 'Seleccione Tienda',
@@ -226,12 +230,27 @@ const price = {
 };
 
 const priceList = {
-  title: {},
-  lbl: {},
-  btn: {},
+  title: {
+    index: 'Lista de Precios',
+    new: 'Agregar nueva Lista de Precios',
+    edit: 'Editar Lista de Precios'
+  },
+  lbl: {
+    id: 'ID',
+    lista: 'Lista',
+    empresaRut: 'Empresa RUT'
+  },
+  btn: {
+    new: 'Agregar',
+    edit: 'Editar'
+  },
   txt: {},
-  plhld: {},
-  slct: {},
+  plhld: {
+    lista: 'Lista Precios'
+  },
+  slct: {
+    empresa: 'Seleccione Empresa'
+  },
   lnk: {},
 };
 
@@ -335,5 +354,7 @@ module.exports = {
   product,
   subfamily,
   tax,
-  cashRegister
+  cashRegister,
+  priceList,
+  price
 };

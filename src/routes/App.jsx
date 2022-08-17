@@ -43,6 +43,8 @@ import MarcaIndex from '@pages/marcas/index';
 import CajaIndex from '@pages/cajas/index';
 import CajaNew from '@pages/cajas/new';
 import CajaEdit from '@pages/cajas/edit';
+//? Mantenedor Lista Precio
+import ListaPrecioIndex from '@pages/listaPrecios/index';
 
 
 const App = () => {
@@ -88,8 +90,9 @@ const App = () => {
           <Route exact path='/cajas' element={<CajaIndex />} />
           <Route exact path='/cajas/new' element={<CajaNew />} />
           <Route exact path='/cajas/:id/edit' element={<CajaEdit />} />
-          {/* Mod Lista Pre */}
-
+          {/* Mod Lista Precios */}
+          <Route exact path='/lista_precio' element={<ListaPrecioIndex />} />
+          
           
           <Route exact path='login' element={<Login />}  />
           <Route path='*' element={<NotFound />} />

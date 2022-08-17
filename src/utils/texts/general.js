@@ -77,13 +77,12 @@ const auth = {
 
 const toastOptions= {
   position: 'top-right',
-  autoClose: 2500,
+  autoClose: 2000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-
 };
 
 const exportTable = {
