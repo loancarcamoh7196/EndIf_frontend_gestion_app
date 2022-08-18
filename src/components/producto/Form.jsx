@@ -2,13 +2,13 @@
  * * Formulario de Producto
  * ? Para agregar y editar
  */
-import React, { useState, Fragment, useEffect, useRef } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 //* Textos
 import { product, unity, subfamilia } from '@utils/texts/modGestion';
-import { toastOptions, universal } from '../../utils/texts/general'
+import { toastOptions, universal } from '@utils/texts/general'
 //* Componentes propios
 import Card from '@common/Card';
 //* Redux ~ Duck necesarios
@@ -17,14 +17,13 @@ import { getUnidadesAction } from '@redux/unidadesDuck';
 import { getFamiliaDetalleAction } from '@redux/familiaDetalleDuck';
 
 export default function FormProduct({ formNewProducto = true, productoForm }) {
-	const params = useParams(); // Acceso a params de la URL
-	const dispatch = useDispatch(); //Disparador
-	const navigate = useNavigate(); // Navegador de Pagina
+	const params = useParams(); //? Acceso a params de la URL
+	const dispatch = useDispatch(); //? Disparador
+	const navigate = useNavigate(); //? Navegador de Pagina
 
-  let unidades = useSelector((store)=> store.unidades.list); //? Valores para Select de Unidades
-  let empresaSession = useSelector((store)=> store.auth.empresaSession); //? Empresa Seleccionda
-  let familiaDetalle = useSelector((store)=> store.familiaDetalle.list); //? Valores para Select de Familia Detalle
-	
+  const unidadesList = useSelector((store) => store.unidades.list); //? Valores para Select de Unidades
+  const familiaDetalle = useSelector((store) => store.familiaDetalle.list); //? Valores para Select de Familia Detalle
+
   const [validation, setValidation] = useState({
 		nombre: true,
     codigo: true
@@ -49,12 +48,12 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 		activo: productoForm.activo,
     exento: productoForm.exento,
 		esInventario: productoForm.esInventario,  
-		comanda: productoForm.comada,
+		comanda: productoForm.comanda,
     esIngrediente: productoForm.esIngrediente,
     tieneEnvase: productoForm.tieneEnvase,
     empresaRut: productoForm.empresaRut,
     unidadId: productoForm.unidadId,
-    subfamiliaId: productoForm.subfamiliaId,
+    subFamiliaId: productoForm.subFamiliaId,
 	});
 	
 	/**
@@ -62,20 +61,15 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
-		// console.log('Entro en Editar');
     delete form.id;
 		const { id } = params; // Extraer ID de URL
 		try {
-			// console.log('Entro update');
-
       const options = { id, body: form };
 			dispatch(updateProductoAction(options));
 			navigate('/productos');
 		} catch (error) {
 			console.log(error);
-			// setMessage('Falló la edición');
 		}
-		// console.log('Soy update');
 	};
 
 	/** 
@@ -88,10 +82,8 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
       dispatch(addProductoAction({body: form}));
       navigate('/productos');
 		} catch (error) {
-			// setMessage('Falló la edición');
       console.log(error);
 		}
-		// console.log('Soy Agregar');
 	};
 
 	const handleChange = (e) => {
@@ -107,15 +99,16 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 		formNewProducto ? postData(form) : putData(form);
 	};
 
-  // ejecucion de metodo al renderizar pagina
+  //? ejecucion de metodo al renderizar pagina
   useEffect(() => {
+    dispatch(getFamiliaDetalleAction());
     dispatch(getUnidadesAction());
-    dispatch(getFamiliaDetalleAction())
   }, []);
 
+  console.log(familiaDetalle);
 
 	return (
-    <Fragment>
+  <Fragment>
     <form id='formulario' onSubmit={handleSubmit} >
       <Card style='card-default' haveTitle={true} title={product.title.seccionBasica}> 
         <div className='row'>
@@ -137,7 +130,6 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
               <input 
                 type='text'
                 className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
-                id='nombre'
                 name='nombre'
                 placeholder={product.plhld.nombre}
                 onChange={handleChange}
@@ -150,23 +142,20 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
               {!validation.nombre && <span className='text-danger'>{product.txt.valNombre}</span>}
             </div>
             <div className='form-group'>
-              <label htmlFor='codigo'>{product.lbl.codigo}</label>
+              <label htmlFor='codigoInterno'>{product.lbl.codigo}</label>
               <input 
                 type='text'
                 className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
-                id='codigo'
-                name='codigo'
+                name='codigoInterno'
                 placeholder={product.plhld.codigo}
                 onChange={handleChange}
-                value={form.codigoInterno}
-                describedby='nombreError'
+                defaultValue={form.codigoInterno}
                 maxLength={30} 
                 required
-                onBlur={(e) => { validacion({nombre: 'codigo', valor: e.target.value}) }}
+                onBlur={(e) => { validacion({ nombre: 'codigo', valor: e.target.value }) }}
               />
               {!validation.codigo && <span className='text-danger'>{product.txt.valCodigo}</span>}
             </div>
-
           </div>
           <div className='col-sm-5'>
             <div className='form-group'>
@@ -238,8 +227,6 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
               </div>
             </div>  
           </div> 
-        
-          <input type='hidden' name='empresaRut' value={empresaSession} />
         </div>
       </Card>
 
@@ -253,8 +240,15 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
                 className='form-control select2 custom-select'
                 onChange={handleChange}
               >
-                <option disabled selected={(!formNewProducto)&& 'selected'}>{product.slct.unidad}</option>
-                { (unidades.length > 0) && unidades.map((i) => <option value={i.id} selected={(i.id === form.unidadId ) && 'selected'}> {i.nombre} - {i.plural} </option>) }
+                <option
+                  disabled
+                  selected={ (!formNewProducto) && 'selected' }
+                >
+                  {product.slct.unidad}
+                </option>
+                { (unidadesList.length > 0) && 
+                    unidadesList.map((i) => <option value={i.id} selected={(i.id === form.unidadId ) && 'selected'}> {i.nombre} - {i.plural} </option>) 
+                }
               </select>
             </div>
           </div>
@@ -267,8 +261,17 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
                 className='form-control select2 custom-select'
                 onChange={handleChange}
               >
-                <option disabled selected={(!formNewProducto)&& 'selected'}>{product.slct.subfamilia}</option>
-                { (familiaDetalle.length > 0) && familiaDetalle.map((i) => <option value={i.subfamiliaId} selected={(i.subfamiliaId === form.subfamiliaId ) && 'selected'}> {i.subfamiliaNombre} - familia padre {i.familiaNombre} </option>) }
+                <option
+                  disabled
+                  selected={ (!formNewProducto) && 'selected' }
+                >
+                  {product.slct.subfamilia}
+                </option>
+                { (familiaDetalle.length > 0) &&
+                  familiaDetalle.map((i) => <option value={parseInt(i.subfamiliaId)} selected={(i.subfamiliaId === form.subFamiliaId ) && 'selected'}>
+                  {i.subfamiliaNombre} - Familia padre {i.familiaNombre} 
+                  </option>) 
+                }
               </select>
             </div>
           </div>
@@ -276,11 +279,20 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
       </Card>
 
       <div className='col-12 mt-5'>
-        <input type='submit' className='btn btn-outline-success btn-block' value={formNewProducto ? product.btn.agregar : product.btn.editar} />
-        <Link to='/productos' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
+        <input
+          type='submit'
+          className='btn btn-outline-success btn-block'
+          value={formNewProducto ? product.btn.agregar : product.btn.editar}
+        />
+        <Link
+          to='/productos'
+          className='btn btn-outline-danger btn-block' 
+        >
+          {universal.btn.volver}
+        </Link>
       </div>
 
     </form>
-    </Fragment>
+  </Fragment>
 	);
 }

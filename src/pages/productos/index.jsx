@@ -1,20 +1,21 @@
 /**
- ** Archivo de pagina: /productos
+ * * Archivo Producto Index
+ * ? url: /productos
  */
 import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 //* Text
 import { universal } from '@utils/texts/general';
-import { product } from '../../utils/texts/modGestion';
+import { product } from '@utils/texts/modGestion';
 //* Redux
 import { getProductosAction } from '@redux/productosDuck';
-
 //* Componentes
 import Layout from '@layouts/Main';
 import Table from '@components/producto/Table';
 import Card from '@common/Card';
-
+import Loader from '@common/Loader';
+//* Breadcrum
 const link = [
   { nombre: 'Home', url: '/dashboard' },
   { nombre:'Productos', url: '/productos' }
@@ -22,11 +23,9 @@ const link = [
 
 const Index = () => {
   const dispatch = useDispatch();
-  const empresaSession = useSelector(store => store.auth.empresaSession);
+  const loading = useSelector(store => store.productos.loading);
 
-  useEffect(() => {
-    dispatch(getProductosAction({ empresaRut: empresaSession })); 
-  }, []);
+  useEffect(() => { dispatch(getProductosAction()) }, []);
   let productos = useSelector((store) => store.productos.list);
 
   return (
@@ -34,10 +33,16 @@ const Index = () => {
       <Card style='card-default' > 
         <div className='row'>
           <div className='col-4 mb-3 float-sm-right'>
-            <Link to='/productos/new' className='btn btn-sm btn-block btn-outline-success float-sm-right'> <i className='fa-solid fa-plus' />{universal.btn.new}</Link>
+            <Link
+              to='/productos/new'
+              className='btn btn-sm btn-block btn-outline-success float-sm-right'
+            >
+              <i className='fa-solid fa-plus' />
+              {universal.btn.new}
+            </Link>
           </div>
           <div className='col-12 col-md-12 col-xl-12'>
-            <Table data={productos} />
+            {loading ? <Loader /> : <Table data={productos} />}
           </div>
         </div>  
       </Card>

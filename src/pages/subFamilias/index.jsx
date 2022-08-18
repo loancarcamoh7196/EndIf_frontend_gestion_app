@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import axios from 'axios';
 //* Textos
-import { subfamily, universal } from '../../utils/texts/modGestion';
+import { subfamily, universal } from '@utils/texts/modGestion';
 import endPoints from '@services/api';
 //* Redux
 import { getSubFamiliasAction } from '@redux/subFamiliasDuck';

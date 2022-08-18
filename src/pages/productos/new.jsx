@@ -1,11 +1,12 @@
 /**
- ** Pagina : /productos/new
+ * * Productos - new
+ * ? url : /productos/new
  */
 import Layout from '@layouts/Main';
 import Form from '@components/producto/Form';
 //* Texto
 import { product } from '@utils/texts/modGestion';
-
+//*Breadcrum
 const link = [
   { nombre: 'Dashboard', url: '/dashboard' },
   { nombre:'Producto', url: '/productos' },

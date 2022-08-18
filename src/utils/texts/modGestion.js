@@ -148,6 +148,8 @@ const product = {
   txt: {
     valNombre: '*Campo Obligatorio',
     valCodigo: '*Campo Obligatorio',
+    errAdd: 'No ha sea podido agregar el producto, porfavor revise los datos e intentelo más tarde',
+    
   },
   plhld: {
     nombre: 'Coca Cola',

@@ -54,7 +54,7 @@ const rootReducer= (state, action)=>{
 const persistConfig ={
 	key: 'app',
 	storage,
-	whitelist: ['auth', 'empresas'],
+	whitelist: ['auth', 'empresas', 'unidades', 'familiaDetalle'],
 	stateReconciler: hardSet,
 }
 

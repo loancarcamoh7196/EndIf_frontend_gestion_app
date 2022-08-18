@@ -2,7 +2,7 @@
  * * Componente Subfamilia ~ Form
  * ? ubicado en: /subfamilias/:id
  */
-import React, { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 //* Textos
 import { subfamily } from '@utils/texts/modGestion';

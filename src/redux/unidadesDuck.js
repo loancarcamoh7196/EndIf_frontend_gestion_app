@@ -11,13 +11,12 @@ import { toastOptions } from '@utils/texts/general';
 //* Data inicial
 const dataInicial = {
 	list: [],
-	form: '',
+	form: 0,
 	loading: false,
 };
 
 //* Types
 const UNIDAD_LIST = 'UNIDAD_LIST';
-const UNIDAD_GET = 'UNIDAD_GET';
 const UNIDAD_ADD = 'UNIDAD_ADD';
 const UNIDAD_UPDATE = 'UNIDAD_UPDATE';
 const UNIDAD_DELETE = 'UNIDAD_DELETE';
@@ -31,9 +30,7 @@ export default function unidadesReducer(state = dataInicial, action) {
 		case UNIDAD_ERROR:
 			return { ...state, ...action.payload };
 		case UNIDAD_LIST:
-			return { ...state, list: action.payload.list, loading: action.payload.loading };
-		case UNIDAD_GET:
-			return { ...state, ...action.payload };
+			return { ...state, list: action.payload };
     case UNIDAD_ADD:
       return { ...state, list: action.payload };
 		case UNIDAD_UPDATE:
@@ -58,13 +55,10 @@ export const getUnidadesAction = (options) => async (dispatch, getState) => {
 	try {
 		const res = await axios.get(api);
 		// console.log(res);
-		dispatch({ type: UNIDAD_LIST, payload:{ list: res.data} });
+		dispatch({ type: UNIDAD_LIST, payload: res.data });
 		dispatch({ type: UNIDAD_LOADING, payload: false });
 	} catch (error) {
-		// console.log(error);
-		// let msg = error.response.data;
-		// (loading === false && activo === true) ? dispatch(refreshTokenAction()) : console.log('No ha podido refrescar token');
-		// toast.error(error, toastOptions);
+		console.log(error);
 		dispatch({ type: UNIDAD_LOADING, payload: false });
     dispatch({ type: UNIDAD_ERROR });
 	}
@@ -84,9 +78,7 @@ export const addUnidadAction = (options) => async (dispatch, getState) => {
 		dispatch({ type: UNIDAD_LOADING, payload: false });
 	} catch (error) {
 		// console.log(error);
-		// let msg = error.response.data;
 		toast.error(`No ha sea podido agregar unidad, porfavor revise los datos e intentelo más tarde`, toastOptions);
-		// toast.error(msg, toastOptions);	
 		dispatch({ type: UNIDAD_ERROR });	
 	}
 };
@@ -105,17 +97,15 @@ export const updateUnidadAction = (options) => async (dispatch, getState) => {
 		dispatch({ type: UNIDAD_LOADING, payload: false });
 	} catch (error) {
 		// console.log(error);
-		// let msg = error.response.data;
-		toast.error(`El usuario ${body.username} no se ha podido actualizar.`, toastOptions);
-		// toast.error(msg, toastOptions);
+		toast.error(`La unidad ${body.nombre} no se ha podido actualizar.`, toastOptions);
 		dispatch({ type: UNIDAD_ERROR });
 	}
 };
 
 export const deleteUnidadAction = (options) => async (dispatch, getState) => {
 	dispatch({ type: UNIDAD_LOADING, payload: true });
-	const { id } = options; // Opciones para solicitud a  API
-	const api = endPoints.unidades.delete(id); // URL API
+	const { id } = options; //? Opciones para solicitud a  API
+	const api = endPoints.unidades.delete(id); //? URL API
 	// console.log(api);
 	// console.log(body);
 	try {
@@ -130,18 +120,17 @@ export const deleteUnidadAction = (options) => async (dispatch, getState) => {
 		// console.log(error);
 		let msg = error.response.data;
 		toast.error(`No se ha podido eliminar el rol con ID: ${id}, porfavor vuelva intentarlo más tarde.`, toastOptions);
-		toast.error(msg, toastOptions);
 		dispatch({ type: UNIDAD_ERROR });
 	}
 };
 
 export const showFormAction = (options) => async (dispatch, getState) => {
   const { id } = options;
+
   try {
     dispatch({type: UNIDAD_SHOW, payload: id });
   } catch (error) {
-    toast.error(`ERROR: Unidad ${id} no se ha podido cargar`, toastOptions)
-    // toast.error(msg, toastOptions); // Comentar cuando pase a producción
+    toast.error(`ERROR: Unidad ${id} no se ha podido cargar`, toastOptions);
     dispatch({ type: UNIDAD_ERROR });
   }
 }

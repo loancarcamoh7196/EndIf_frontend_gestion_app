@@ -53,9 +53,12 @@ const ProductoTable = ({data}) => {
           <i className='fa-solid fa-file-pen'/>
         </Link>
         <br />
-        <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-          dispatch(deleteUsuarioAction({ id: row.id }));
-        }}>
+        <button
+          className='btn btn-xs btn-outline-danger btn-block'
+          onClick={()=>{
+            dispatch(deleteUsuarioAction({ id: row.id }));
+          }}
+        >
           <i className='fa-solid fa-trash-can' /> 
         </button>
       </td>
