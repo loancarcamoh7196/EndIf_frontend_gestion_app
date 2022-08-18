@@ -59,12 +59,19 @@ const ProductoTable = ({data}) => {
         {row.tieneEnvase ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
       </td>
       <td> 
-        <Link to={`/productos/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
+        <Link
+          to={`/productos/${row.id}/edit`}
+          className='btn btn-xs btn-outline-warning m-2'
+        >
           <i className='fa-solid fa-file-pen' />
         </Link>
+
         <button
-          className='btn btn-xs btn-outline-danger btn-block'
-          onClick={()=> dispatch(deleteProductoAction({ id: row.id })) }
+          type='button'
+          className='btn btn-xs btn-outline-danger m-2'
+          onClick={()=>{
+            dispatch(deleteProductoAction({ id: row.id }))
+          }}
         >
           <i className='fa-solid fa-trash-can' /> 
         </button>
@@ -72,7 +79,14 @@ const ProductoTable = ({data}) => {
     </tr>
   ));
   
-  return  <DataTable key='tab_usuarios' encabezado={titulos} data={content} opciones={options}  /> ;
+  return (
+    <DataTable
+      key='tab_productos'
+      encabezado={titulos}
+      data={content}
+      opciones={options}
+    /> 
+  );
 }
 
 export default ProductoTable;
