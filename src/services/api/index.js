@@ -197,6 +197,27 @@ const endPoints = {
     update: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/listaprecios/${id}`,
   },
+  formaPago : {
+    list: () => `${api_url}:${puerto}/${version}/forma_pago`,
+    get: (id) => `${api_url}:${puerto}/${version}/forma_pago/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/forma_pago`,
+    update: (id) => `${api_url}:${puerto}/${version}/forma_pago/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/forma_pago/${id}`,
+  },
+  documentoTipo: {
+    list: () => `${api_url}:${puerto}/${version}/documentos_tipo`,
+    get: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/documentos_tipo`,
+    update: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}`,
+  },
+  ventas:{
+    list: () => `${api_url}:${puerto}/${version}/documentos_tipo`,
+    get: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/documentos_tipo`,
+    update: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}`,
+  }
 };
 
 export default endPoints;

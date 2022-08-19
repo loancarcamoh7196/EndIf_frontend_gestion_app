@@ -132,18 +132,60 @@ return (
               </li>
             </ul>
           </li>
+          <li className='nav-item'>
+            <Link to='#' className='nav-link'>
+              <i className='nav-icon fas fa-solid fa-money-bill-1' />
+              <p>
+                {universal.title.venta}
+                <i className='right fas fa-angle-left' />
+              </p>
+            </Link>
+            <ul className='nav nav-treeview'>
+              <li className='nav-item'>
+                <NavLink to='/ventas/new' className='nav-link'>
+                  <i className='fas fa-store nav-icon' />
+                  <p>{universal.title.ventaSim}</p>
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink to='/ventas' className='nav-link'>
+                  <i className='fas fa-list nav-icon' />
+                  <p>{universal.title.venta}</p>
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink to='/productos' className='nav-link'>
+                  <i className='fas fa-box-open nav-icon' />
+                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
+                  <p>{universal.title.producto}</p>
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink to='/cajas' className='nav-link'>
+                  <i className='fas fa-cash-register nav-icon' />
+                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
+                  <p>{universal.title.caja}</p>
+                </NavLink>
+              </li>
+              <li className='nav-item'>
+                <NavLink to='/lista_precio' className='nav-link'>
+                  <i className='fas fa-list-check nav-icon' />
+                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
+                  <p>{universal.title.lista}</p>
+                </NavLink>
+              </li>
+            </ul>
+          </li>
 
           <li className='nav-item'>
             <NavLink to='/informes' className='nav-link'>
-              <i className='nav-icon fas fa-th'></i>
+              <i className='nav-icon fas fa-th'/>
               <p>
                 {universal.txt.informe}
                 <span className='right badge badge-danger'>New</span>
               </p>
             </NavLink>
           </li>
-
-         
         </ul>
       </nav>
     </div>

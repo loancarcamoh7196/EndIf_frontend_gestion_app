@@ -25,6 +25,9 @@ import familiaDetalleReducer from '@redux/familiaDetalleDuck';
 import marcasReducer from '@redux/marcasDuck';
 import cajasReducer from '@redux/cajasDuck';
 import listaPreciosReducer from '@redux/listaPreciosDuck';
+import formasPagoReducer from '@redux/formasPagoDuck';
+import ventasReducer from '@redux/ventasDuck';
+import documentoTipoReducer from '@redux/documentoTipoDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
@@ -43,6 +46,9 @@ const appReducer = combineReducers({
 	marcas: marcasReducer,
 	cajas: cajasReducer,
 	listaPrecios: listaPreciosReducer,
+	formasPago: formasPagoReducer,
+	ventas: ventasReducer,
+	documentoTipo: documentoTipoReducer,
 });
 
 //* Limpieza de Storage en caso de logout

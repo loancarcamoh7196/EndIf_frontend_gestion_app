@@ -15,11 +15,12 @@ const dataInicial = {
 
 //* Types
 const USUARIO_LIST = 'USUARIO_LIST';
-const USUARIO_GET = 'USUARIO_GET';
 const USUARIO_ADD = 'USUARIO_ADD';
 const USUARIO_UPDATE = 'USUARIO_UPDATE';
 const USUARIO_DELETE = 'USUARIO_DELETE';
 const USUARIOS_ERROR = 'USUARIOS_ERROR';
+const USUARIO_LOADING = 'USUARIO_LOADING';
+const USUARIO_SHOW = 'USUARIO_SHOW';
 
 //* Reducer
 export default function usuariosReducer(state = dataInicial, action) {
@@ -28,8 +29,6 @@ export default function usuariosReducer(state = dataInicial, action) {
 			return { ...state, ...action.payload };
 		case USUARIO_LIST:
 			return { ...state, list: action.payload.list };
-		case USUARIO_GET:
-			return { ...state, ...action.payload };
     case USUARIO_ADD:
       return { ...state, list: action.payload };
 		case USUARIO_UPDATE:
@@ -43,14 +42,18 @@ export default function usuariosReducer(state = dataInicial, action) {
 
 //* Actions
 export const getUsuariosAction = (options) => async (dispatch, getState) => {
-	const api = endPoints.usuarios.list();
-	// const { activo, loading } = getState().user;
-	// console.log(body);
-	// console.log(api);
+	dispatch({type: USUARIO_LOADING, payload: true})
+
+	
 	try {
+		
+		const api = endPoints.usuarios.list({ empresaRut: getState().auth.empresaSession });
+		// const { activo, loading } = getState().user;
+		// console.log(body);
+		// console.log(api);
 		const res = await axios.get(api);
 		// console.log(res);
-		dispatch({ type: USUARIO_LIST, payload:{ list: res.data } });
+		dispatch({ type: USUARIO_LIST, payload:{ list: res.data, loading: false } });
 	} catch (error) {
 		// console.log(error);
 		// let msg = error.response.data;
@@ -60,18 +63,6 @@ export const getUsuariosAction = (options) => async (dispatch, getState) => {
 	}
 };
 
-export const getUsuarioAction = (options) => async (dispatch, getState) => {
-	const { id } = options;
-	// const { formNew, formEdit } = getState().usuarios;
-	const api = endPoints.usuarios.get(id);
-	try {
-		const res = await axios.get(api);
-		dispatch({ type: USUARIO_GET, payload: { results: res.data } });
-	} catch (error) {
-		// console.log(error);
-		dispatch({ type: USUARIOS_ERROR });
-	}
-};
 
 export const addUsuarioAction = (options) => async (dispatch, getState) => {
 	const { body } = options; // Opciones para solicitud a  API
@@ -79,6 +70,8 @@ export const addUsuarioAction = (options) => async (dispatch, getState) => {
 	// console.log(body);
 	// console.log(api);
 	try {
+		body.empresaRut = getState().auth.empresaSession;
+
 		const res = await axios.post(api, body);
 		// console.log(res);
 		toast.success(`Usuario ${body.username} ha sido agregado existosamente`, toastOptions);

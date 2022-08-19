@@ -45,58 +45,62 @@ import CajaNew from '@pages/cajas/new';
 import CajaEdit from '@pages/cajas/edit';
 //? Mantenedor Lista Precio
 import ListaPrecioIndex from '@pages/listaPrecios/index';
-
+//? Mantenedor Venta
+import VentaIndex from '@pages/ventas/index';
+import VentaNew from '@pages/ventas/new';
 
 const App = () => {
   return (
     <Router>
       {/* <Theme.Provider value=''> */}
-        <Routes>
-          <Route exact path='/' element={<Home />} />
-          <Route exact path='/dashboard' element={<Dashboard />} />
-          {/* Mod Administrador */}
-          <Route exact path="/admin" element={<Admin />} />
-          {/* SubMod Empresas */}
-          <Route exact path="/admin/empresas" element={<EmpresaIndex />} />
-          <Route exact path="/admin/empresas/new" element={<EmpresaNew />} />
-          <Route exact path='/admin/empresas/:rut/edit' element={<EmpresaEdit />} />
-          {/* SubMod Usuario */}
-          <Route exact path='/admin/usuarios' element={<UsuarioIndex  />} />
-          <Route exact path='/admin/usuarios/new' element={<UsuarioNew  />} />
-          <Route exact path='/admin/usuarios/:id/edit' element={<UsuarioEdit  />} />
-          {/* Submod Roles */}
-          <Route exact path='/admin/roles/' element={<RolesIndex />} />
-          <Route exact path='/admin/roles/new' element={<RolesNew />} />
-          <Route exact path='/admin/roles/:id/edit' element={<RolesEdit />} />
-          {/* Mod Sucursales */}
-          <Route exact path='/tiendas' element={<TiendaIndex />} />
-          <Route exact path='/tiendas/new' element={<TiendaNew />} />
-          <Route exact path='/tiendas/:id/edit' element={<TiendaEdit />} />
-          {/* Mod Familias */}
-          <Route exact path='/familias' element={<FamiliaIndex />} />
-          <Route exact path='/familias/new' element={<FamiliaNew />} />
-          <Route exact path='/familias/:id/edit' element={<FamiliaEdit />} />
-          {/* Mod Productos */}
-          <Route exact path='/productos' element={<ProductoIndex />} />
-          <Route exact path='/productos/new' element={<ProductoNew />} />
-          <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
-          {/* Mod Subfamilia */}
-          <Route exact path='/subfamilias/:id' element={<SubFamiliaIndex />} />
-          {/* Mod Unidad */}
-          <Route exact path='/admin/unidad' element={<UnidadIndex />} />
-          {/* Mod Marcas */}
-          <Route exact path='/admin/marcas' element={<MarcaIndex />} />
-          {/* Mod Cajas */}
-          <Route exact path='/cajas' element={<CajaIndex />} />
-          <Route exact path='/cajas/new' element={<CajaNew />} />
-          <Route exact path='/cajas/:id/edit' element={<CajaEdit />} />
-          {/* Mod Lista Precios */}
-          <Route exact path='/lista_precio' element={<ListaPrecioIndex />} />
-          
-          
-          <Route exact path='login' element={<Login />}  />
-          <Route path='*' element={<NotFound />} />
-        </Routes>
+      <Routes>
+        <Route exact path='/' element={<Home />} />
+        <Route exact path='/dashboard' element={<Dashboard />} />
+        {/* Mod Administrador */}
+        <Route exact path="/admin" element={<Admin />} />
+        {/* SubMod Empresas */}
+        <Route exact path="/admin/empresas" element={<EmpresaIndex />} />
+        <Route exact path="/admin/empresas/new" element={<EmpresaNew />} />
+        <Route exact path='/admin/empresas/:rut/edit' element={<EmpresaEdit />} />
+        {/* SubMod Usuario */}
+        <Route exact path='/admin/usuarios' element={<UsuarioIndex  />} />
+        <Route exact path='/admin/usuarios/new' element={<UsuarioNew  />} />
+        <Route exact path='/admin/usuarios/:id/edit' element={<UsuarioEdit  />} />
+        {/* Submod Roles */}
+        <Route exact path='/admin/roles/' element={<RolesIndex />} />
+        <Route exact path='/admin/roles/new' element={<RolesNew />} />
+        <Route exact path='/admin/roles/:id/edit' element={<RolesEdit />} />
+        {/* Mod Sucursales */}
+        <Route exact path='/tiendas' element={<TiendaIndex />} />
+        <Route exact path='/tiendas/new' element={<TiendaNew />} />
+        <Route exact path='/tiendas/:id/edit' element={<TiendaEdit />} />
+        {/* Mod Familias */}
+        <Route exact path='/familias' element={<FamiliaIndex />} />
+        <Route exact path='/familias/new' element={<FamiliaNew />} />
+        <Route exact path='/familias/:id/edit' element={<FamiliaEdit />} />
+        {/* Mod Productos */}
+        <Route exact path='/productos' element={<ProductoIndex />} />
+        <Route exact path='/productos/new' element={<ProductoNew />} />
+        <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
+        {/* Mod Subfamilia */}
+        <Route exact path='/subfamilias/:id' element={<SubFamiliaIndex />} />
+        {/* Mod Unidad */}
+        <Route exact path='/admin/unidad' element={<UnidadIndex />} />
+        {/* Mod Marcas */}
+        <Route exact path='/admin/marcas' element={<MarcaIndex />} />
+        {/* Mod Cajas */}
+        <Route exact path='/cajas' element={<CajaIndex />} />
+        <Route exact path='/cajas/new' element={<CajaNew />} />
+        <Route exact path='/cajas/:id/edit' element={<CajaEdit />} />
+        {/* Mod Lista Precios */}
+        <Route exact path='/lista_precio' element={<ListaPrecioIndex />} />
+        {/* Mod Ventas */}
+        <Route exact path='/ventas' element={<VentaIndex />} />
+        <Route exact path='/ventas/new' element={<VentaNew />} />
+
+        <Route exact path='login' element={<Login />}  />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
       {/* </Theme.Provider> */}
     </Router>
   );

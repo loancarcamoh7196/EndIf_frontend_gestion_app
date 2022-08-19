@@ -27,7 +27,9 @@ const universal = {
     oferta: 'Ofertas',
     promo: 'Promociones',
     turnos: 'Turnos',
-    venta: 'Ventas'
+    venta: 'Ventas',
+    ventaSim: 'Simular Ventas',
+    ventaLista: 'Listado Ventas'
   },
   lbl: {
     usuario: 'Usuario',

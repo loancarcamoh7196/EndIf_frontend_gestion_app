@@ -175,7 +175,12 @@ const tax = {
 
 const barcode = {
   title: {},
-  lbl: {},
+  lbl: {
+    id: 'ID',
+    codigo: 'Codigo',
+    producto: 'Producto',
+    unidad: 'Unidad'
+  },
   btn: {},
   txt: {},
   plhld: {},
@@ -278,7 +283,11 @@ const documentType = {
 
 const paymentMethod = {
   title: {},
-  lbl: {},
+  lbl: {
+    id: 'ID',
+    nombre: 'Nombre',
+    descripcion: 'Descripción',
+  },
   btn: {},
   txt: {},
   plhld: {},
@@ -287,13 +296,73 @@ const paymentMethod = {
 };
 
 const sales = {
+  title: {
+    index: 'Ventas',
+    new: '[Simular] Ingresar nueva Venta',
+    edit: 'Editar Venta',
+    encabezado: 'Encabezado de Venta',
+    detalle: 'Detalle Venta',
+    pago: 'Tipo Pago'
+  },
+  lbl: {
+    id: 'ID',
+    fecha: 'Fecha Venta',
+    nro: 'Nro de Documento',
+    neto: 'Valor Neto',
+    iva: 'Valor IVA',
+    exento: 'Exento de IVA',
+    total: 'Total',
+    usuario: 'Usuario',
+    caja: 'Caja',
+    tipoDoc: 'Tipo de Documento'
+  },
+  btn: {
+    new: 'Agregar',
+    edit: 'Editar',
+    generar: 'Generar',
+  },
+  txt: {},
+  plhld: {},
+  slct: {
+    usuario: 'Seleccione Usuario',
+    caja: 'Selecciones Caja',
+    documentoTipo: 'Seleccione Tipo de Documento'
+  },
+  lnk: {},
+};
+
+const detailSale = {
   title: {},
-  lbl: {},
+  lbl: {
+    id: 'ID',
+    cantidad: 'Cantidad',
+    neto: 'Neto',
+    iva: 'IVA',
+    total: 'Total',
+    totalDcto: 'Total DCTO',
+    esExento: 'Es exento?',
+    ventaEncabezado: 'Encabezado ',
+    producto: 'Producto'
+  },
   btn: {},
   txt: {},
   plhld: {},
   slct: {},
-  lnk: {},
+  lnk: {}
+};
+
+const paymentSale = {
+  title: {},
+  lbl: {
+    id: 'ID',
+    monto: 'Monto de Pago',
+    formaPago: 'Forma de Pago',
+  },
+  btn: {},
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {}
 };
 
 const productSale = {
@@ -358,5 +427,10 @@ module.exports = {
   tax,
   cashRegister,
   priceList,
-  price
+  price,
+  sales,
+  detailSale,
+  paymentSale,
+  productSale,
+  paymentMethod
 };
