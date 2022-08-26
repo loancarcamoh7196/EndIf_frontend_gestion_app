@@ -24,6 +24,7 @@ const PRODUCTO_ADD = 'PRODUCTO_ADD';
 const PRODUCTO_DELETE = 'PRODUCTO_DELETE';
 const PRODUCTO_LOADING = 'PRODUCTO_LOADING';
 const PRODUCTO_SHOW = 'PRODUCTO_SHOW'
+const PRODUCTO_SEARCH = 'PRODUCTO_SEARCH'; 
 
 //* Reducer
 export default function productosReducer(state = dataInicial, action){
@@ -41,7 +42,9 @@ export default function productosReducer(state = dataInicial, action){
 		case PRODUCTO_LOADING:
 			return { ...state, loading: action.payload };
 		case PRODUCTO_SHOW:
-			return { ...state, form: action.payload }
+			return { ...state, form: action.payload };
+		case PRODUCTO_SEARCH:
+			return { ...state, list: action.payload.list, loading: action.payload.loading };
 		default:
 			return state;
 	}
@@ -145,4 +148,25 @@ export const showFormAction = (options) => async (dispatch, getState) => {
     toast.error(`ERROR: Unidad ${id} no se ha podido cargar`, toastOptions)
     dispatch({ type: PRODUCTO_SHOW });
   }
-}
+};
+
+export const searchProductoAction = (options) => async (dispatch, getState) => {
+	dispatch({ type: PRODUCTO_LOADING, payload: true });
+	let api;
+	const { nombre, codigoInterno } = options;
+	try {
+		const { empresaSession } = getState().auth;
+
+		if (nombre != undefined) {
+			api = endPoints.productos.list({ empresaRut: empresaSession, nombre });
+		} else {
+			api = endPoints.productos.list({ empresaRut: empresaSession, codigoInterno });
+		}
+		const res = await axios.get(api);
+		console.log(res.data);
+		dispatch({ type: PRODUCTO_SEARCH, payload: { list: res.data, loading: false } });
+	} catch (error) {
+		console.log(error);
+		dispatch({ type: PRODUCTO_ERROR });
+	}
+};
