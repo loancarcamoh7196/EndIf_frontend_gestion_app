@@ -7,13 +7,13 @@ import { role, universal } from '../../utils/texts/modAdmin';
 import endPoints from '@services/api';
 
 import Layout from '@layouts/Main';
-import Form from '@components/roles/Form';
+import Form from '@components/lista/Form';
 
 // Redux
-// import { getUsuarioAction } from '@redux/rolesDuck'
+// import { getUsuarioAction } from '@redux/listaDuck'
 const link = [
   { nombre: 'Administración', url: '/admin' },
-  { nombre:'Roles', url: '/admin/roles' },
+  { nombre:'Roles', url: '/admin/lista' },
 	{ nombre:'Editar', url: '' }
 ];
 const fetcher = (url) =>  axios.get(url).then((res) => res.data);
@@ -21,23 +21,23 @@ const fetcher = (url) =>  axios.get(url).then((res) => res.data);
 const Edit = () => {
   const params = useParams();
 	const { id } = params; // Extraes ID de URL
-	const { data: roles, error } = useSWR( id ? (endPoints.roles.get(id)) : null, fetcher );
+	const { data: lista, error } = useSWR( id ? (endPoints.lista.get(id)) : null, fetcher );
 	if (error) return <p className="container is-medium">Falló en la carga...</p>;
-	if (!roles) return <p className="column is-medium is-active">Cargando...</p>;
+	if (!lista) return <p className="column is-medium is-active">Cargando...</p>;
 
-  let rolForm = {
-		id: roles.id,
-		nombre: roles.nombre,
-		accesoGestion: roles.accesoGestion,
-		accesoPv: roles.accesoPv,
-		accesoContabilidad: roles.accesoContabilidad,
-		accesoInventario: roles.accesoInventario,
-		accesoInventarioMovil: roles.accesoInventarioMovil
+  let listaForm = {
+		id: lista.id,
+		nombre: lista.nombre,
+		accesoGestion: lista.accesoGestion,
+		accesoPv: lista.accesoPv,
+		accesoContabilidad: lista.accesoContabilidad,
+		accesoInventario: lista.accesoInventario,
+		accesoInventarioMovil: lista.accesoInventarioMovil
   };
 
   return (
     <Layout title={role.title.edit} links={link} haveLink={true}>
-			<Form rolForm={rolForm} formNewRol={false} />
+			<Form listaForm={listaForm} formNewRol={false} />
 		</Layout>
   )
 }

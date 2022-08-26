@@ -116,7 +116,7 @@ const DataTable = ({ key='table', data, encabezado, opciones, styleHeadDark=true
 
   return (
     <div className='table-responsive'>
-      <table id={key} className='table  table-hover table-bordered'>
+      <table id={key} className='table  table-hover table-bordered table-sm'>
         <thead className={styleHeadDark && 'thead-dark'}>
           <tr>
             { encabezado.map((i) => <th>{i}</th>) }

@@ -1,8 +1,9 @@
 /**
  * * Formulario de Lista de Precios
+ * ? Tambien contiene el manejo de la relación Tienda <-> Lista Precio
  * ? Para agregar y editar
  */
-import React, { useState, Fragment, useEffect } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //* Textos
 import { priceList, universal } from '@utils/texts/modGestion';
@@ -11,15 +12,16 @@ import { toastOptions } from '@utils/texts/general';
 
 //* Redux ~ Duck necesarios
 import { addListaPrecioAction, updateListaPrecioAction } from '@redux/listaPreciosDuck';
+import { getTiendasAction } from '@redux/tiendasDuck';
 
 export default function FormListaPrecio({ formNewLista = true, listaForm }) {
 	const dispatch = useDispatch(); //? Disparador
 
-  //? Empresa Seleccionda
-  const empresaSession = useSelector(store => store.auth.empresaSession);
+  const tiendas = useSelector((store) => store.tiendas.list);
+
 
   // ejecucion de metodo al renderizar pagina
-  useEffect(() => { }, []);
+  // useEffect(() => { getTiendasAction() }, []);
 
   const [validation, setValidation] = useState({
 		lista: true
@@ -52,12 +54,9 @@ export default function FormListaPrecio({ formNewLista = true, listaForm }) {
 			delete form.id;
 			const options = { id, body: form };
 			dispatch(updateListaPrecioAction(options));
-			// navigate('/admin/priceLists');
 		} catch (error) {
 			console.log(error);
-			// setMessage('Falló la edición');
 		}
-		// console.log('Soy update');
 	};
 
 	/** 
@@ -65,7 +64,6 @@ export default function FormListaPrecio({ formNewLista = true, listaForm }) {
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
-    // console.log(form);
     try {	
       delete form.id;
       dispatch(addListaPrecioAction({body: form}));
@@ -73,7 +71,6 @@ export default function FormListaPrecio({ formNewLista = true, listaForm }) {
 			// setMessage('Falló la edición');
       console.log(error);
 		}
-		// console.log('Soy Agregar');
 	};
 
 	const handleChange = (e) => {
@@ -81,7 +78,6 @@ export default function FormListaPrecio({ formNewLista = true, listaForm }) {
     const value = (target.type === 'checkbox' ? target.checked : target.value);
     const name = target.name;
     setForm({  ...form, [name]: value });
-    // setForm({...form, empresaRut: empresaSession });
 		// console.log(form);
 	};
 
@@ -120,6 +116,25 @@ export default function FormListaPrecio({ formNewLista = true, listaForm }) {
           
         />
         {!validation.lista && <span className='text-danger'>{priceList.txt.valLista}</span>}
+      </div>
+
+      <div className='form-group'>
+        <label htmlFor='tiendaId'>{priceList.lbl.tienda}</label>
+        <select
+          name='tiendaId' 
+          className='form-control select2 custom-select'
+          onChange={handleChange}
+        >
+          <option
+            disabled
+            selected={ (!formNewLista) && 'selected' }
+          >
+            {priceList.slct.tienda}
+          </option>
+          { (tiendas.length > 0) && 
+              tiendas.map((i) => <option value={i.id} selected={(i.id === form.tienda ) && 'selected'}> {i.nombre} </option>) 
+          }
+        </select>
       </div>
 
       <input

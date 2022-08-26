@@ -33,6 +33,10 @@ import FamiliaEdit from '@pages/familias/edit';
 import ProductoIndex from '@pages/productos/index';
 import ProductoNew from '@pages/productos/new';
 import ProductoEdit from '@pages/productos/edit';
+//? Maantenedor Precio
+import PrecioIndex from '@pages/precios/index';
+import PrecioNew from '@pages/precios/new';
+import PrecioEdit from '@pages/precios/edit';
 //? Mantenedor SubFamilias
 import SubFamiliaIndex from '@pages/subFamilias/index';
 //? Mantenedor Unidades
@@ -45,6 +49,9 @@ import CajaNew from '@pages/cajas/new';
 import CajaEdit from '@pages/cajas/edit';
 //? Mantenedor Lista Precio
 import ListaPrecioIndex from '@pages/listaPrecios/index';
+//? Mantenedor Tienda Lista Precio
+import TiedaListaIndex from '@pages/tiendaListaPrecio/index';
+// import moduleName from '@pages/tiendaListaPrecio';
 //? Mantenedor Venta
 import VentaIndex from '@pages/ventas/index';
 import VentaNew from '@pages/ventas/new';
@@ -82,6 +89,8 @@ const App = () => {
         <Route exact path='/productos' element={<ProductoIndex />} />
         <Route exact path='/productos/new' element={<ProductoNew />} />
         <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
+        {/* Mod Precios */}
+        <Route exact path='/productos/:id/lista_precios' element={<PrecioIndex />} />
         {/* Mod Subfamilia */}
         <Route exact path='/subfamilias/:id' element={<SubFamiliaIndex />} />
         {/* Mod Unidad */}
@@ -94,9 +103,11 @@ const App = () => {
         <Route exact path='/cajas/:id/edit' element={<CajaEdit />} />
         {/* Mod Lista Precios */}
         <Route exact path='/lista_precio' element={<ListaPrecioIndex />} />
+        <Route exact path='/lista_precio/:id/tienda' element={<TiedaListaIndex />} />
         {/* Mod Ventas */}
         <Route exact path='/ventas' element={<VentaIndex />} />
         <Route exact path='/ventas/new' element={<VentaNew />} />
+
 
         <Route exact path='login' element={<Login />}  />
         <Route path='*' element={<NotFound />} />

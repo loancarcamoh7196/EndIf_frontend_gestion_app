@@ -61,14 +61,21 @@ const ProductoTable = ({data}) => {
       <td> 
         <Link
           to={`/productos/${row.id}/edit`}
-          className='btn btn-xs btn-outline-warning m-2'
+          className='btn btn-xs btn-outline-warning m-1'
         >
           <i className='fa-solid fa-file-pen' />
         </Link>
 
+        <Link
+          to={`/productos/${row.id}/lista_precios`}
+          className='btn btn-xs btn-outline-info m-1'
+        >
+          <i className='fa-solid fa-square-dollar' />
+        </Link>
+
         <button
           type='button'
-          className='btn btn-xs btn-outline-danger m-2'
+          className='btn btn-xs btn-outline-danger m-1'
           onClick={()=>{
             dispatch(deleteProductoAction({ id: row.id }))
           }}

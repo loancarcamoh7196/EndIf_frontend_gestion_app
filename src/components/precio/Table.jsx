@@ -32,43 +32,41 @@ const RolesTable = ({data}) => {
 
   //* Encabezados
   const titulos = [
-    'ID', 'Nombre', 'Acceso Gestión', 'Acceso Puntos de Venta', 'Acceso Contabilidad', 'Acceso Inventario', 'Acceso Inventario Movil','Acciones'
+    'ID', 'Neto', 'IVA', 'Precio Público', 'Es Exento', 'Es Mayorista', 'Producto', 'Lista','Acciones'
   ];
   
   //* Generar columnas de Tabla
-  if (data.length >0) {
-    data.map((row) => content.push(
-      <tr key={row.id} id={`fil-${row.id}`}>
-        <td>{row.id} </td>
-        <td>{row.nombre}</td>
-        <td>
-          {row.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
-        </td>
-        <td>
-          {row.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td> 
-          <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
-            <i className='fa-solid fa-file-pen' />
-          </Link>
-          <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-            dispatch(deleteRolAction({ id: row.id }));
-          }}>
-            <i className='fa-solid fa-trash-can' /> 
-          </button>
-        </td>
-      </tr>
-    ));
-  } else content.push(<tr>Sin datos</tr>);
+  data.map((row) => content.push(
+    <tr key={row.id} id={`fil-${row.id}`}>
+      <td>{row.id} </td>
+      <td>{row.nombre}</td>
+      <td>
+        {row.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
+      </td>
+      <td>
+        {row.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td>
+        {row.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td>
+        {row.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td>
+        {row.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+      </td>
+      <td> 
+        <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
+          <i className='fa-solid fa-file-pen' />
+        </Link>
+        <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
+          dispatch(deleteRolAction({ id: row.id }));
+        }}>
+          <i className='fa-solid fa-trash-can' /> 
+        </button>
+      </td>
+    </tr>
+  ));
 
   return (
     <DataTable

@@ -17,7 +17,6 @@ const dataInicial = {
 
 //* Types
 const MARCA_LIST = 'MARCA_LIST';
-const MARCA_GET = 'MARCA_GET';
 const MARCA_ADD = 'MARCA_ADD';
 const MARCA_UPDATE = 'MARCA_UPDATE';
 const MARCA_DELETE = 'MARCA_DELETE';
@@ -33,8 +32,6 @@ export default function marcasReducer(state = dataInicial, action) {
 			return { ...state, ...action.payload };
 		case MARCA_LIST:
 			return { ...state, list: action.payload.list, loading: action.payload.loading };
-		case MARCA_GET:
-			return { ...state, ...action.payload };
     case MARCA_ADD:
       return { ...state, list: action.payload.list, loading: action.payload.loading };
 		case MARCA_UPDATE:

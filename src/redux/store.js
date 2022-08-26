@@ -28,6 +28,8 @@ import listaPreciosReducer from '@redux/listaPreciosDuck';
 import formasPagoReducer from '@redux/formasPagoDuck';
 import ventasReducer from '@redux/ventasDuck';
 import documentoTipoReducer from '@redux/documentoTipoDuck';
+import tiendaListasReducer from '@redux/tiendaListaPrecioDuck';
+import preciosReducer from '@redux/preciosDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
@@ -49,6 +51,8 @@ const appReducer = combineReducers({
 	formasPago: formasPagoReducer,
 	ventas: ventasReducer,
 	documentoTipo: documentoTipoReducer,
+	tiendaLista: tiendaListasReducer,
+	precios: preciosReducer,
 });
 
 //* Limpieza de Storage en caso de logout

@@ -1,6 +1,7 @@
 /**
- ** Archivo Lista de Precio Index
- *? url: /lista_precio
+ * * Archivo Lista de Precio Index
+ * ? Tambien contiene el manejo de la relación Tienda <-> Lista Precio
+ * ? url: /lista_precio
  */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { price, priceList, universal } from '@utils/texts/modGestion';
 //* Redux
 import { getListaPreciosAction } from '@redux/listaPreciosDuck';
+import { getTiendasAction } from '@redux/tiendasDuck';
 //* Componentes
 import Layout from '@layouts/Main';
 import Table from '@components/listaPrecio/Table';
@@ -34,7 +36,10 @@ const Index = () => {
   });
 
   let listaPrecios = useSelector((store) => store.listaPrecios.list);
-  useEffect(() => { dispatch(getListaPreciosAction()) }, []);
+  useEffect(() => { 
+    dispatch(getListaPreciosAction()); 
+    dispatch(getTiendasAction());
+  }, []);
 
   return (
     <Layout title={priceList.title.index} links={link} haveLink={true}>

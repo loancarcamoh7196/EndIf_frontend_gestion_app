@@ -76,9 +76,22 @@ export const addListaPrecioAction = (options) => async (dispatch, getState) => {
 	// console.log(api);
 	try {
 		body.empresaRut = getState().auth.empresaSession;//? Empresa almacenda en session
+		const { tiendaId } = body;
+		delete body.tiendaId;
 		const res = await axios.post(api, body);
-		// console.log(res);
+		console.log(res);
+
+		try {
+			const apiLista = endPoints.tiendaListaPrecio.add();
+			console.log(apiLista);
+			const res2 = await axios.post(apiLista, { tiendaId, listaPrecioId: res.data.id });
+			toast.success(`Relación  Tienda <-> Lista Precio agrega exitosamente`, toastOptions);
+		} catch (error) {
+			toast.error('No ha se podido agregar relacion Tienda - Lista', toastOptions);
+		}
+
 		toast.success(`Lista de Precio ${res.data.id}- ${body.lista} ha sido agregado existosamente`, toastOptions);
+
 		dispatch({ type: LISTA_PRECIO_ADD, payload:{ list: [...getState().listaPrecios.list, res.data], loading: false}});
 	} catch (error) {
 		dispatch({ type: LISTA_PRECIO_LOADING, payload: false });

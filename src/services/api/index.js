@@ -83,13 +83,22 @@ const endPoints = {
   },
   productos: {
     list: (options) => {
-      const { empresaRut } = options;
-      let url = '';
+      const { empresaRut, nombre, codigoInterno } = options;
+      let url = `${api_url}:${puerto}/${version}/productos/`;
 
-      empresaRut !=
-      undefined
-        ? (url = `${api_url}:${puerto}/${version}/productos/?empresaRut${empresaRut}`)
-        : (url = `${api_url}:${puerto}/${version}/productos`);
+      if(empresaRut != undefined && nombre !=  undefined && codigoInterno != undefined) {
+        url = url + `?empresaRut=${empresaRut}&nombre=${nombre}&codigoInterno=${codigoInterno}`
+      } else if(empresaRut != undefined && nombre !=  undefined) {
+        url = url + `?empresaRut=${empresaRut}&nombre=${nombre}`; 
+      } else if (empresaRut != undefined && codigoInterno != undefined){
+        url = url +`?empresaRut=${empresaRut}&codigoInterno=${codigoInterno}` ;
+      } else if (empresaRut != undefined ){
+        url = url +`?empresaRut=${empresaRut}` ;
+      } else if (nombre != undefined) {
+        url = url + `?nombre=${nombre}`
+      } else if (codigoInterno != undefined) {
+        url = url + `?codigoInterno=${codigoInterno}`
+      }
 
       return url;
     },
@@ -100,13 +109,16 @@ const endPoints = {
   },
   precios: {
     list: (options) => {
-      const { empresaRut } = options;
-      let url = '';
+      const { listaPrecioId, productoId } = options;
+      let url = `${api_url}:${puerto}/${version}/precios/`;
 
-      empresaRut !=
-      undefined
-        ? (url = `${api_url}:${puerto}/${version}/precios/?empresaRut=${empresaRut}`)
-        : (url = `${api_url}:${puerto}/${version}/precios`);
+      if( listaPrecioId != undefined && productoId !=  undefined ) {
+        url = url + `?listaPrecioId=${listaPrecioId}&productoId=${productoId}`
+      } else if( listaPrecioId != undefined ) {
+        url = url + `?listaPrecioId=${listaPrecioId}`; 
+      } else if (productoId != undefined){
+        url = url +`?productoID=${productoId}` ;
+      } 
 
       return url;
     },
@@ -217,6 +229,33 @@ const endPoints = {
     add: () => `${api_url}:${puerto}/${version}/documentos_tipo`,
     update: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/documentos_tipo/${id}`,
+  },
+  formasPago:{
+    list: () => `${api_url}:${puerto}/${version}/forma_pago`,
+    get: (id) => `${api_url}:${puerto}/${version}/forma_pago/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/forma_pago`,
+    update: (id) => `${api_url}:${puerto}/${version}/forma_pago/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/forma_pago/${id}`,
+  },
+  tiendaListaPrecio: {
+    list: (options) => {
+      const { tiendaId, listaPrecioId } = options;
+      let url = `${api_url}:${puerto}/${version}/tienda_lista/`;
+      
+      if (tiendaId != undefined && listaPrecioId != undefined) {
+        url = url + `?tiendaId=${tiendaId}&listaPrecioId=${listaPrecioId}`;
+      }else if (tiendaId != undefined ) {
+        url = url + `?tiendaId=${tiendaId}`;
+      }else if (listaPrecioId != undefined) {
+        url = url + `?listaPrecioId=${listaPrecioId}`;
+      }
+
+      return url;
+    },
+    get: (id) => `${api_url}:${puerto}/${version}/tienda_lista/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/tienda_lista`,
+    update: (id) => `${api_url}:${puerto}/${version}/tienda_lista/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/tienda_lista/${id}`,
   }
 };
 

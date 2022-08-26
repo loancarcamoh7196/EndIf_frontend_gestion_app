@@ -18,7 +18,6 @@ const dataInicial = {
 
 //? Types
 const TIENDA_LIST = 'TIENDA_LIST';
-const TIENDA_GET = 'TIENDA_GET';
 const TIENDA_ADD = 'TIENDA_ADD';
 const TIENDA_UPDATE = 'TIENDA_UPDATE';
 const TIENDA_DELETE = 'TIENDA_DELETE';
@@ -31,8 +30,6 @@ export default function tiendasReducer(state = dataInicial, action) {
 			return { ...state, ...action.payload };
 		case TIENDA_LIST:
 			return { ...state, list: action.payload.list };
-		case TIENDA_GET:
-			return { ...state, ...action.payload };
     case TIENDA_ADD:
       return { ...state, list: action.payload };
 		case TIENDA_UPDATE:
@@ -60,18 +57,6 @@ export const getTiendasAction = (options) => async (dispatch, getState) => {
 		// (loading === false && activo === true) ? dispatch(refreshTokenAction()) : console.log('No ha podido refrescar token');
 		// toast.error(``, toastOptions);
     dispatch({ type: TIENDA_ERROR });
-	}
-};
-
-export const getTiendaAction = (options) => async (dispatch, getState) => {
-	const { id } = options;
-	const api = endPoints.tiendas.get(id);
-	try {
-		const res = await axios.get(api);
-		dispatch({ type: TIENDA_GET, payload: { results: res.data } });
-	} catch (error) {
-		// console.log(error);
-		dispatch({ type: TIENDA_ERROR });
 	}
 };
 

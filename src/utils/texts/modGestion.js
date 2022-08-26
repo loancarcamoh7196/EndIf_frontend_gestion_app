@@ -226,12 +226,31 @@ const cashRegister = {
 };
 
 const price = {
-  title: {},
-  lbl: {},
-  btn: {},
+  title: {
+    index: 'Precios de Producto',
+    new: 'Agregar Precio',
+    edit: 'Editar Precio'
+  },
+  lbl: {
+    id: 'ID de Precio',
+    neto: 'Neto',
+    iva: 'iva',
+    precioPublico: 'Precio Publico',
+    esExento: 'Es exento?',
+    esMayorista: 'Es mayorista?',
+    producto: 'Producto',
+    listaPrecio: 'Lista de Precio'
+  },
+  btn: {
+    add: 'Agregar',
+    edit: 'Editar',
+
+  },
   txt: {},
   plhld: {},
-  slct: {},
+  slct: {
+    lista: 'Lista de Precio'
+  },
   lnk: {},
 };
 
@@ -244,7 +263,8 @@ const priceList = {
   lbl: {
     id: 'ID',
     lista: 'Lista',
-    empresaRut: 'Empresa RUT'
+    empresaRut: 'Empresa RUT',
+    tienda: 'Tienda',
   },
   btn: {
     new: 'Agregar',
@@ -255,7 +275,8 @@ const priceList = {
     lista: 'Lista Precios'
   },
   slct: {
-    empresa: 'Seleccione Empresa'
+    empresa: 'Seleccione Empresa',
+    tienda: 'Seleccione Tienda',
   },
   lnk: {},
 };
@@ -379,7 +400,9 @@ const productSale = {
 };
 
 const retailPrice = {
-  title: {},
+  title: {
+    index: 'Lista Precios por Tienda'
+  },
   lbl: {},
   btn: {},
   txt: {},
@@ -435,5 +458,6 @@ module.exports = {
   detailSale,
   paymentSale,
   productSale,
-  paymentMethod
+  paymentMethod,
+  retailPrice
 };

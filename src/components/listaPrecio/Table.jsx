@@ -2,6 +2,7 @@
  ** Componente Lista de Precio Table
  *? alojado en: /lista_precio
  */
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
@@ -44,7 +45,7 @@ const ListaPrecioTable = ({ data, setFormShow }) => {
             setFormShow({ edit: true, new: false });
             dispatch(showFormAction({ id: row.id }));
           }}
-          className='btn btn-xs btn-outline-warning'
+          className='btn btn-xs btn-outline-warning m-1'
           data-bs-toggle='offcanvas'
           data-bs-target='#offcanvasRight'
           aria-controls='offcanvasRight'
@@ -52,14 +53,22 @@ const ListaPrecioTable = ({ data, setFormShow }) => {
           <i className='fa-solid fa-file-pen m-1' />
         </button>
         &nbsp;
+        <Link
+          to={`/lista_precio/${row.id}/tienda`}
+          className='btn btn-xs btn-outline-info m-1'
+        >
+          <i className='fa fa-brands fa-product-hunt' />
+        </Link>
+        &nbsp;
         <button
-          className='btn btn-xs btn-outline-danger' 
+          className='btn btn-xs btn-outline-danger m-1' 
           onClick={()=>{
             dispatch(deleteListaPrecioAction({ id: row.id }));
           }}
         >
           <i className='fa-solid fa-trash-can' /> 
         </button>
+
       </td>
     </tr>
   ));
