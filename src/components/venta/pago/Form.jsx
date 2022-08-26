@@ -14,6 +14,7 @@ import { universal, toastOptions } from '@utils/texts/general';
 //* Componentes propios
 import Card from '@common/Card';
 import Canvas from '@common/OffCanvas';
+import DetalleForm from '@components/venta/detalle/Form';
 import SearchProducto from '@components/producto/Search';
 
 
@@ -77,19 +78,13 @@ export default function FormVenta({ formNewVenta = true, ventaForm }) {
 	//? Almacenamiento de Datos formulario
   const [form, setForm] = useState({
     id: ventaForm.id,
-    fecha: ventaForm.fecha,
-    nroDocumento: ventaForm.nroDocumento,
-    neto: ventaForm.neto,
-    iva: ventaForm.iva,
-    exento: ventaForm.exento,  
-    total: ventaForm.total,
-    usuarioId: ventaForm.usuarioId,
-    cajaId: ventaForm.cajaId,
-    documentoTipoId: ventaForm.documentoTipoId
+    montoPago: ventaForm.montoPago,
+    ventaEncabezadoId: ventaForm.ventaEncabezadoId,
+    formaPagoId: ventaForm.formaPagoId
   });
   
 	/**
-	 * * Manejador de Actualizar Detalle
+	 * * Manejador de Actualizar Usuario
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
@@ -108,7 +103,7 @@ export default function FormVenta({ formNewVenta = true, ventaForm }) {
 	};
 
 	/** 
-	 * * Manejador para Agregar Detalle
+	 * * Manejador para Agregar Usuario
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
@@ -138,58 +133,66 @@ export default function FormVenta({ formNewVenta = true, ventaForm }) {
 
     //? Ejecucion de metodo al renderizar pagina
   useEffect(() => { 
-    // dispatch(getUsuariosAction()); //* Recupera al cargar datos de usuarios
-    // dispatch(getCajasAction()); //* Recupera al cargar datos de cajas
-    // dispatch(getFormasPagoAction()); //* Recupera Formas de Pagos
-    // dispatch(getDocumentosTipoAction()); //* Recupera Tipo de Documento
-    // dispatch(getProductosAction); //* Recupera Productos
+    dispatch(getUsuariosAction()); //* Recupera al cargar datos de usuarios
+    dispatch(getCajasAction()); //* Recupera al cargar datos de cajas
+    dispatch(getFormasPagoAction()); //* Recupera Formas de Pagos
+    dispatch(getDocumentosTipoAction()); //* Recupera Tipo de Documento
+    dispatch(getProductosAction); //* Recupera Productos
     // console.log(form.activo)
   }, []);
 
 
 	return (
-    <Fragment>
-      <form onSubmit={handleSubmit} >
-        {/* <DetalleForm   /> */}
-        <Card style='card-default' haveTitle={true} title={sales.title.detalle} >
-					<div className='mb-2'>
-						<button
-							className='btn btn-success float-right'
-							data-bs-toggle='offcanvas'
-							data-bs-target='#offcanvasRight'
-							aria-controls='offcanvasRight'
-						>
-							{sales.btn.producto}
-						</button>
-					</div>
+  <Fragment>
+    <form onSubmit={handleSubmit} >
+      <Card style='card-default' haveTitle={true} title={sales.title.pago} >
+        <div className='row'>
+          <div className='col-6'>
+            {
+              !formNewVenta &&
+              <div className='form-group'>
+                <label>{paymentSale.lbl.id}</label>
+                <input  
+                  type='number'
+                  name='id'
+                  className='form-control form-control-border'
+                  value={form.id}
 
-          <table id='tab_productos' className='table table-striped-columns table-hover table-sm'>
-            <thead>
-              <th>{detailSale.lbl.cantidad}</th>
-              <th>{detailSale.lbl.neto}</th>
-              <th>{detailSale.lbl.iva}</th>
-              <th>{detailSale.lbl.total}</th>
-              <th>{detailSale.lbl.totalDcto}</th>
-              <th>{detailSale.lbl.esExento}</th>
-              <th>{detailSale.lbl.producto}</th>
-              <th>Acciones</th>
-            </thead>
-            <tbody>
-              
-            </tbody>
-          </table>
+                />
+              </div>
+            }
+            <div className='form-group'>
+              <label htmlFor='montoPago'>{paymentSale.lbl.monto}</label>
+              <input  
+                type='number'
+                className={`form-control form-control-border ${ !validation.prodTotalDcto && 'is-invalid' }`}
+                value={form.montoPago}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className='col-6'>
+            <div className='form-group'>
+              <label>{paymentSale.lbl.formaPago}</label>
+              <select
+              id='documentoTipoId'
+              name='documentoTipoId'
+              className='form-control select2'
+              onChange={handleChange} 
+              required
+            >
+              <option disabled selected={formNewVenta && 'selected'}>{paymentSale.slct.formaPago}</option>
+              {(formaPago.length > 0 ) &&
+                formaPago.map(i => <option value={i.id} selected={i.id === form.formaPagoId && 'selected'} >{i.nombre}</option>)
+              }
+            </select>
+            </div>
 
-        </Card>
-      </form>
-
-      <Canvas 
-        key='ProductList'
-        title='Agregar a la Compra'
-      >
-        <SearchProducto  />
-      </Canvas>
-    </Fragment>
-
-    
+          </div>
+        </div>
+      </Card>
+    </form>
+  </Fragment>
   );
 }

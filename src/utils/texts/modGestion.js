@@ -162,7 +162,6 @@ const product = {
   lnk: {}
 };
 
-
 const tax = {
   title: {},
   lbl: {},
@@ -320,6 +319,8 @@ const sales = {
     new: 'Agregar',
     edit: 'Editar',
     generar: 'Generar',
+    producto: 'Nuevo Producto',
+    detailAdd: 'Agregar Detalle de Venta',
   },
   txt: {},
   plhld: {},
@@ -342,7 +343,7 @@ const detailSale = {
     totalDcto: 'Total DCTO',
     esExento: 'Es exento?',
     ventaEncabezado: 'Encabezado ',
-    producto: 'Producto'
+    producto: 'Producto',
   },
   btn: {},
   txt: {},
@@ -361,7 +362,9 @@ const paymentSale = {
   btn: {},
   txt: {},
   plhld: {},
-  slct: {},
+  slct: {
+    formaPago: 'Seleccione Forma Pago'
+  },
   lnk: {}
 };
 

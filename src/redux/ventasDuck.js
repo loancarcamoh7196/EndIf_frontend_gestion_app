@@ -1,6 +1,6 @@
 /**
  * * Redux de contenedores Ventas
- * *  Ventas Encabezado, Venta Detalle, Venta Pago 
+ * *  Ventas
  * ? nombre en store: ventas 
  */
 import axios from 'axios';
@@ -13,7 +13,8 @@ import { toastOptions } from '@utils/texts/general';
 const dataInicial = {
 	list: [],
 	loading: false,
-	form: 0
+	form: 0,
+	prod: []
 };
 
 //* Types
@@ -24,6 +25,7 @@ const VENTA_DELETE = 'VENTA_DELETE';
 const VENTA_ERROR = 'VENTA_ERROR';
 const VENTA_LOADING = 'VENTA_LOADING';
 const VENTA_SHOW = 'VENTA_SHOW';
+const VENTA_PRODUCT_LIST = 'VENTA_PRODUCT_LIST';
 
 //* Reducer
 export default function ventasReducer(state = dataInicial, action) {
@@ -42,6 +44,8 @@ export default function ventasReducer(state = dataInicial, action) {
       return { ...state, loading: action.payload };
     case VENTA_SHOW:
       return { ...state, form: action.payload };
+		case VENTA_PRODUCT_LIST:
+			return { ...state,  prod: action.payload };
 		default:
 			return { ...state };
 	}
@@ -123,3 +127,10 @@ export const deleteVentaAction = (options) => async (dispatch, getState) => {
 		dispatch({ type: VENTA_ERROR });
 	}
 };
+
+export const productoListAddAction = (options) => async(dispatch, getState) => {
+	const { producto } = options;
+	// console.log(producto);
+	dispatch({type: VENTA_PRODUCT_LIST, payload: [ ...getState().ventas.prod, producto ] });
+}
+

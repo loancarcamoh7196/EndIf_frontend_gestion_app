@@ -15,16 +15,35 @@ const link = [
 
 export default function NewVentas() {
   const ventaForm = {
-		id: 0,
-		fecha: '',
-		nroDocumento: 0,
-		neto: 0,
-		iva: 0,
-		exento: 0,
-		total: 0,
-		usuarioId: 0,
-		cajaId: 0,
-		docTipoId: 0
+		encabezado: {
+      id: 0,
+      fecha: '',
+      nroDocumento: '',
+      neto: 0,
+      iva: 0,
+      exento: 0,  
+      total: 0,
+      usuarioId: 0,
+      cajaId: 0,
+      documentoTipoId: 0
+    },
+    detalle: {
+      id: 0,
+      cantidad: 0,
+      neto: 0,
+      iva: 0,
+      total: 0,
+      totalDcto: 0,
+      esExento: 0,
+      ventaEncabezadoId: 0,
+      productoId: 0
+    },
+    pago: {
+      id: 0,
+      montoPago: 0,
+      ventaEncabezadoId: 0,
+      formaPagoId: 0
+    }
   };
 
   return (
