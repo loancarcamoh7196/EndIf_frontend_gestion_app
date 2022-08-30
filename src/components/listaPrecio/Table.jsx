@@ -57,7 +57,8 @@ const ListaPrecioTable = ({ data, setFormShow }) => {
           to={`/lista_precio/${row.id}/tienda`}
           className='btn btn-xs btn-outline-info m-1'
         >
-          <i className='fa fa-brands fa-product-hunt' />
+          <i className='fas fa-solid fa-money-check-dolar' />
+          <i class="fas fa-solid fa-money-check-dollar"></i>
         </Link>
         &nbsp;
         <button

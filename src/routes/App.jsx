@@ -50,7 +50,7 @@ import CajaEdit from '@pages/cajas/edit';
 //? Mantenedor Lista Precio
 import ListaPrecioIndex from '@pages/listaPrecios/index';
 //? Mantenedor Tienda Lista Precio
-import TiedaListaIndex from '@pages/tiendaListaPrecio/index';
+// import TiendaListaIndex from '@pages/tiendaListaPrecio/index';
 // import moduleName from '@pages/tiendaListaPrecio';
 //? Mantenedor Venta
 import VentaIndex from '@pages/ventas/index';
@@ -89,7 +89,7 @@ const App = () => {
         <Route exact path='/productos' element={<ProductoIndex />} />
         <Route exact path='/productos/new' element={<ProductoNew />} />
         <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
-        {/* Mod Precios */}
+        {/* Mod Lista - Precios */}
         <Route exact path='/productos/:id/lista_precios' element={<PrecioIndex />} />
         {/* Mod Subfamilia */}
         <Route exact path='/subfamilias/:id' element={<SubFamiliaIndex />} />
@@ -103,7 +103,7 @@ const App = () => {
         <Route exact path='/cajas/:id/edit' element={<CajaEdit />} />
         {/* Mod Lista Precios */}
         <Route exact path='/lista_precio' element={<ListaPrecioIndex />} />
-        <Route exact path='/lista_precio/:id/tienda' element={<TiedaListaIndex />} />
+        {/* <Route exact path='/lista_precio/:id/tienda' element={<ListaPrecioIndex />} /> */}
         {/* Mod Ventas */}
         <Route exact path='/ventas' element={<VentaIndex />} />
         <Route exact path='/ventas/new' element={<VentaNew />} />

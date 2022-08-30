@@ -1,10 +1,11 @@
 /**
  * * Archivo Precio Index
- ** Archivo de pagina: /productos/:id/lista_precios
+ * ? url: /productos/:id/lista_precios
  */
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+//* 
 import useSWR from 'swr';
 import axios from 'axios';
 //* Texto
@@ -17,6 +18,7 @@ import Layout from '@layouts/Main';
 import Table from '@components/precio/Table';  
 import Card from '@common/Card';
 import Loader from '@common/Loader';
+import Canvas from '@common/OffCanvas';
 //* Breadcrum
 const link = [
   { nombre: 'Dashboard', url: '/dashboard' },
@@ -31,6 +33,7 @@ const Index = () => {
   const dispatch = useDispatch();
 
   let precios = useSelector((store) => store.precios.list);
+  const loading = useSelector((store) => store.precios.loading)
   useEffect(() => { dispatch(getPreciosAction()) }, []);
 
 	const { id } = params; //? Extraes ID de URL
@@ -62,12 +65,18 @@ const Index = () => {
           </div>
 
           <div className='col-4 mb-3 float-sm-right'>
-            <Link to='/'
+            <button
+              type='button'
+              onClick={()=>setFormShow({ edit: false, new: true })}
+              className='btn btn-sm btn-block btn-outline-success mb-2'
+              data-bs-toggle='offcanvas'
+              data-bs-target='#offcanvasRight'
+              aria-controls='offcanvasRight'
               className='btn btn-sm btn-block btn-outline-success '
             > 
               <i className='fa-solid fa-plus' />
               {universal.btn.new}
-            </Link>
+            </button>
 
             <Link
               to='/productos'

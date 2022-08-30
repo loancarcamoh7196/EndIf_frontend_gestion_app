@@ -1,6 +1,6 @@
 /**
- ** Componente Roles Table
- *? alojado en: /roles 
+ ** Componente Precios Table
+ *? alojado en: /precios 
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
