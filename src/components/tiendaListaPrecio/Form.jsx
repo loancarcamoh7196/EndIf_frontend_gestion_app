@@ -1,95 +1,60 @@
 /**
- * * Formulario de Roles
+ * * Formulario de Tienda Lista de Precio
  * ? Para agregar y editar
  */
-import React, { useState, Fragment, useEffect, useRef } from 'react';
+import { useState, Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Switch from 'react-switch';
-import { role } from '../../utils/texts/modAdmin';
-import { universal, toastOptions } from '../../utils/texts/general';
+
+//* Textos
+import { universal, priceList, shopPriceList } from '@utils/texts/modGestion';
 //* Componentes propios
-import Card from '@common/Card';
+
 //* Redux ~ Duck necesarios
-import { addRolAction, updateRolAction } from '@redux/rolesDuck';
+import { addTiendaListaAction, updateTiendaListaAction } from '@redux/tiendaListaPrecioDuck';
+import { getTiendasAction } from '@redux/tiendasDuck';
 
 
+export default function FormTiendaListaPrecio({ formNewLista = true, tiendaListaForm }) {
+	const dispatch = useDispatch(); //? Disparador
 
-export default function FormRol({ formNewRol = true, rolForm }) {
-	const params = useParams(); // Acceso a params de la URL
-	const dispatch = useDispatch(); //Disparador
-	const navigate = useNavigate(); // Navegador de Pagina
+	let tiendas = useSelector((store)=> store.tiendas.list); //? Valores para Select Tiendas
 
-	// Manejo de Checkbox
-	const [isCheckActiva, setIsCheckActiva] = useState(true);
-	const [changePass, setChangePass] = useState(false);
-
-  const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
-	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
-
-  // ejecucion de metodo al renderizar pagina
-  // useEffect(() => { }, []);
-
-  const [validation, setValidation] = useState({
-		nombre: true
-	});
-
-	const validacion = (campo) => {
-		const _names = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
-		// console.log(campo)
-
-		if (campo.nombre === 'nombre') {
-			(campo.valor.length >=4 && campo.valor.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, nombre: true}) : setValidation({...validation, nombre: false});
-		} else  return false;
-	}
-
-	// Almacenamiento de Datos formulario
+  // Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
-    id: rolForm.id,
-		nombre: rolForm.nombre,
-		accesoGestion: rolForm.accesoGestion,
-		accesoPv: rolForm.accesoPv,
-    accesoContabilidad: rolForm.accesoContabilidad,
-		accesoInventario: rolForm.accesoInventario,  
-		accesoInventarioMovil: rolForm.accesoInventarioMovil
+    id: tiendaListaForm.id,
+		tiendaId: tiendaListaForm.tiendaId,
+		listaPrecioId: tiendaListaForm.listaPrecioId
 	});
-	
+
+  //? ejecucion de metodo al renderizar pagina
+  useEffect(() => { dispatch(getTiendasAction())}, []);
+
 	/**
-	 * * Manejador de Actualizar Rol
+	 * * Manejador de Actualizar Tienda Lista Precio
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
-		// console.log('Entro en Editar');
+		const listaTiendaId = form.id; //? Extraer ID de URL
     delete form.id;
-		const { id } = params; // Extraer ID de URL
 		try {
-			// console.log('Entro update');
-
-			const options = { id, body: form };
-			dispatch(updateRolAction(options));
-			navigate('/admin/roles');
+			const options = { id: listaTiendaId, body: form };
+			dispatch(updateTiendaListaAction(options));
 		} catch (error) {
 			console.log(error);
-			// setMessage('Falló la edición');
 		}
-		// console.log('Soy update');
 	};
 
 	/** 
-	 * * Manejador para Agregar Rol
+	 * * Manejador para Agregar Tienda Lista Precio
 	 * @param {element} form Formulario
 	 */
 	const postData = async (form) => {
     try {	
       delete form.id;
-      dispatch(addRolAction({body: form}));
-      navigate('/admin/roles');
+      dispatch(addTiendaListaAction({body: form}));
 		} catch (error) {
-			// setMessage('Falló la edición');
       console.log(error);
 		}
-		// console.log('Soy Agregar');
 	};
 
 	const handleChange = (e) => {
@@ -102,113 +67,59 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		formNewRol ? postData(form) : putData(form);
+		formNewLista ? postData(form) : putData(form);
 	};
 
+  // console.log(form);
+
 	return (
-    <Fragment>
+  <Fragment>
     <form id='formulario' onSubmit={handleSubmit} >
-      <Card style='card-default' haveTitle={false} title='prueba'> 
-        <div className='row'>
-          <div className='col-sm-7'>
-            { (!formNewRol) && 
-              <div className='form-group'>
-                <label htmlFor='id'>{role.lbl.id}</label>
-                <input 
-                  type='number'
-                  className='form-control form-control-border'
-                  name='id'
-                  value={form.id}
-                  disabled
-                />
-              </div>  
-            }
-            <div className='form-group'>
-              <label htmlFor='nombre'>{role.lbl.nombre}</label>
-              <input 
-                type='text'
-                className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
-                id='nombre'
-                name='nombre'
-                placeholder={role.plhld.nombre}
-                onChange={handleChange}
-                value={form.nombre}
-                describedby='nombreError'
-                maxLength={30} 
-                required
-                onBlur={(e) => { validacion({nombre: 'nombre', valor: e.target.value}) }}
-              />
-              {!validation.nombre && <span className='text-danger'>{role.txt.valNombre}</span>}
-            </div>
-          </div>
-          <div className='col-sm-5'>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoGestion' 
-									id='accesoGestion' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoGestion}
-                />
-                <label htmlFor='accesoGestion'>{role.lbl.accesoGestion}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoPv' 
-									id='accesoPv' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoPv}
-                />
-                <label htmlFor='accesoPv'>{role.lbl.accesoPv}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoContabilidad' 
-									id='accesoContabilidad' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoContabilidad}
-                />
-                <label htmlFor='accesoContabilidad'>{role.lbl.accesoContabilidad}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoInventario' 
-									id='accesoInventario' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoInventario}
-                />
-                <label htmlFor='accesoInventario'>{role.lbl.accesoInventario}</label>
-              </div>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoInventarioMovil' 
-									id='accesoInventarioMovil' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoInventarioMovil}
-                />
-                <label htmlFor='accesoInventarioMovil'>{role.lbl.accesoInventarioMovil}</label>
-              </div>
-            </div>  
-          </div> 
-        
-          <div className='col-12 mt-5'>
-            <input type='submit' className='btn btn-outline-success btn-block' value={formNewRol ? role.btn.agregar : role.btn.editar} />
-            <Link to='/admin/roles' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
-          </div>
-        </div>
-      </Card>
+      { (!formNewLista) && 
+      <div className='form-group'>
+        <label htmlFor='id'>{priceList.lbl.id}</label>
+        <input 
+          type='number'
+          className='form-control form-control-border'
+          name='id'   
+          value={form.id}
+          disabled
+        />
+      </div>
+      }
+
+      <div className='form-group'>
+        <label htmlFor='tiendaId'>{priceList.lbl.tienda}</label>
+        <select
+          name='tiendaId' 
+          className='form-control select2 custom-select'
+          onChange={handleChange}
+        >
+          <option
+            disabled
+            selected={ (!formNewLista) && 'selected' }
+          >
+            {priceList.slct.tienda}
+          </option>
+          { (tiendas.length > 0) && 
+            tiendas.map((i) => <option value={i.id} selected={(i.id == form.tiendaId ) && 'selected'}> {i.nombre} </option>) 
+          }
+        </select>
+      </div>
+
+      <input
+        type='hidden'
+        id='listaPrecioId'
+        name='listaPrecioId'
+        value={form.listaPrecioId}
+      />
+
+      <input
+        type='submit'
+        className='btn btn-outline-success btn-block'
+        value={formNewLista ? shopPriceList.btn.agregar : shopPriceList.btn.editar}
+      />
     </form>
-    </Fragment>
+  </Fragment>
 	);
 }

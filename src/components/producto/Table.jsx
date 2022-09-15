@@ -67,10 +67,10 @@ const ProductoTable = ({data}) => {
         </Link>
 
         <Link
-          to={`/productos/${row.id}/lista_precios`}
+          to={`/productos/${row.id}/precios`}
           className='btn btn-xs btn-outline-info m-1'
         >
-          <i className='fa-solid fa-square-dollar' />
+          <i className='fa-solid fa-money-check-dollar' />
         </Link>
 
         <button

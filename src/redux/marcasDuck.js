@@ -63,7 +63,7 @@ export const getMarcasAction = (options) => async (dispatch, getState) => {
 		console.log(error);
 		// let msg = error.response.data;
 		// (loading === false && activo === true) ? dispatch(refreshTokenAction()) : console.log('No ha podido refrescar token');
-		// toast.error(``, {...toastOptions});
+		// toast.error(``, toastOptions);
     dispatch({ type: MARCA_ERROR });
 	}
 };
@@ -77,14 +77,14 @@ export const addMarcaAction = (options) => async (dispatch, getState) => {
 	try {
 		const res = await axios.post(api, body);
 		// console.log(res);
-		toast.success(`Marca ${body.id}- ${body.nombre} ha sido agregado existosamente`, {...toastOptions});
+		toast.success(`Marca ${body.id}- ${body.nombre} ha sido agregado existosamente`, toastOptions);
 		dispatch({ type: MARCA_ADD, payload: { list: [...getState().marcas.list, res.data], loading: false} });
 	} catch (error) {
 		dispatch({ type: MARCA_LOADING, payload: false });
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`No ha sea podido agregar el marca, porfavor revise los datos e intentelo más tarde`, {...toastOptions});
-		toast.error(msg, {...toastOptions});	
+		toast.error(`No ha sea podido agregar el marca, porfavor revise los datos e intentelo más tarde`, toastOptions);
+		toast.error(msg, toastOptions);	
 		dispatch({ type: MARCA_ERROR });	
 	}
 };
@@ -98,14 +98,14 @@ export const updateMarcaAction = (options) => async (dispatch, getState) => {
 		const res = await axios.patch(api, body);
 		// console.log(res.data);
 		let newList = getState().marcas.list.map((e) =>  e.id === id ? res.data : e );
-		toast.success(`El marca ${body.id} - ${body.nombre} ha sido modificado correctamente`, {...toastOptions});
+		toast.success(`El marca ${body.id} - ${body.nombre} ha sido modificado correctamente`, toastOptions);
 		dispatch({  type: MARCA_UPDATE, payload: { list: newList, loading: false }});
 	} catch (error) {
 		dispatch({ type: MARCA_LOADING, payload: false });
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`El usuario ${body.username} no se ha podido actualizar.`, {...toastOptions});
-		toast.error(msg, {...toastOptions});
+		toast.error(`El usuario ${body.username} no se ha podido actualizar.`, toastOptions);
+		toast.error(msg, toastOptions);
 		dispatch({ type: MARCA_ERROR });
 	}
 };
@@ -120,14 +120,14 @@ export const deleteMarcaAction = (options) => async (dispatch, getState) => {
 		const res = await axios.delete(api);
 		let newList = getState().marcas.list.filter((e)=> e.id !== id);
 
-		toast.warning(`El marca con ID: ${id} ha sido eliminado.`, {...toastOptions});
+		toast.warning(`El marca con ID: ${id} ha sido eliminado.`, toastOptions);
 		dispatch({ type: MARCA_DELETE, payload: { list: newList, loading: false} });
 	} catch (error) {
 		dispatch({ type: MARCA_LOADING, payload: false });
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`No se ha podido eliminar el marca con ID: ${id}, porfavor vuelva intentarlo más tarde.`, {...toastOptions});
-		toast.error(msg, {...toastOptions});
+		toast.error(`No se ha podido eliminar el marca con ID: ${id}, porfavor vuelva intentarlo más tarde.`, toastOptions);
+		toast.error(msg, toastOptions);
 		dispatch({ type: MARCA_ERROR });
 	}
 };

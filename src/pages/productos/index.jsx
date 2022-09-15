@@ -29,24 +29,24 @@ const Index = () => {
   let productos = useSelector((store) => store.productos.list);
 
   return (
-    <Layout title={product.title.index} links={link} haveLink={true}>
-      <Card style='card-default' > 
-        <div className='row'>
-          <div className='col-4 mb-3 float-sm-right'>
-            <Link
-              to='/productos/new'
-              className='btn btn-sm btn-block btn-outline-success float-sm-right'
-            >
-              <i className='fa-solid fa-plus' />
-              {universal.btn.new}
-            </Link>
-          </div>
-          <div className='col-12 col-md-12 col-xl-12'>
-            {loading ? <Loader /> : <Table data={productos} />}
-          </div>
-        </div>  
-      </Card>
-    </Layout>
+  <Layout title={product.title.index} links={link} haveLink={true}>
+    <Card style='card-default' > 
+      <div className='row'>
+        <div className='col-4 mb-3 float-sm-right'>
+          <Link
+            to='/productos/new'
+            className='btn btn-sm btn-block btn-outline-success float-sm-right'
+          >
+            <i className='fa-solid fa-plus' />
+            {universal.btn.new}
+          </Link>
+        </div>
+        <div className='col-12 col-md-12 col-xl-12'>
+          {loading ? <Loader /> : <Table data={productos} />}
+        </div>
+      </div>  
+    </Card>
+  </Layout>
   )
 }
 

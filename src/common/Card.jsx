@@ -1,6 +1,24 @@
-import React, { Fragment } from 'react'
+/**
+ * * Componente básico Card
+ * ? children: contenido de Card
+ * ? title: Titulo de Card
+ * ? haveTitle: Tiene Titulo?
+ * ? haveClose: Se puede Cerrar
+ * ? haveFooter: Tiene footer?
+ * ? footer: Contenido de Footer
+ * ? style: Estilo de Card
+ */
+import { Fragment } from 'react';
 
-const Card = ({ children, title='Aviso', haveTitle=false, haveClose=false, haveFooter=false, footer, style='' }) => {
+const Card = ({
+  children,
+  title='Aviso',
+  haveTitle=false,
+  haveClose=false,
+  haveFooter=false,
+  footer,
+  style='' 
+}) => {
   return (
     <Fragment>
       <div className={`card ${style !== '' && style}`}>

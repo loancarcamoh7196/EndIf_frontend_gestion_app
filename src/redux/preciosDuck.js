@@ -11,6 +11,8 @@ import { toastOptions } from '../utils/texts/general';
 //* Data inicial
 const dataInicial = {
 	list: [],
+	loading: false,
+	form:0,
 };
 
 //* Types
@@ -20,6 +22,7 @@ const PRECIO_UPDATE = 'PRECIO_UPDATE';
 const PRECIO_DELETE = 'PRECIO_DELETE';
 const PRECIOS_ERROR = 'PRECIOS_ERROR';
 const PRECIO_LOADING = 'PRECIO_LOADING';
+const PRECIO_SHOW = 'PRECIO_SHOW';
 
 //* Reducer
 export default function preciosReducer(state = dataInicial, action) {
@@ -36,6 +39,8 @@ export default function preciosReducer(state = dataInicial, action) {
 			return { ...state, list: 	action.payload };
 		case PRECIO_LOADING:
 			return { ...state, loading: action.payload };
+		case PRECIO_SHOW:
+			return {  ...state, form: action.payload };
 		default:
 			return { ...state };
 	}
@@ -49,10 +54,13 @@ export const getPreciosAction = (options) => async (dispatch, getState) => {
 		const { productoId, listaPrecioId } = options;
 			let api;
 		if( productoId != undefined && listaPrecioId != undefined ){
+			// console.log('Producto y Lista');
 			api = endPoints.precios.list({ productoId, listaPrecioId });
 		}else if( productoId != undefined ){
+			// console.log('Producto');
 			api = endPoints.precios.list({ productoId });
 		}else if( listaPrecioId != undefined ){
+			// console.log('Lista');
 			api = endPoints.precios.list({ listaPrecioId });
 		}else api = endPoints.precios.list();
 
@@ -100,9 +108,9 @@ export const updatePrecioAction = (options) => async (dispatch, getState) => {
 	try {
 		const res = await axios.patch(api, body);
 		// console.log(res.data);
-		let newList = getState().precios.list.map((e) =>  e.id === id ? res.data : e );
-		toast.success(`El precio ${body.id} - ${body.nombre} ha sido modificado correctamente`, toastOptions);
-		dispatch({  type: PRECIO_UPDATE, payload:{ lista: newList, loading: false }});
+		let newList = getState().precios.list.map(e => e.id == id ? res.data : e);
+		toast.success(`El precio ${id} - ${res.data.nombre} ha sido modificado correctamente`, toastOptions);
+		dispatch({  type: PRECIO_UPDATE, payload:{ list: newList, loading: false }});
 	} catch (error) {
 		dispatch({ type: PRECIO_LOADING, payload: false });
 		// console.log(error);
@@ -135,3 +143,14 @@ export const deletePrecioAction = (options) => async (dispatch, getState) => {
 		dispatch({ type: PRECIOS_ERROR });
 	}
 };
+
+export const showFormAction = (options) => async (dispatch, getState) => {
+  const { id } = options;
+
+  try {
+    dispatch({type: PRECIO_SHOW, payload: id });
+  } catch (error) {
+    toast.error(`ERROR: Unidad ${id} no se ha podido cargar`, toastOptions);
+    dispatch({ type: PRECIOS_ERROR });
+  }
+}

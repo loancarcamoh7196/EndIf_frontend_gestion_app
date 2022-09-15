@@ -2,9 +2,11 @@
  ** Texto duro del modulo Administración 
  *? Invocar import { [nombre_modulo] } from '../utils/texts/modGestion';
  */
+
 const universal = {
   btn: {
-    volver: 'Volver'
+    volver: 'Volver',
+    new: 'Nuevo'
   },
   title: {},
   lbl: {
@@ -48,6 +50,26 @@ const shop = {
     region: 'Seleccione Región',
     comuna: 'Seleccione Comuna'
   },
+  lnk: {}
+};
+
+const shopPriceList ={
+  title: {
+    index: 'Asociación Tienda <-> Lista de Precio',
+    new: 'Agregar relación',
+    edit: 'Editar relación'
+  },
+  lbl: {
+    lista: 'Lista',
+    tienda: 'Tiendas'
+  },
+  btn: {
+    agregar: 'Agregar',
+    editar: 'Editar'
+  },
+  txt: {},
+  plhld: {},
+  slct: {},
   lnk: {}
 };
 
@@ -139,7 +161,8 @@ const product = {
     tieneEnvase: 'Tiene Envase?',
     empresaRut: 'Empresa',
     unidadId: 'Unidad del Producto',
-    subfamilia: 'Subfamilia a la que pertenece'
+    subfamilia: 'Subfamilia a la que pertenece',
+    lista: 'Listado asociado'
   },
   btn: {
     agregar: 'Agregar',
@@ -234,7 +257,7 @@ const price = {
   lbl: {
     id: 'ID de Precio',
     neto: 'Neto',
-    iva: 'iva',
+    iva: 'IVA',
     precioPublico: 'Precio Publico',
     esExento: 'Es exento?',
     esMayorista: 'Es mayorista?',
@@ -459,5 +482,6 @@ module.exports = {
   paymentSale,
   productSale,
   paymentMethod,
-  retailPrice
+  retailPrice,
+  shopPriceList
 };

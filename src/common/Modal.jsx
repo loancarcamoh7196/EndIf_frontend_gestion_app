@@ -1,18 +1,29 @@
 /**
  * * Componente básico Modal
+ * ? children : Contenido de cuerpo Modal
+ * ? haveTitle: Tiene titulo?
+ * ? title: Contenido para Titulo
+ * ? haveCtrl:  Tiene Control de Cierre?
+ * ? haveFooter: Tiene Footer?
  */
-import React from 'react'
+import React from 'react';
 
 //? Estilo x defecto: bg-primary
 const Modal = ({
-  children, haveTitle=false, haveCtrl=false , haveFooter=false, style='', id='modal'}
-) => {
+  children,
+  haveTitle=false,
+  haveCtrl=false,
+  haveFooter=false,
+  style='',
+  id='modal',
+  title='Titulo Prueba'
+}) => {
   return (
     <div className='modal fade' id={id}>
       <div className='modal-dialog'>
         <div className={`modal-content ${style}`} >
           <div className='modal-header'>
-            { haveTitle && <h4 className='modal-title'>Primary Modal</h4>}
+            { haveTitle && <h4 className='modal-title'>{title}</h4>}
             {haveCtrl &&
               <button type='button' className='close' data-dismiss='modal' aria-label='Close'>
                 <span aria-hidden='true'>&times;</span>

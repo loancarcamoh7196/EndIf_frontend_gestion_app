@@ -1,36 +1,24 @@
 /**
- ** Pagina : /admin/roles/new
+ * * Pagina Precio - Nueva
+ * ? url : /productos/:id/lista_precios [Nueva]
  */
 import { Fragment } from 'react';
-import { role } from '../../utils/texts/modAdmin';
 
-import Layout from '@layouts/Main';
-import Form from '@components/roles/Form';
+import Form from '@components/precio/Form';
 
-
-const link = [
-  { nombre: 'Administración', url: '/admin' },
-  { nombre:'Roles', url: '/admin/roles' },
-	{ nombre:'Nueva', url: '/admin/roles/new' }
-];
-
-
-export default function NewRoles() {
-  const rolForm = {
+export default function NewPrecios() {
+  const precioForm = {
 		id: 0,
-		nombre: '',
-		accesoGestion: false,
-		accesoPv: false,
-		accesoContabilidad: false,
-		accesoInventario: false,
-		accesoInventarioMovil: false,
+		neto: 0,
+		iva: 0,
+		precioPublico: 0,
+		esExento: false,
+		esMayorista: false,
+		productoId: 0,
+		listaPrecioId:0,
   };
 
-  return (
-		<Layout title={role.title.new} links={link} haveLink={true}>
-			<Form rolForm={rolForm} />
-		</Layout>
-  );
+  return (<Form precioForm={precioForm} />);
 }
 
 

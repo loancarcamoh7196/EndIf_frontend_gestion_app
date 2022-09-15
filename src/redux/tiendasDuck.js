@@ -52,10 +52,10 @@ export const getTiendasAction = (options) => async (dispatch, getState) => {
 		// console.log(res);
 		dispatch({ type: TIENDA_LIST, payload:{ list: res.data } });
 	} catch (error) {
-		// console.log(error);
+		console.log(error);
 		// let msg = error.response.data;
 		// (loading === false && activo === true) ? dispatch(refreshTokenAction()) : console.log('No ha podido refrescar token');
-		// toast.error(``, toastOptions);
+		// toast.error(error, toastOptions);
     dispatch({ type: TIENDA_ERROR });
 	}
 };

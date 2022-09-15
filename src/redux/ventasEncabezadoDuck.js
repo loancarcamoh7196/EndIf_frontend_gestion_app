@@ -55,7 +55,7 @@ export const getRolesAction = (options) => async (dispatch, getState) => {
 		// console.log(error);
 		// let msg = error.response.data;
 		// (loading === false && activo === true) ? dispatch(refreshTokenAction()) : console.log('No ha podido refrescar token');
-		// toast.error(``, {...toastOptions});
+		// toast.error(``, toastOptions);
     dispatch({ type: ROLES_ERROR });
 	}
 };
@@ -80,13 +80,13 @@ export const addRolAction = (options) => async (dispatch, getState) => {
 	try {
 		const res = await axios.post(api, body);
 		// console.log(res);
-		toast.success(`Rol ${body.id}- ${body.nombre} ha sido agregado existosamente`, {...toastOptions});
+		toast.success(`Rol ${body.id}- ${body.nombre} ha sido agregado existosamente`, toastOptions);
 		dispatch({ type: ROL_ADD, payload: [...getState().usuarios.list, res.data] });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`No ha sea podido agregar el rol, porfavor revise los datos e intentelo más tarde`, {...toastOptions});
-		toast.error(msg, {...toastOptions});	
+		toast.error(`No ha sea podido agregar el rol, porfavor revise los datos e intentelo más tarde`, toastOptions);
+		toast.error(msg, toastOptions);	
 		dispatch({ type: ROLES_ERROR });	
 	}
 };
@@ -99,13 +99,13 @@ export const updateRolAction = (options) => async (dispatch, getState) => {
 		const res = await axios.patch(api, body);
 		// console.log(res.data);
 		let newList = getState().roles.list.map((e) =>  e.id === id ? res.data : e );
-		toast.success(`El rol ${body.id} - ${body.nombre} ha sido modificado correctamente`, {...toastOptions});
+		toast.success(`El rol ${body.id} - ${body.nombre} ha sido modificado correctamente`, toastOptions);
 		dispatch({  type: ROL_UPDATE, payload: newList });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`El usuario ${body.username} no se ha podido actualizar.`, {...toastOptions});
-		toast.error(msg, {...toastOptions});
+		toast.error(`El usuario ${body.username} no se ha podido actualizar.`, toastOptions);
+		toast.error(msg, toastOptions);
 		dispatch({ type: ROLES_ERROR });
 	}
 };
@@ -119,13 +119,13 @@ export const deleteRolAction = (options) => async (dispatch, getState) => {
 		const res = await axios.delete(api);
 		let newList = getState().roles.list.filter((e)=> e.id !== id);
 
-		toast.warning(`El rol con ID: ${id} ha sido eliminado.`, {...toastOptions});
+		toast.warning(`El rol con ID: ${id} ha sido eliminado.`, toastOptions);
 		dispatch({ type: ROL_DELETE, payload: newList });
 	} catch (error) {
 		// console.log(error);
 		let msg = error.response.data;
-		toast.error(`No se ha podido eliminar el rol con ID: ${id}, porfavor vuelva intentarlo más tarde.`, {...toastOptions});
-		toast.error(msg, {...toastOptions});
+		toast.error(`No se ha podido eliminar el rol con ID: ${id}, porfavor vuelva intentarlo más tarde.`, toastOptions);
+		toast.error(msg, toastOptions);
 		dispatch({ type: ROLES_ERROR });
 	}
 };

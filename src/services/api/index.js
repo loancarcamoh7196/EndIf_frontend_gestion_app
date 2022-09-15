@@ -71,7 +71,7 @@ const endPoints = {
       
       empresaRut !=
       undefined
-        ? (url = `${api_url}:${puerto}/${version}/tiendas/?empresaRut=${empresaRut}`)
+        ? (url = `${api_url}:${puerto}/${version}/tiendas?empresaRut=${empresaRut}`)
         : (url = `${api_url}:${puerto}/${version}/tiendas`);
 
       return url;
@@ -117,7 +117,7 @@ const endPoints = {
       } else if( listaPrecioId != undefined ) {
         url = url + `?listaPrecioId=${listaPrecioId}`; 
       } else if (productoId != undefined){
-        url = url +`?productoID=${productoId}` ;
+        url = url +`?productoId=${productoId}` ;
       } 
 
       return url;

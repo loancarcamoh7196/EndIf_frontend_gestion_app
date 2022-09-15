@@ -23,11 +23,12 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
 
   const unidadesList = useSelector((store) => store.unidades.list); //? Valores para Select de Unidades
   const familiaDetalle = useSelector((store) => store.familiaDetalle.list); //? Valores para Select de Familia Detalle
+  const listado =  useSelector((store)=> store.listaPrecios.list); //?
 
   const [validation, setValidation] = useState({
-		nombre: true,
+    nombre: true,
     codigo: true
-	});
+  });
 
 	const validacion = (campo) => {
 		const _names = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
@@ -104,8 +105,6 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
     dispatch(getFamiliaDetalleAction());
     dispatch(getUnidadesAction());
   }, []);
-
-  console.log(familiaDetalle);
 
 	return (
   <Fragment>
@@ -291,7 +290,6 @@ export default function FormProduct({ formNewProducto = true, productoForm }) {
           {universal.btn.volver}
         </Link>
       </div>
-
     </form>
   </Fragment>
 	);

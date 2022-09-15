@@ -1,81 +1,81 @@
 /**
  ** Archivo Tienda Lista Precio Index
- *? url: /productos/:id/lista_precios
+ *? url: /lista_precios
  */
 import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 //* Texto
-import { universal, retailPrice } from '@utils/texts/modGestion';
+import { universal, retailPrice, price, priceList } from '@utils/texts/modGestion';
 //* Redux
-import { getListasAction } from '@redux/tiendaListaPrecioDuck';
+import { getListaPreciosAction } from '@redux/listaPreciosDuck';
+import { getTiendasAction } from '@redux/tiendasDuck';
+
 //* Componentes
 import Layout from '@layouts/Main';
 import Card from '@common/Card';
 import Canvas from '@common/OffCanvas';
 import Loader from '@common/Loader';
-import Table from '@components/tiendaListaPrecio/Table';
+import Table from '@components/listaPrecio/Table';
 
 import New from '@pages/listaPrecios/new';
 import Edit from '@pages/listaPrecios/edit';
 
 const link = [
   { nombre: 'Dashboard', url: '/dashboard' },
-  { nombre: 'Lista Precio', url: '/lista_precio' },
-  { nombre:'Lista de Precio x Tienda', url: '/tienda_lista' }
+  { nombre: 'Lista Precio', url: '/lista_precio' }
 ];
-
+  
 const Index = () => {
   const dispatch = useDispatch();
-  let tiendaLista = useSelector((store) => store.tiendaLista.list);
-  const loading = useSelector((store) => store.tiendaLista.loading);
+  let listaPrecio = useSelector((store) => store.listaPrecios.list);
+  const loading = useSelector((store) => store.listaPrecios.loading);
 
-  useEffect(() => { dispatch(getListasAction()) }, []);
+  useEffect(() => { 
+    dispatch(getListaPreciosAction());
+    dispatch(getTiendasAction());
+  }, []);
   
-    //* Declaración State
+  //* Declaración State
   const [formShow, setFormShow] = useState({ 
     edit: false,
     new: false,
   });
 
   return (
-    <Layout title={retailPrice.title.index} links={link} haveLink={true}>
-      <Card style='card-default' > 
-        <div className='col-11'>
-
+  <Layout title={priceList.title.index} links={link} haveLink={true}>
+    <Card style='card-default' > 
+      <div className='col-3 mb-3 '>
+        <button 
+          type='button'
+          onClick={()=>setFormShow({ edit: false, new: true })}
+          className='btn btn-sm btn-block btn-outline-success mb-2'
+          data-bs-toggle='offcanvas'
+          data-bs-target='#offcanvasRight'
+          aria-controls='offcanvasRight'
+        >
+          <i className='fa-solid fa-plus' />{universal.btn.new}
+        </button>
+      </div>
+      <div className='row'>
+        <div className='col-12 col-md-12 col-xl-12'>
+          { loading ? <Loader /> : <Table data={listaPrecio} setFormShow={setFormShow} formShow={formShow} /> }
         </div>
-        <div className='col-1 mb-3 '>
-            <button 
-              type='button'
-              onClick={()=>setFormShow({ edit: false, new: true })}
-              className='btn btn-sm btn-block btn-outline-success mb-2'
-              data-bs-toggle='offcanvas'
-              data-bs-target='#offcanvasRight'
-              aria-controls='offcanvasRight'
-            >
-              <i className='fa-solid fa-plus' />{universal.btn.new}
-            </button>
-        </div>
-        <div className='row'>
-          <div className='col-12 col-md-12 col-xl-12'>
-          {
-            loading ? <Loader /> : <Table data={tiendaLista} />
+      </div>  
+    </Card>
 
-          }
-            
-          </div>
-        </div>  
-      </Card>
-
-      <Canvas>
-        { formShow.new ?
-          <New />
-          : (formShow.edit) ?
-            <Edit  />
-            : <h1> No hay acciones disponibles </h1>
-        }
-      </Canvas>
-    </Layout>
+    <Canvas
+      key='Lista'
+      title={(formShow.new && priceList.title.new )||(formShow.edit && priceList.title.edit)}
+    >
+      { formShow.new ?
+        <New />
+        : (formShow.edit) ?
+          <Edit  />
+          : <h1> No hay acciones disponibles </h1>
+      }
+    </Canvas>
+  </Layout>
   )
 }
 

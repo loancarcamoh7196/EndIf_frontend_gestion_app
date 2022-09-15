@@ -1,14 +1,15 @@
 /**
  ** Componente Precios Table
- *? alojado en: /precios 
+ *? alojado en: /productos/:id/precios 
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
-import { deleteRolAction } from '@redux/rolesDuck';
+import { deletePrecioAction } from '@redux/preciosDuck';
+import { showFormAction } from '../../redux/preciosDuck';
 
-const RolesTable = ({data}) => {
+const PreciosTable = ({data, setFormShow}) => {
   const dispatch = useDispatch();
   let content = []; //? Contenedor de cuerpo de la tabla
   //* Opciones de la DataTable
@@ -32,36 +33,44 @@ const RolesTable = ({data}) => {
 
   //* Encabezados
   const titulos = [
-    'ID', 'Neto', 'IVA', 'Precio Público', 'Es Exento', 'Es Mayorista', 'Producto', 'Lista','Acciones'
+    'ID', 'Neto', 'IVA', 'Precio Público', 'Es Exento?', 'Es Mayorista?', 'Lista','Acciones'
   ];
   
   //* Generar columnas de Tabla
   data.map((row) => content.push(
     <tr key={row.id} id={`fil-${row.id}`}>
       <td>{row.id} </td>
-      <td>{row.nombre}</td>
+      <td>{row.neto}</td>
+      <td>{row.iva}</td>
+      <td>{row.precioPublico}</td>
       <td>
-        {row.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
+        {row.esExento ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
       </td>
       <td>
-        {row.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+        {row.esMayorista ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
       </td>
       <td>
-        {row.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-      </td>
-      <td>
-        {row.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-      </td>
-      <td>
-        {row.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
+        {row.listaPrecio.lista}
       </td>
       <td> 
-        <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
+        <button
+          className='btn btn-xs btn-outline-warning m-1'
+          data-bs-toggle='offcanvas'
+          data-bs-target='#offcanvasRight'
+          aria-controls='offcanvasRight'
+          onClick={()=>{
+            setFormShow({ edit: true, new: false });
+            dispatch(showFormAction({ id: row.id }));
+          }}
+        >
           <i className='fa-solid fa-file-pen' />
-        </Link>
-        <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-          dispatch(deleteRolAction({ id: row.id }));
-        }}>
+        </button>
+        <button
+          className='btn btn-xs btn-outline-danger m-1'
+          onClick={()=>{
+            dispatch(deletePrecioAction({ id: row.id }));
+          }}
+        >
           <i className='fa-solid fa-trash-can' /> 
         </button>
       </td>
@@ -70,11 +79,11 @@ const RolesTable = ({data}) => {
 
   return (
     <DataTable
-      key='tab_usuarios'
+      key='tab_precios'
       encabezado={titulos}
       data={content}
       opciones={options}
     />);
 }
 
-export default RolesTable;
+export default PreciosTable;

@@ -1,21 +1,21 @@
 /**
  ** Archivo Tienda Lista Precio Index
- *? url: /productos/:id/lista_precios
+ *? url: /listaPrecio/:id/lista_precios
  */
 import { Fragment, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 //* Texto
-import { universal, retailPrice } from '@utils/texts/modGestion';
+import { universal, shopPriceList } from '@utils/texts/modGestion';
 //* Redux
-import { getListasAction } from '@redux/tiendaListaPrecioDuck';
+import { getTiendaListasAction } from '@redux/tiendaListaPrecioDuck';
 //* Componentes
 import Layout from '@layouts/Main';
 import Card from '@common/Card';
 import Canvas from '@common/OffCanvas';
 import Loader from '@common/Loader';
 import Table from '@components/tiendaListaPrecio/Table';
-
+//* Paginas para 
 import New from '@pages/tiendaListaPrecio/new';
 import Edit from '@pages/tiendaListaPrecio/edit';
 
@@ -27,56 +27,77 @@ const link = [
 
 const Index = () => {
   const dispatch = useDispatch();
-  let tiendaLista = useSelector((store) => store.tiendaLista.list);
-  const loading = useSelector((store) => store.tiendaLista.loading);
+  const params = useParams();
+  const { id } = params; //? Extraes ID de URL
 
-  useEffect(() => { dispatch(getListasAction()) }, []);
+  let tiendaLista = useSelector((store) => store.tiendaListas.list);
+  const loading = useSelector((store) => store.tiendaListas.loading);
+  let listasPrecio = useSelector((store) => store.listaPrecios.list);
+  // console.log(listasPrecio);
+  //? Lista de Precio
+  let listaSelected = listasPrecio.find( e => e.id == id);
+  // console.log(listaSelected)
+
+  //?  
+  useEffect(() => { dispatch(getTiendaListasAction({listaPrecioId: id})) }, []);
   
-    //* Declaración State
-  const [formShow, setFormShow] = useState({ 
-    edit: false,
-    new: false,
-  });
+  //* Declaración State
+  const [formShow, setFormShow] = useState({ edit: false, new: false });
 
   return (
-    <Layout title={retailPrice.title.index} links={link} haveLink={true}>
-      <Card style='card-default' > 
-        <div className='col-11'>
-
-        </div>
-        <div className='col-1 mb-3 '>
-            <button 
-              type='button'
-              onClick={()=>setFormShow({ edit: false, new: true })}
-              className='btn btn-sm btn-block btn-outline-success mb-2'
-              data-bs-toggle='offcanvas'
-              data-bs-target='#offcanvasRight'
-              aria-controls='offcanvasRight'
-            >
-              <i className='fa-solid fa-plus' />{universal.btn.new}
-            </button>
-        </div>
-        <div className='row'>
-          <div className='col-12 col-md-12 col-xl-12'>
-          {
-            loading ? <Loader /> : <Table data={tiendaLista} />
-
-          }
-            
+  <Layout title={shopPriceList.title.index} links={link} haveLink={true}>
+    <Card style='card-default' > 
+      <div className='row'>
+        <div className='col-8'>
+          <div className='form-group'>
+            <label className='form-label'>ID</label>
+            <label className='form-input'>{listaSelected.id}</label>
           </div>
-        </div>  
-      </Card>
+          <div className=''>
+            <label>Nombre</label>
+            <label>{listaSelected.lista}</label>
+          </div>
+        </div>
+        <div className='col-4 mb-3 '>
+          <button 
+            type='button'
+            onClick={()=>setFormShow({ edit: false, new: true })}
+            className='btn btn-sm btn-block btn-outline-success mb-2'
+            data-bs-toggle='offcanvas'
+            data-bs-target='#offcanvasRight'
+            aria-controls='offcanvasRight'
+          >
+            <i className='fa-solid fa-plus' />{universal.btn.new}
+          </button>
 
-      <Canvas>
-        { formShow.new ?
-          <New />
-          : (formShow.edit) ?
-            <Edit  />
-            : <h1> No hay acciones disponibles </h1>
-        }
-      </Canvas>
-    </Layout>
+          <Link
+            to='/lista_precio'
+            className='btn btn-sm btn-outline-danger btn-block' 
+          >
+            {universal.btn.volver}
+          </Link>
+        </div>
+      </div>
+      <div className='row'>
+        <div className='col-12 col-md-12 col-xl-12'>
+        { loading ? <Loader /> : <Table data={tiendaLista} setFormShow={setFormShow} formShow={formShow} /> }
+        </div>
+      </div>  
+    </Card>
+
+    <Canvas
+      key='TiendaListaPrecio'
+      title={(formShow.new && shopPriceList.title.new) || (formShow.edit && shopPriceList.title.edit)}
+    >
+      { formShow.new ?
+        <New listaId={id} />
+        : (formShow.edit) ?
+          <Edit listaId={id} />
+          : <h1> No hay acciones disponibles </h1>
+      }
+    </Canvas>
+  </Layout>
   )
 }
 
-export default Index;
+export default Index; 

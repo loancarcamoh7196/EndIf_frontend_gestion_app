@@ -1,20 +1,18 @@
 /**
  * * Componente Nueva - Lista Precio 
- * ? Pagina : /productos/:id/lista_precio
+ * ? Pagina : /lista_precios/:id/tienda
  */
-import { Fragment } from 'react';
-
-import Form from '@components/listaPrecio/Form';
+import Form from '@components/tiendaListaPrecio/Form';
 
 
-export default function NewRoles() {
-  const rolForm = {
+export default function NewTiendaLista({listaId}) {
+  const tiendaListaForm = {
 		id: 0,
-		lista: '',
-		empresaRut: '',
+		tiendaId: 0,
+		listaPrecioId: listaId
   };
 
-  return (<Form rolForm={rolForm} />);
+  return <Form tiendaListaForm={tiendaListaForm} />;
 }
 
 

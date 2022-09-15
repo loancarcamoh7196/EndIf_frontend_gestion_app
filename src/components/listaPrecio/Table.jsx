@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
 import { deleteListaPrecioAction, showFormAction } from '@redux/listaPreciosDuck';
+//? Componetes
+import Modal from '@common/Modal';
 
 const ListaPrecioTable = ({ data, setFormShow }) => {
   const dispatch = useDispatch();
@@ -57,8 +59,7 @@ const ListaPrecioTable = ({ data, setFormShow }) => {
           to={`/lista_precio/${row.id}/tienda`}
           className='btn btn-xs btn-outline-info m-1'
         >
-          <i className='fas fa-solid fa-money-check-dolar' />
-          <i class="fas fa-solid fa-money-check-dollar"></i>
+          <i className='fas fa-solid fa-money-check-dollar'></i>
         </Link>
         &nbsp;
         <button
@@ -69,7 +70,6 @@ const ListaPrecioTable = ({ data, setFormShow }) => {
         >
           <i className='fa-solid fa-trash-can' /> 
         </button>
-
       </td>
     </tr>
   ));

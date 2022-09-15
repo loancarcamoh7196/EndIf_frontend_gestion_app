@@ -98,11 +98,10 @@ export const updateProductoAction = (options) => async (dispatch, getState) => {
 
 	try {
 		const api = endPoints.productos.update(id); //? URL API
-
 		body.empresaRut = getState().auth.empresaSession;
-		console.log(body);
+		// console.log(body);
 		const res = await axios.patch(api, body);
-		console.log(res.data);
+		// console.log(res.data);
 		let newList = getState().productos.list.map(e => e.id == id ? res.data : e);
 
 		toast.success(`El producto con ID: ${id} ha sido modificado existosamente`, toastOptions);

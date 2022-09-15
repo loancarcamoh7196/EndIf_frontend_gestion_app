@@ -87,7 +87,7 @@ export const loginUserAction = (options) => async (dispatch, getState) => {
 		// console.log(error);
 		// let msg = error.data.body;
 		toast.error(auth.txt.loginError, toastOptions);
-		// toast.error(msg, {...toastOptions});
+		// toast.error(msg, toastOptions);
 		dispatch({ type: USER_ERROR });
 	}
 };
