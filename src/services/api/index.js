@@ -86,14 +86,8 @@ const endPoints = {
       const { empresaRut, nombre, codigoInterno } = options;
       let url = `${api_url}:${puerto}/${version}/productos/`;
 
-      if(empresaRut != undefined && nombre !=  undefined && codigoInterno != undefined) {
-        url = url + `?empresaRut=${empresaRut}&nombre=${nombre}&codigoInterno=${codigoInterno}`
-      } else if(empresaRut != undefined && nombre !=  undefined) {
-        url = url + `?empresaRut=${empresaRut}&nombre=${nombre}`; 
-      } else if (empresaRut != undefined && codigoInterno != undefined){
-        url = url +`?empresaRut=${empresaRut}&codigoInterno=${codigoInterno}` ;
-      } else if (empresaRut != undefined ){
-        url = url +`?empresaRut=${empresaRut}` ;
+      if(codigoInterno != undefined && nombre !=  undefined) {
+        url = url + `?codigoInterno=${codigoInterno}&nombre=${nombre}`; 
       } else if (nombre != undefined) {
         url = url + `?nombre=${nombre}`
       } else if (codigoInterno != undefined) {
@@ -128,7 +122,17 @@ const endPoints = {
     delete: (id) => `${api_url}:${puerto}/${version}/precios/${id}/`,
   },  
   barras: {
-    list: () => `${api_url}:${puerto}/${version}/barras` ,
+    list: (options) => {
+      const { productoId } = options;
+
+      let url = `${api_url}:${puerto}/${version}/barras/`;
+
+      if (productoId != undefined) {
+        url = url + `?productoId=${productoId}`;
+      }
+
+      return url;
+    },
     get: (id) => `${api_url}:${puerto}/${version}/barras/${id}`,
     add: () => `${api_url}:${puerto}/${version}/barras`,
     update: (id) => `${api_url}:${puerto}/${version}/barras/${id}/`,
@@ -249,7 +253,7 @@ const endPoints = {
       }else if (listaPrecioId != undefined) {
         url = url + `?listaPrecioId=${listaPrecioId}`;
       }
-
+      console.log(url);
       return url;
     },
     get: (id) => `${api_url}:${puerto}/${version}/tienda_lista/${id}`,

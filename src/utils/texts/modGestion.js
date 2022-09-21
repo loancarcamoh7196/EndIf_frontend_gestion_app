@@ -60,6 +60,7 @@ const shopPriceList ={
     edit: 'Editar relación'
   },
   lbl: {
+    id: 'ID',
     lista: 'Lista',
     tienda: 'Tiendas'
   },
@@ -69,7 +70,9 @@ const shopPriceList ={
   },
   txt: {},
   plhld: {},
-  slct: {},
+  slct: {
+    tienda: 'Selecciona Tienda'
+  },
   lnk: {}
 };
 
@@ -196,17 +199,26 @@ const tax = {
 };
 
 const barcode = {
-  title: {},
+  title: {
+    index: 'Códigos de Barras',
+    new: 'Nuevo Código',
+    edit: 'Editar Código'
+  },
   lbl: {
     id: 'ID',
     codigo: 'Codigo',
     producto: 'Producto',
     unidad: 'Unidad'
   },
-  btn: {},
+  btn: {
+    agregar: 'Agregar',
+    editar: 'Editar'
+  },
   txt: {},
   plhld: {},
-  slct: {},
+  slct: {
+    unidad: 'Seleccione Unidad'
+  },
   lnk: {},
 };
 
@@ -483,5 +495,6 @@ module.exports = {
   productSale,
   paymentMethod,
   retailPrice,
-  shopPriceList
+  shopPriceList,
+  barcode
 };

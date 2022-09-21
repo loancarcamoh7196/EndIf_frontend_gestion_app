@@ -1,17 +1,16 @@
 /**
- ** Componente Tienda Lista Precio Table
- *? alojado en: /lista_precio/:id/tienda 
+ ** Componente Precios Table
+ *? alojado en: /productos/:id/precios 
  */
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
 import { deleteTiendaListaAction } from '@redux/tiendaListaPrecioDuck';
 import { showFormAction } from '../../redux/tiendaListaPrecioDuck';
 
-
-const tiendaListaPrecioTable = ({ data, setFormShow }) => {
-  const dispatch = useDispatch;
+const TiendaListaTable = ({data, setFormShow}) => {
+  const dispatch = useDispatch();
   let content = []; //? Contenedor de cuerpo de la tabla
   //* Opciones de la DataTable
   const options = {
@@ -33,20 +32,18 @@ const tiendaListaPrecioTable = ({ data, setFormShow }) => {
   }; 
 
   //* Encabezados
-  const titulos = [ 'ID', 'Relacionada', 'Acciones' ];
+  const titulos = [
+    'ID', 'Tienda', 'Lista', 'Acciones'
+  ];
   
   //* Generar columnas de Tabla
   data.map((row) => content.push(
     <tr key={row.id} id={`fil-${row.id}`}>
-      <td>{row.id}</td>
-      <td>
-        {row.tienda.nombre}
-        <i className='fa-solid fa-arrows-left-right'></i>
-        {row.listaPrecio.lista}
-      </td>
-      <td>
+      <td>{row.id} </td>
+      <td>{row.tienda.nombre}</td>
+      <td>{row.listaPrecio.lista}</td>
+      <td> 
         <button
-          type='button'
           className='btn btn-xs btn-outline-warning m-1'
           data-bs-toggle='offcanvas'
           data-bs-target='#offcanvasRight'
@@ -56,12 +53,13 @@ const tiendaListaPrecioTable = ({ data, setFormShow }) => {
             dispatch(showFormAction({ id: row.id }));
           }}
         >
-          <i className='fa-solid fa-file-pen m-1' />
+          <i className='fa-solid fa-file-pen' />
         </button>
-        &nbsp;
         <button
-          className='btn btn-xs btn-outline-danger m-1' 
-          onClick={dispatch(deleteTiendaListaAction({ id: row.id })) }
+          className='btn btn-xs btn-outline-danger m-1'
+          onClick={()=>{
+            dispatch(deleteTiendaListaAction({ id: row.id }));
+          }}
         >
           <i className='fa-solid fa-trash-can' /> 
         </button>
@@ -69,14 +67,13 @@ const tiendaListaPrecioTable = ({ data, setFormShow }) => {
     </tr>
   ));
 
-
   return (
     <DataTable
-      key='tab_tiendasLista'
+      key='tab_precios'
       encabezado={titulos}
       data={content}
       opciones={options}
     />);
 }
 
-export default tiendaListaPrecioTable;
+export default TiendaListaTable;

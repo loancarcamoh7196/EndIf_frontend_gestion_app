@@ -47,12 +47,13 @@ import CajaNew from '@pages/cajas/new';
 import CajaEdit from '@pages/cajas/edit';
 //? Mantenedor Lista Precio
 import ListaPrecioIndex from '@pages/listaPrecios/index';
-// import moduleName from '@pages/tiendaListaPrecio';
 //? Mantenedor Venta
 import VentaIndex from '@pages/ventas/index';
 import VentaNew from '@pages/ventas/new';
 //? Mantenedor Tienda Lista Precio
-import  TiendaListaPrecioIndex  from '@pages/tiendaListaPrecio/index';
+import TiendaListaPrecioIndex  from '@pages/tiendaListas/index';
+//? Mantenedor Barra
+import BarraIndex from '@pages/barras/index';
 
 const App = () => {
   return (
@@ -89,7 +90,8 @@ const App = () => {
         <Route exact path='/productos/:id/edit' element={<ProductoEdit />} />
         {/* Mod Precios */}
         <Route exact path='/productos/:id/precios' element={<PrecioIndex />} />
-
+        {/* Mod Barra */}
+        <Route exact path='/productos/:id/barras' element={<BarraIndex />} />
         {/* Mod Subfamilia */}
         <Route exact path='/subfamilias/:id' element={<SubFamiliaIndex />} />
         {/* Mod Unidad */}

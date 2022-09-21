@@ -4,7 +4,7 @@
  */
 import { useState, Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Link, useParams } from 'react-router-dom'
 //* Textos
 import { universal, priceList, shopPriceList } from '@utils/texts/modGestion';
 //* Componentes propios
@@ -15,8 +15,10 @@ import { getTiendasAction } from '@redux/tiendasDuck';
 
 
 export default function FormTiendaListaPrecio({ formNewLista = true, tiendaListaForm }) {
+  const params = useParams(); //? Acceso a params de la URL
 	const dispatch = useDispatch(); //? Disparador
 
+  const { id } = params; //? Extraer ID de URL
 	let tiendas = useSelector((store)=> store.tiendas.list); //? Valores para Select Tiendas
 
   // Almacenamiento de Datos formulario
@@ -34,7 +36,7 @@ export default function FormTiendaListaPrecio({ formNewLista = true, tiendaLista
 	 * @param {element} form campos formulario
 	 */
 	const putData = async (form) => { 
-		const listaTiendaId = form.id; //? Extraer ID de URL
+		const listaTiendaId = parseInt(form.id); //? Extraer ID de URL
     delete form.id;
 		try {
 			const options = { id: listaTiendaId, body: form };
@@ -51,6 +53,7 @@ export default function FormTiendaListaPrecio({ formNewLista = true, tiendaLista
 	const postData = async (form) => {
     try {	
       delete form.id;
+      form.listaPrecioId = id;
       dispatch(addTiendaListaAction({body: form}));
 		} catch (error) {
       console.log(error);
@@ -70,14 +73,12 @@ export default function FormTiendaListaPrecio({ formNewLista = true, tiendaLista
 		formNewLista ? postData(form) : putData(form);
 	};
 
-  // console.log(form);
-
 	return (
   <Fragment>
     <form id='formulario' onSubmit={handleSubmit} >
       { (!formNewLista) && 
       <div className='form-group'>
-        <label htmlFor='id'>{priceList.lbl.id}</label>
+        <label htmlFor='id'>{shopPriceList.lbl.id}</label>
         <input 
           type='number'
           className='form-control form-control-border'
@@ -89,7 +90,7 @@ export default function FormTiendaListaPrecio({ formNewLista = true, tiendaLista
       }
 
       <div className='form-group'>
-        <label htmlFor='tiendaId'>{priceList.lbl.tienda}</label>
+        <label htmlFor='tiendaId'>{shopPriceList.lbl.tienda}</label>
         <select
           name='tiendaId' 
           className='form-control select2 custom-select'
@@ -99,10 +100,13 @@ export default function FormTiendaListaPrecio({ formNewLista = true, tiendaLista
             disabled
             selected={ (!formNewLista) && 'selected' }
           >
-            {priceList.slct.tienda}
+            {shopPriceList.slct.tienda}
           </option>
           { (tiendas.length > 0) && 
-            tiendas.map((i) => <option value={i.id} selected={(i.id == form.tiendaId ) && 'selected'}> {i.nombre} </option>) 
+            tiendas.map((i) =>(
+              <option value={i.id} selected={(i.id == form.tiendaId ) && 'selected'}>
+                {i.nombre} 
+              </option>)) 
           }
         </select>
       </div>
@@ -114,9 +118,12 @@ export default function FormTiendaListaPrecio({ formNewLista = true, tiendaLista
         value={form.listaPrecioId}
       />
 
+      <br/> <br/> <br/> <br/> <br/> <br/> 
+      
       <input
         type='submit'
         className='btn btn-outline-success btn-block'
+        // data-bs-dismiss='offcanvas'
         value={formNewLista ? shopPriceList.btn.agregar : shopPriceList.btn.editar}
       />
     </form>

@@ -1,14 +1,14 @@
 /**
- ** Componente Roles Table
- *? alojado en: /roles 
+ ** Componente Códigos Table
+ *? alojado en: /productos/:id/codigo 
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
 //? Redux
-import { deleteRolAction } from '@redux/rolesDuck';
+import { deleteBarraAction, showFormAction } from '@redux/barrasDuck';
 
-const RolesTable = ({data}) => {
+const BarraTable = ({data, setFormShow}) => {
   const dispatch = useDispatch();
   let content = []; //? Contenedor de cuerpo de la tabla
   //* Opciones de la DataTable
@@ -31,52 +31,47 @@ const RolesTable = ({data}) => {
   }; 
 
   //* Encabezados
-  const titulos = [
-    'ID', 'Nombre', 'Acceso Gestión', 'Acceso Puntos de Venta', 'Acceso Contabilidad', 'Acceso Inventario', 'Acceso Inventario Movil','Acciones'
-  ];
+  const titulos = [ 'ID', 'Código', 'Unidad', 'Acciones' ];
   
   //* Generar columnas de Tabla
-  if (data.length >0) {
-    data.map((row) => content.push(
-      <tr key={row.id} id={`fil-${row.id}`}>
-        <td>{row.id} </td>
-        <td>{row.nombre}</td>
-        <td>
-          {row.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
-        </td>
-        <td>
-          {row.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td> 
-          <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
-            <i className='fa-solid fa-file-pen' />
-          </Link>
-          <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-            dispatch(deleteRolAction({ id: row.id }));
-          }}>
-            <i className='fa-solid fa-trash-can' /> 
-          </button>
-        </td>
-      </tr>
-    ));
-  } else content.push(<tr>Sin datos</tr>);
+  data.map((row) => content.push(
+    <tr key={row.id} id={`fil-${row.id}`}>
+      <td>{row.id} </td>
+      <td>{row.codigo}</td>
+      <td>{row.unidad.plural}</td>
+      <td> 
+        <button
+          className='btn btn-xs btn-outline-warning m-1'
+          title='Editar Código de Barras'
+          data-bs-toggle='offcanvas'
+          data-bs-target='#offcanvasRight'
+          aria-controls='offcanvasRight'
+          onClick={()=>{
+            setFormShow({ edit: true, new: false });
+            dispatch(showFormAction({ id: row.id }));
+          }}
+        >
+          <i className='fa-solid fa-file-pen' />
+        </button>
+        <button
+          className='btn btn-xs btn-outline-danger'
+          title='Eliminar Código de Barras'
+          onClick={()=>{ dispatch(deleteBarraAction({ id: row.id })) }}
+        >
+          <i className='fa-solid fa-trash-can' /> 
+        </button>
+      </td>
+    </tr>
+  ));
 
   return (
     <DataTable
-      key='tab_usuarios'
+      key='tab_barras'
       encabezado={titulos}
       data={content}
       opciones={options}
-    />);
+    />
+  );
 }
 
-export default RolesTable;
+export default BarraTable;

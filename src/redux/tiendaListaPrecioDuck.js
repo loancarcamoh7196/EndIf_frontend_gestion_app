@@ -34,7 +34,7 @@ export default function tiendaListasReducer(state = dataInicial, action) {
     case LISTA_ADD:
       return { ...state, list: action.payload.list, loading: action.payload.loading };
 		case LISTA_UPDATE:
-			return { ...state, list: action.payload.list, loading: action.payload.loading };
+			return { ...state, list: action.payload.list };
 		case LISTA_DELETE:
 			return { ...state, list: action.payload.list, loading: action.payload.loading };
 		case LISTA_LOADING:
@@ -112,7 +112,14 @@ export const updateTiendaListaAction = (options) => async (dispatch, getState) =
 		// console.log(res.data);
 		let newList = getState().tiendaListas.list.map(e => e.id == id ? res.data : e);
 		toast.success(`Relación Tienda <-> Lista Precio con Id ${id} fue modificada exitosamente`, toastOptions);
-		dispatch({  type: LISTA_UPDATE, payload: { list: newList, loading: false } });
+		dispatch({
+			type: LISTA_UPDATE, 
+			payload: {
+				list: newList,
+				// loading: false
+			} 
+		});
+		dispatch({ type: LISTA_LOADING, payload: false });
 	} catch (error) {
 		dispatch({ type: LISTA_LOADING, payload: false });
 		// console.log(error);
@@ -135,6 +142,7 @@ export const deleteTiendaListaAction = (options) => async (dispatch, getState) =
 
 		toast.warning(`La relación Tienda <-> Lista, con ID: ${id} ha sido eliminado.`, toastOptions);
 		dispatch({ type: LISTA_DELETE, payload: { list: newList, loading: false } });
+		
 	} catch (error) {
 		dispatch({ type: LISTA_LOADING, payload: false });
 		// console.log(error);

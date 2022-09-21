@@ -12,7 +12,7 @@ import { toastOptions } from '../utils/texts/general';
 const dataInicial = {
 	list: [],
 	loading: false,
-	form:0,
+	form: 0,
 };
 
 //* Types
@@ -36,7 +36,7 @@ export default function preciosReducer(state = dataInicial, action) {
 		case PRECIO_UPDATE:
 			return { ...state, list: action.payload.list, loading: action.payload.loading };
 		case PRECIO_DELETE:
-			return { ...state, list: 	action.payload };
+			return { ...state, list: action.payload };
 		case PRECIO_LOADING:
 			return { ...state, loading: action.payload };
 		case PRECIO_SHOW:
@@ -114,9 +114,9 @@ export const updatePrecioAction = (options) => async (dispatch, getState) => {
 	} catch (error) {
 		dispatch({ type: PRECIO_LOADING, payload: false });
 		// console.log(error);
-		let msg = error.response.data;
+		// let msg = error.response.data;
 		toast.error(`El precio ${body.username} no se ha podido actualizar.`, toastOptions);
-		toast.error(msg, toastOptions);
+		// toast.error(msg, toastOptions);
 		dispatch({ type: PRECIOS_ERROR });
 	}
 };

@@ -62,6 +62,7 @@ const ProductoTable = ({data}) => {
         <Link
           to={`/productos/${row.id}/edit`}
           className='btn btn-xs btn-outline-warning m-1'
+          title='Editar Producto'
         >
           <i className='fa-solid fa-file-pen' />
         </Link>
@@ -69,6 +70,7 @@ const ProductoTable = ({data}) => {
         <Link
           to={`/productos/${row.id}/precios`}
           className='btn btn-xs btn-outline-info m-1'
+          title='Ver Precios relaciondos'
         >
           <i className='fa-solid fa-money-check-dollar' />
         </Link>
@@ -76,12 +78,19 @@ const ProductoTable = ({data}) => {
         <button
           type='button'
           className='btn btn-xs btn-outline-danger m-1'
-          onClick={()=>{
-            dispatch(deleteProductoAction({ id: row.id }))
-          }}
+          onClick={()=>{ dispatch(deleteProductoAction({ id: row.id })) }}
+          title='Eliminar Producto'
         >
           <i className='fa-solid fa-trash-can' /> 
         </button>
+          
+        <Link
+          to={`/productos/${row.id}/barras`}
+          className='btn btn-xs btn-outline-dark m-1'
+          title='Ver códigos de barras relaciondas'
+        >
+          <i className='fa-solid fa-barcode'></i>
+        </Link>
       </td>
     </tr>
   ));

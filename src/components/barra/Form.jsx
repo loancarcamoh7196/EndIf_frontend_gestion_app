@@ -1,58 +1,48 @@
 /**
- * * Formulario de Roles
+ * * Formulario de Barra
  * ? Para agregar y editar
  */
-import React, { useState, Fragment, useEffect, useRef } from 'react';
+import { useState, Fragment, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import Switch from 'react-switch';
-import { role } from '../../utils/texts/modAdmin';
-import { universal, toastOptions } from '../../utils/texts/general';
+//* Texto
+import { barcode, universal } from '@utils/texts/modGestion';
 //* Componentes propios
 import Card from '@common/Card';
 //* Redux ~ Duck necesarios
-import { addRolAction, updateRolAction } from '@redux/rolesDuck';
+import { addBarraAction, updateBarraAction} from '@redux/barrasDuck';
 
 
 
-export default function FormRol({ formNewRol = true, rolForm }) {
-	const params = useParams(); // Acceso a params de la URL
-	const dispatch = useDispatch(); //Disparador
-	const navigate = useNavigate(); // Navegador de Pagina
+export default function FormBarra({ formNewBarra = true, barraForm }) {
+	const params = useParams(); //? Acceso a params de la URL
+	const dispatch = useDispatch(); //? Disparador
 
-	// Manejo de Checkbox
-	const [isCheckActiva, setIsCheckActiva] = useState(true);
-	const [changePass, setChangePass] = useState(false);
+  const unidades = useSelector((store)=> store.unidades.list);
 
-  const empresas = useSelector((store)=> store.empresas.list); //Valores para Select de Empresas
-	let roles = useSelector((store)=> store.roles.list); // Valores para Select Roles
 
   // ejecucion de metodo al renderizar pagina
-  // useEffect(() => { }, []);
+  useEffect(() => {  }, []);
 
   const [validation, setValidation] = useState({
-		nombre: true
+		codigo: true
 	});
 
 	const validacion = (campo) => {
 		const _names = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/gm;
 		// console.log(campo)
 
-		if (campo.nombre === 'nombre') {
-			(campo.valor.length >=4 && campo.valor.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, nombre: true}) : setValidation({...validation, nombre: false});
+		if (campo.nombre === 'codigo') {
+			(campo.nombre.length >=4 && campo.nombre.length <=30 && _names.test(campo.valor)) ? setValidation({...validation, codigo: true}) : setValidation({...validation, codigo: false});
 		} else  return false;
 	}
 
 	// Almacenamiento de Datos formulario
 	const [form, setForm] = useState({
-    id: rolForm.id,
-		nombre: rolForm.nombre,
-		accesoGestion: rolForm.accesoGestion,
-		accesoPv: rolForm.accesoPv,
-    accesoContabilidad: rolForm.accesoContabilidad,
-		accesoInventario: rolForm.accesoInventario,  
-		accesoInventarioMovil: rolForm.accesoInventarioMovil
+    id: barraForm.id,
+		codigo: barraForm.codigo,
+		productoId: barraForm.productoId,
+		unidadId: barraForm.accesoPv
 	});
 	
 	/**
@@ -67,8 +57,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 			// console.log('Entro update');
 
 			const options = { id, body: form };
-			dispatch(updateRolAction(options));
-			navigate('/admin/roles');
+			dispatch(updateBarraAction(options));
 		} catch (error) {
 			console.log(error);
 			// setMessage('Falló la edición');
@@ -83,8 +72,7 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 	const postData = async (form) => {
     try {	
       delete form.id;
-      dispatch(addRolAction({body: form}));
-      navigate('/admin/roles');
+      dispatch(addBarraAction({body: form}));
 		} catch (error) {
 			// setMessage('Falló la edición');
       console.log(error);
@@ -102,113 +90,88 @@ export default function FormRol({ formNewRol = true, rolForm }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		formNewRol ? postData(form) : putData(form);
+		formNewBarra ? postData(form) : putData(form);
 	};
 
+  // console.log(barcode.btn.agregar);
+
 	return (
-    <Fragment>
+  <Fragment>
     <form id='formulario' onSubmit={handleSubmit} >
-      <Card style='card-default' haveTitle={false} title='prueba'> 
-        <div className='row'>
-          <div className='col-sm-7'>
-            { (!formNewRol) && 
-              <div className='form-group'>
-                <label htmlFor='id'>{role.lbl.id}</label>
-                <input 
-                  type='number'
-                  className='form-control form-control-border'
-                  name='id'
-                  value={form.id}
-                  disabled
-                />
-              </div>  
-            }
-            <div className='form-group'>
-              <label htmlFor='nombre'>{role.lbl.nombre}</label>
-              <input 
-                type='text'
-                className={`form-control form-control-border ${!validation.nombre && 'is-invalid'}`} 
-                id='nombre'
-                name='nombre'
-                placeholder={role.plhld.nombre}
-                onChange={handleChange}
-                value={form.nombre}
-                describedby='nombreError'
-                maxLength={30} 
-                required
-                onBlur={(e) => { validacion({nombre: 'nombre', valor: e.target.value}) }}
-              />
-              {!validation.nombre && <span className='text-danger'>{role.txt.valNombre}</span>}
-            </div>
-          </div>
-          <div className='col-sm-5'>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoGestion' 
-									id='accesoGestion' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoGestion}
-                />
-                <label htmlFor='accesoGestion'>{role.lbl.accesoGestion}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoPv' 
-									id='accesoPv' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoPv}
-                />
-                <label htmlFor='accesoPv'>{role.lbl.accesoPv}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoContabilidad' 
-									id='accesoContabilidad' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoContabilidad}
-                />
-                <label htmlFor='accesoContabilidad'>{role.lbl.accesoContabilidad}</label>
-              </div>
-            </div>
-            <div className='form-group'>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoInventario' 
-									id='accesoInventario' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoInventario}
-                />
-                <label htmlFor='accesoInventario'>{role.lbl.accesoInventario}</label>
-              </div>
-              <div className='icheck-pumpkin'>
-                <input 
-                  type='checkbox'
-                  name='accesoInventarioMovil' 
-									id='accesoInventarioMovil' 
-									onChange={handleChange} 
-									defaultChecked={form.accesoInventarioMovil}
-                />
-                <label htmlFor='accesoInventarioMovil'>{role.lbl.accesoInventarioMovil}</label>
-              </div>
-            </div>  
-          </div> 
-        
-          <div className='col-12 mt-5'>
-            <input type='submit' className='btn btn-outline-success btn-block' value={formNewRol ? role.btn.agregar : role.btn.editar} />
-            <Link to='/admin/roles' className='btn btn-outline-danger btn-block' >{universal.btn.volver}</Link>
-          </div>
-        </div>
-      </Card>
+      { (!formNewBarra) && 
+        <div className='form-group'>
+          <label htmlFor='id'>{barcode.lbl.id}</label>
+          <input 
+            type='number'
+            className='form-control form-control-border'
+            name='id'
+            value={form.id}
+            disabled
+          />
+        </div>  
+      }
+      <div className='form-group'>
+        <label htmlFor='codigo'>{barcode.lbl.codigo}</label>
+        <input 
+          type='text'
+          className={`form-control form-control-border ${!validation.codigo && 'is-invalid'}`} 
+          id='codigo'
+          name='codigo'
+          placeholder={barcode.plhld.codigo}
+          onChange={handleChange}
+          value={form.codigo}
+          describedby='nombreError'
+          maxLength={30} 
+          required
+          onBlur={(e) => { validacion({codigo: 'codigo', valor: e.target.value}) }}
+        />
+        {!validation.codigo && <span className='text-danger'>{barcode.txt.valNombre}</span>}
+      </div>
+
+      {/* <div className='form-group'>
+        <label htmlFor='productoId'>{barcode.lbl.productoId}</label>
+        <input 
+          type='text'
+          className={`form-control form-control-border ${!validation.productoId && 'is-invalid'}`} 
+          id='productoId'
+          name='productoId'
+          placeholder={barcode.plhld.productoId}
+          onChange={handleChange}
+          value={form.productoId}
+          describedby='nombreError'
+          maxLength={30} 
+          required
+          onBlur={(e) => { validacion({productoId: 'productoId', valor: e.target.value}) }}
+        />
+        {!validation.productoId && <span className='text-danger'>{barcode.txt.valNombre}</span>}
+      </div> */}
+
+      <div className='form-group'>
+        <label htmlFor='unidadId'>{barcode.lbl.unidad}</label>
+        <select
+            id='unidadId'
+            name='unidadId'
+            className='form-control select2'
+            onChange={handleChange} 
+            required
+          >
+            <option disabled selected={formNewBarra && 'selected'}>{barcode.slct.unidad}</option>
+            {(unidades.length > 0 ) && 
+              unidades.map((i)=> (
+                <option value={i.id} selected={i.id == form.unidadId && 'selected'}>
+                  {i.nombre} - {i.plural}
+                </option>
+              )
+            )}
+          </select>
+      </div>
+          
+      <input
+        type='submit'
+        className='btn btn-outline-success btn-block'
+        value={formNewBarra ? barcode.btn.agregar : barcode.btn.editar} 
+      />
     </form>
-    </Fragment>
+  </Fragment>
 	);
 }
