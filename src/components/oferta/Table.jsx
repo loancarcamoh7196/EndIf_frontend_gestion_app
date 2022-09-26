@@ -1,14 +1,16 @@
 /**
- ** Componente Roles Table
- *? alojado en: /roles 
+ ** Componente Oferta Table
+ *? alojado en: /ofertas
  */
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import DataTable from '@containers/DataTable';
+//?Texto
+import { offer } from '@utils/texts/modGestion';
 //? Redux
-import { deleteRolAction } from '@redux/rolesDuck';
+import { deleteOfertaAction, showFormAction } from '@redux/ofertasDuck';
 
-const RolesTable = ({data}) => {
+const OfertaTable = ({data, setFormShow}) => {
   const dispatch = useDispatch();
   let content = []; //? Contenedor de cuerpo de la tabla
   //* Opciones de la DataTable
@@ -31,52 +33,58 @@ const RolesTable = ({data}) => {
   }; 
 
   //* Encabezados
-  const titulos = [
-    'ID', 'Nombre', 'Acceso Gestión', 'Acceso Puntos de Venta', 'Acceso Contabilidad', 'Acceso Inventario', 'Acceso Inventario Movil','Acciones'
-  ];
+  const titulos = [ 'ID', 'Descripcion', 'Precio', 'Activa','Acciones' ];
   
   //* Generar columnas de Tabla
-  if (data.length >0) {
-    data.map((row) => content.push(
-      <tr key={row.id} id={`fil-${row.id}`}>
-        <td>{row.id} </td>
-        <td>{row.nombre}</td>
-        <td>
-          {row.accesoGestion ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
-        </td>
-        <td>
-          {row.accesoPv ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoContabilidad ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoInventario ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td>
-          {row.accesoInventarioMovil ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger'/>}
-        </td>
-        <td> 
-          <Link to={`/admin/roles/${row.id}/edit`} className='btn btn-xs btn-outline-warning btn-block'>
-            <i className='fa-solid fa-file-pen' />
-          </Link>
-          <button className='btn btn-xs btn-outline-danger btn-block' onClick={()=>{
-            dispatch(deleteRolAction({ id: row.id }));
-          }}>
-            <i className='fa-solid fa-trash-can' /> 
-          </button>
-        </td>
-      </tr>
-    ));
-  } else content.push(<tr>Sin datos</tr>);
+  data.map((row) => content.push(
+    <tr key={row.id} id={`fil-${row.id}`}>
+      <td>{row.id} </td>
+      <td>{row.descripcion}</td>
+      <td>{row.precio}</td>
+      <td>
+        {row.activa ? <i className='fa-solid fa-check text-success'/> : <i className='fa-solid fa-xmark text-danger' />}
+      </td>
+      <td> 
+        <button
+          className='btn btn-xs btn-outline-warning'
+          title={offer.txt.del}
+          data-bs-toggle='offcanvas'
+          data-bs-target='#offcanvasRight'
+          aria-controls='offcanvasRight'
+          onClick={()=>{
+            setFormShow({ edit: true, new: false });
+            dispatch(showFormAction({ id: row.id }));
+          }}
+        >
+          <i className='fa-solid fa-file-pen' />
+        </button>
+        <button 
+          className='btn btn-xs btn-outline-danger'
+          title={offer.txt.delete}
+          onClick={()=>{ dispatch(deleteOfertaAction({ id: row.id })) }}
+        >
+          <i className='fa-solid fa-trash-can' /> 
+        </button>
+
+        <Link
+          to={`/ofertas/${row.id}/detalle`}
+          className='btn btn-xs btn-outline-info'
+          title={offer.txt.list}
+        >
+          <i class="fa-light fa-memo-circle-info"></i>
+        </Link>
+      </td>
+    </tr>
+  ));
+
 
   return (
-    <DataTable
-      key='tab_usuarios'
-      encabezado={titulos}
-      data={content}
-      opciones={options}
-    />);
+  <DataTable
+    key='tab_oferta'
+    encabezado={titulos}
+    data={content}
+    opciones={options}
+  />);
 }
 
-export default RolesTable;
+export default OfertaTable;

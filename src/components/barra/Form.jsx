@@ -42,7 +42,7 @@ export default function FormBarra({ formNewBarra = true, barraForm }) {
     id: barraForm.id,
 		codigo: barraForm.codigo,
 		productoId: barraForm.productoId,
-		unidadId: barraForm.accesoPv
+		unidadId: barraForm.unidadId
 	});
 	
 	/**

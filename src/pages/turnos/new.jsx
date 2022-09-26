@@ -1,36 +1,19 @@
 /**
- ** Pagina : /admin/roles/new
+ * * Pagina  Turno [Agregar]
+ * ? url: /admin/turnos
  */
 import { Fragment } from 'react';
-import { role } from '../../utils/texts/modAdmin';
+//? Componentes
+import Form from '@components/turno/Form';
 
-import Layout from '@layouts/Main';
-import Form from '@components/roles/Form';
-
-
-const link = [
-  { nombre: 'Administración', url: '/admin' },
-  { nombre:'Roles', url: '/admin/roles' },
-	{ nombre:'Nueva', url: '/admin/roles/new' }
-];
-
-
-export default function NewRoles() {
-  const rolForm = {
+export default function NewTurno() {
+  const turnoForm = {
 		id: 0,
 		nombre: '',
-		accesoGestion: false,
-		accesoPv: false,
-		accesoContabilidad: false,
-		accesoInventario: false,
-		accesoInventarioMovil: false,
+		tiendaId: 0
   };
 
-  return (
-		<Layout title={role.title.new} links={link} haveLink={true}>
-			<Form rolForm={rolForm} />
-		</Layout>
-  );
+  return ( <Form turnoForm={turnoForm} /> );
 }
 
 

@@ -29,6 +29,7 @@ export default function EmpresaSelect() {
     <Fragment>
       <select 
         name='empresaSession'
+        title={universal.slct.company}
         className='custom-select empresa--select'
         onChange={handleSelect}
         required

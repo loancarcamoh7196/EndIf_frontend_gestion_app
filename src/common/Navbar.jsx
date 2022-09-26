@@ -1,7 +1,7 @@
 /**
  ** Componente Navbar
  */
-import React, { Fragment, useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { universal } from '../utils/texts/general';

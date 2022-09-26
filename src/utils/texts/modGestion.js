@@ -457,6 +457,53 @@ const log = {
 };
 
 const shift = {
+  title: {
+    index: 'Turnos',
+    new: 'Nuevo Turno',
+    edit: 'Editar Turno'
+  },
+  lbl: {
+    id: 'ID',
+    nombre: 'Nombre',
+    tiendaId: 'Tienda'
+  },
+  btn: {
+    new: 'Agregar',
+    edit: 'Editar'
+  },
+  txt: {
+    new: 'Nuevo Turno'
+  },
+  plhld: {},
+  slct: {
+    tienda: 'Seleccionar Tienda'
+  },
+  lnk: {},
+};
+
+const promo = {
+  title: {
+    index: 'Promociones',
+    new: 'Nueva Promoción',
+    edit: 'Editar Promoción'
+  },
+  lbl: {
+    id: 'ID',
+    descripcion: 'Descripción de la Promo',
+    precio: 'Precio',
+    activa: 'Esta Activa'
+  },
+  btn: {
+    agregar: 'Agregar',
+    editar: 'Editar'
+  },
+  txt: {},
+  plhld: {},
+  slct: {},
+  lnk: {},
+};
+
+const promoProduct ={
   title: {},
   lbl: {},
   btn: {},
@@ -464,8 +511,63 @@ const shift = {
   plhld: {},
   slct: {},
   lnk: {},
+}
+
+const offer = {
+  title: {
+    index: 'Ofertas',
+    new: 'Nueva Oferta',
+    edit: 'Editar Ofertas',
+  },
+  lbl: {
+    id: 'ID',
+    descripcion: 'Descripcion',
+    precio: 'Precio',
+    activa: 'Activa'
+  },
+  btn: {
+    new: 'Agregar',
+    edit: 'Editar'
+  },
+  txt: {
+    new: 'Nueva Oferta',
+    edit: 'Editar Oferta',
+    del: 'Eliminar Oferta'
+  },
+  plhld: {},
+  slct: {},
+  lnk: {
+
+  },
 };
 
+const offerProduct = {
+  title: {
+    index: 'Detalle de la Oferta',
+    new: 'Agregar Producto',
+    edit: 'Editar Producto',
+  },
+  lbl: {
+    id: 'ID',
+    descripcion: 'Descripcion',
+    precio: 'Precio',
+    activa: 'Activa'
+  },
+  btn: {
+    new: 'Agregar',
+    edit: 'Editar'
+  },
+  txt: {
+    new: 'Nueva Oferta',
+    edit: 'Editar Oferta',
+    del: 'Eliminar Oferta'
+  },
+  plhld: {},
+  slct: {},
+  lnk: {
+
+  },
+} 
 
 const toastOptions = {
   position: 'top-right',
@@ -496,5 +598,11 @@ module.exports = {
   paymentMethod,
   retailPrice,
   shopPriceList,
-  barcode
+  barcode,
+  promo,
+  promoProduct,
+  offer,
+  offerProduct,
+  shift,
+  log
 };

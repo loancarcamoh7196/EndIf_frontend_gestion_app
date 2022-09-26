@@ -57,6 +57,7 @@ const universal = {
   },
   slct: {
     empresa: 'Seleccione Empresa',
+    company: 'Seleccione Empresa que desea modificar'
   },
   lnk: {},
 };

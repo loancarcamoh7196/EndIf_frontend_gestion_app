@@ -188,10 +188,36 @@ const brand = {
   lnk: {}
 };
 
+const shift = {
+  title: {
+    index: 'Turnos',
+    new: 'Nuevo Turno',
+    edit: 'Editar Turno'
+  },
+  lbl: {
+    id: 'ID',
+    nombre: 'Nombre',
+    tiendaId: 'Tienda'
+  },
+  btn: {
+    new: 'Agregar',
+    edit: 'Editar'
+  },
+  txt: {
+    new: 'Nuevo Turno'
+  },
+  plhld: {},
+  slct: {
+    tienda: 'Seleccionar Tienda'
+  },
+  lnk: {},
+};
+
 module.exports = {
   company,
   user,
   role,
   unit,
-  brand
+  brand,
+  shift
 };

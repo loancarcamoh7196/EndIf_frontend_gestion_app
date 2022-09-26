@@ -260,6 +260,66 @@ const endPoints = {
     add: () => `${api_url}:${puerto}/${version}/tienda_lista`,
     update: (id) => `${api_url}:${puerto}/${version}/tienda_lista/${id}/`,
     delete: (id) => `${api_url}:${puerto}/${version}/tienda_lista/${id}`,
+  },
+  promociones: {
+    list: (options) => {
+      const { tiendaId, listaPrecioId } = options;
+      let url = `${api_url}:${puerto}/${version}/promociones/`;
+      
+      if (tiendaId != undefined && listaPrecioId != undefined) {
+        url = url + `?tiendaId=${tiendaId}&listaPrecioId=${listaPrecioId}`;
+      }else if (tiendaId != undefined ) {
+        url = url + `?tiendaId=${tiendaId}`;
+      }else if (listaPrecioId != undefined) {
+        url = url + `?listaPrecioId=${listaPrecioId}`;
+      }
+      console.log(url);
+      return url;
+    },
+    get: (id) => `${api_url}:${puerto}/${version}/promociones/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/promociones`,
+    update: (id) => `${api_url}:${puerto}/${version}/promociones/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/promociones/${id}`,  
+  },
+  ofertas:{
+    list: (options) => {
+      // const { tiendaId, listaPrecioId } = options;
+      let url = `${api_url}:${puerto}/${version}/ofertas/`;
+      
+      // if (tiendaId != undefined && listaPrecioId != undefined) {
+      //   url = url + `?tiendaId=${tiendaId}&listaPrecioId=${listaPrecioId}`;
+      // }else if (tiendaId != undefined ) {
+      //   url = url + `?tiendaId=${tiendaId}`;
+      // }else if (listaPrecioId != undefined) {
+      //   url = url + `?listaPrecioId=${listaPrecioId}`;
+      // }
+      // console.log(url);
+      return url;
+    },
+    get: (id) => `${api_url}:${puerto}/${version}/ofertas/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/ofertas`,
+    update: (id) => `${api_url}:${puerto}/${version}/ofertas/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/ofertas/${id}`,  
+  },
+  turnos:{
+    list: (options) => {
+      const { tiendaId, empresaRut } = options;
+      let url = `${api_url}:${puerto}/${version}/turnos/`;
+      
+      if (tiendaId != undefined && empresaRut != undefined) {
+        url = url + `?tiendaId=${tiendaId}&empresaRut=${empresaRut}`;
+      }else if (tiendaId != undefined ) {
+        url = url + `?tiendaId=${tiendaId}`;
+      }else if (empresaRut != undefined) {
+        url = url + `?empresaRut=${empresaRut}`;
+      }
+      // console.log(url);
+      return url;
+    },
+    get: (id) => `${api_url}:${puerto}/${version}/turnos/${id}`,
+    add: () => `${api_url}:${puerto}/${version}/turnos`,
+    update: (id) => `${api_url}:${puerto}/${version}/turnos/${id}/`,
+    delete: (id) => `${api_url}:${puerto}/${version}/turnos/${id}`,  
   }
 };
 

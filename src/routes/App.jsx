@@ -54,6 +54,13 @@ import VentaNew from '@pages/ventas/new';
 import TiendaListaPrecioIndex  from '@pages/tiendaListas/index';
 //? Mantenedor Barra
 import BarraIndex from '@pages/barras/index';
+//? Mantenedor Oferta
+import OfertaIndex from '@pages/ofertas/index';
+import OfertaDetail from '@pages/ofertaProductos';
+// ? Mantenedor Promociones
+import PromocionIndex from '@pages/promociones/index';
+//? Mantenedor Turnos
+import TurnoIndex from '@pages/turnos/index';
 
 const App = () => {
   return (
@@ -76,6 +83,8 @@ const App = () => {
         <Route exact path='/admin/roles/' element={<RolesIndex />} />
         <Route exact path='/admin/roles/new' element={<RolesNew />} />
         <Route exact path='/admin/roles/:id/edit' element={<RolesEdit />} />
+        {/* Submod Turno */}
+        <Route exact path='/admin/turnos' element={<TurnoIndex />} />
         {/* Mod Sucursales */}
         <Route exact path='/tiendas' element={<TiendaIndex />} />
         <Route exact path='/tiendas/new' element={<TiendaNew />} />
@@ -108,7 +117,11 @@ const App = () => {
         {/* Mod Ventas */}
         <Route exact path='/ventas' element={<VentaIndex />} />
         <Route exact path='/ventas/new' element={<VentaNew />} />
-
+        {/* Mod Oferta */}
+        <Route exact path='/ofertas' element={<OfertaIndex />} />
+        <Route exact path='/ofertas/:id/detalle' element={<OfertaDetail />} />
+        {/* Mod Promociones */}
+        <Route exact path='/promociones' element={<PromocionIndex />} />
 
         <Route exact path='login' element={<Login />}  />
         <Route path='*' element={<NotFound />} />

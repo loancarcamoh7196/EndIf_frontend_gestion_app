@@ -70,7 +70,7 @@ const ProductoTable = ({data}) => {
         <Link
           to={`/productos/${row.id}/precios`}
           className='btn btn-xs btn-outline-info m-1'
-          title='Ver Precios relaciondos'
+          title='Ver Precios relacionados'
         >
           <i className='fa-solid fa-money-check-dollar' />
         </Link>
@@ -87,7 +87,7 @@ const ProductoTable = ({data}) => {
         <Link
           to={`/productos/${row.id}/barras`}
           className='btn btn-xs btn-outline-dark m-1'
-          title='Ver códigos de barras relaciondas'
+          title='Ver códigos de barras relacionadas'
         >
           <i className='fa-solid fa-barcode'></i>
         </Link>

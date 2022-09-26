@@ -31,6 +31,10 @@ import documentoTipoReducer from '@redux/documentoTipoDuck';
 import tiendaListasReducer from '@redux/tiendaListaPrecioDuck';
 import preciosReducer from '@redux/preciosDuck';
 import barrasReducer from '@redux/barrasDuck';
+import ofertasReducer from '@redux/ofertasDuck';
+import ofertaProductoReducer from '@redux/ofertaProductoDuck';
+import promocionesReducer from '@redux/promocionesDuck';
+import turnosReducer from '@redux/turnosDuck';
 
 //* Declaración de Reducers
 const appReducer = combineReducers({
@@ -55,6 +59,10 @@ const appReducer = combineReducers({
 	tiendaListas: tiendaListasReducer,
 	precios: preciosReducer,
 	barras: barrasReducer,
+	ofertas: ofertasReducer,
+	ofertaProductos: ofertaProductoReducer,
+	promociones: promocionesReducer,
+	turnos: turnosReducer
 });
 
 //* Limpieza de Storage en caso de logout

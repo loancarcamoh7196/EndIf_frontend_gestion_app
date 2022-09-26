@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { NavLink, Link } from 'react-router-dom';
-import { universal } from '../utils/texts/general';
+import { universal } from '@utils/texts/general';
 
 import SiteIcon from '@assets/icons/fav.png';
 
@@ -47,6 +47,7 @@ return (
               </p>
             </NavLink>
           </li>
+          {/* Sub menu Administrador */}
           <li className='nav-item'>
             <Link to='#' className='nav-link'>
               <i className='nav-icon fa-solid fa-screwdriver-wrench' />
@@ -86,8 +87,16 @@ return (
                   <p>{universal.title.unidad}</p>
                 </NavLink>
               </li>
+              <li>
+                <NavLink to='/admin/turnos' className='nav-link'>
+                  <i class="fa-solid fa-people-arrows"></i>
+                  <p>{universal.title.turnos}</p>
+                </NavLink>
+              </li>
             </ul>
           </li>
+
+          {/* Sub menu  Gestion */}
           <li className='nav-item'>
             <Link to='#' className='nav-link'>
               <i className='nav-icon fas fa-solid fa-cubes' />
@@ -112,26 +121,38 @@ return (
               <li className='nav-item'>
                 <NavLink to='/productos' className='nav-link'>
                   <i className='fas fa-box-open nav-icon' />
-                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
                   <p>{universal.title.producto}</p>
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink to='/cajas' className='nav-link'>
                   <i className='fas fa-cash-register nav-icon' />
-                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
                   <p>{universal.title.caja}</p>
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink to='/lista_precio' className='nav-link'>
                   <i className='fas fa-list-check nav-icon' />
-                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
                   <p>{universal.title.lista}</p>
+                  
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/ofertas' className='nav-link'>
+                <i class="fa-solid fa-percent nav-icon" />
+                <p>{universal.title.oferta}</p>
+                </NavLink>
+              </li>
+              <li>
+                <NavLink to='/promociones' className='nav-link'>
+                <i class="fa-solid fa-percent nav-icon" />
+                <p>{universal.title.promo}</p>
                 </NavLink>
               </li>
             </ul>
           </li>
+
+          {/* Sub menu Ventas */}
           <li className='nav-item'>
             <Link to='#' className='nav-link'>
               <i className='nav-icon fas fa-solid fa-money-bill-1' />
@@ -155,22 +176,19 @@ return (
               </li>
               <li className='nav-item'>
                 <NavLink to='/productos' className='nav-link'>
-                  <i className='fas fa-box-open nav-icon' />
-                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
+                  <i className='fas fa-box-open nav-icon' /> 
                   <p>{universal.title.producto}</p>
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink to='/cajas' className='nav-link'>
                   <i className='fas fa-cash-register nav-icon' />
-                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
                   <p>{universal.title.caja}</p>
                 </NavLink>
               </li>
               <li className='nav-item'>
                 <NavLink to='/lista_precio' className='nav-link'>
                   <i className='fas fa-list-check nav-icon' />
-                  {/* <i class="fa-solid fa-basket-shopping-simple"></i> */}
                   <p>{universal.title.lista}</p>
                 </NavLink>
               </li>
